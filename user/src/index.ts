@@ -1,28 +1,43 @@
 import express from "express";
 
 import userRouter from "./router/user-route";
-import { natsConnector } from "./nats-connector";
-import { natsWrapper } from "./events/nats-wrapper";
+import { natsWrapper } from "./nats-wrapper";
+import { PaymentCompletedListener } from "./events/listeners/payment-completed-listener";
 
 const app = express();
 
 app.use("/", userRouter);
-// app.get("/", (req, res) => {
-//   return res.status(200).send("user api modified");
-// });
 
-(async () => {
+const start = async () => {
   try {
-    await natsWrapper.connect(
+    await natsWrapper.connectToNats(
       process.env.NATS_CLUSTER_ID!,
       process.env.NATS_CLIENT_ID!,
       process.env.NATS_URL!
     );
-    console.log("env",process.env.NATS_CLUSTER_ID)
+    console.log("env", process.env.NATS_CLUSTER_ID);
+
+    natsWrapper.client.on("close", () => {
+      console.log("NATS connetion closed!");
+      process.exit();
+    });
+
+    process.on("SIGINT", () => {
+      console.log("sigint");
+      natsWrapper.client.close();
+    });
+    process.on("SIGTERM", () => {
+      console.log("sigterm");
+      natsWrapper.client.close();
+    });
+
+    new PaymentCompletedListener(natsWrapper.client);
+
     app.listen(8000, () => {
       console.log("listening on port 8000");
     });
   } catch (error) {
     console.log("error ", error);
   }
-})();
+};
+start();
