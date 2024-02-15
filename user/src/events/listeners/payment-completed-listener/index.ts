@@ -1,4 +1,4 @@
-import { Event, Listener, Subject } from "@micro-project/micro-service-events";
+import { Event, Listener, Subject } from "micro-service-event";
 import { Message } from "node-nats-streaming";
 
 export class PaymentCompletedListener extends Listener<Event.paymentComletedEvent> {

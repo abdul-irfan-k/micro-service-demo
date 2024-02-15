@@ -12,6 +12,14 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
+    - image: micro-demo-payment
+      context: payment
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
 manifests:
   rawYaml:
-    - infra/k8s/user-k8s.yaml
+    - infra/k8s/*

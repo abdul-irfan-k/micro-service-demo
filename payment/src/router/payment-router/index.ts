@@ -1,6 +1,6 @@
 import express from "express";
 import { paymentCompletedPublisher } from "../../events/publisher/payment-completed-publisher";
-import { natsWrapper } from "../../../../user/src/nats-wrapper";
+import { natsWrapper } from "../../nats-wrappper";
 const router = express.Router();
 
 router.get("/payment-completed", (req, res) => {

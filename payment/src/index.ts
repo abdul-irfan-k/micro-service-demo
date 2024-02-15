@@ -1,4 +1,4 @@
-import { natsWrapper } from "../../user/src/nats-wrapper";
+import { natsWrapper } from "./nats-wrappper";
 import { app } from "./app";
 
 const start = async () => {
@@ -23,7 +23,7 @@ const start = async () => {
       natsWrapper.client.close();
     });
 
-    const port = process.env.PORT || 7000
+    const port = process.env.PORT || 8000;
     app.listen(port, () => {
       console.log(`listening on port:${port}`);
     });

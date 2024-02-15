@@ -13,9 +13,5 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@micro-project/micro-service-events": "^1.0.0",
-    "node-nats-streaming": "^0.3.2"
-  }
+  "license": "ISC"
 }

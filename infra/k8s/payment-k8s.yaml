@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: micro-demo-user-deploayment
+  name: micro-demo-payment-deploayment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: micro-demo-user-deploayment
+      app: micro-demo-payment-deploayment
   template:
     metadata:
       labels:
-        app: micro-demo-user-deploayment
+        app: micro-demo-payment-deploayment
     spec:
       containers:
-      - name: micro-demo-user-deploayment
+      - name: micro-demo-payment-deploayment
         imagePullPolicy: IfNotPresent
-        image: micro-demo-user1
+        image: micro-demo-payment
         env:
           - name: NATS_CLIENT_ID
             valueFrom:
@@ -25,20 +25,20 @@ spec:
             value: 'http://nats-srv:4222'
           - name: NATS_CLUSTER_ID
             value: ticketing  
-          - name: PORTS
-            value: '6000'
+          - name: PORT
+            value: '7000'
         ports:
-        - containerPort: 8000
+        - containerPort: 7000
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: micro-demo-user-service
+  name: micro-demo-payment-service
 spec:
   selector:
-    app: micro-demo-user-deploayment
+    app: micro-demo-payment-deploayment
   ports:
   - protocol: TCP
-    port: 8000
-    targetPort: 8000
+    port: 7000
+    targetPort: 7000
   type: LoadBalancer
