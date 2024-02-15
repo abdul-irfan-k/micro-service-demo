@@ -23,8 +23,9 @@ const start = async () => {
       natsWrapper.client.close();
     });
 
-    app.listen(process.env.PORT, () => {
-      console.log(`listening on port:${process.env.PORT}`);
+    const port = process.env.PORT || 7000
+    app.listen(port, () => {
+      console.log(`listening on port:${port}`);
     });
   } catch (error) {
     console.log("error", error);

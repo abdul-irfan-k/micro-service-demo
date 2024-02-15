@@ -1,9 +1,7 @@
 import express from "express";
+import paymentRouter from './router/payment-router'
 
 const app = express();
 
-app.get("/", (req, res) => {
-  return res.status(200).send("payment gateway");
-});
-
+app.use("/",paymentRouter)
 export { app };
