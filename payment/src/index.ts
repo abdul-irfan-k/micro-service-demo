@@ -1,5 +1,7 @@
 import { natsWrapper } from "./nats-wrappper";
 import { app } from "./app";
+import dotenv from 'dotenv'; 
+dotenv.config()
 
 const start = async () => {
   try {
@@ -23,7 +25,7 @@ const start = async () => {
       natsWrapper.client.close();
     });
 
-    const port = process.env.PORT || 8000;
+    const port = process.env.PORT || 6000;
     app.listen(port, () => {
       console.log(`listening on port:${port}`);
     });
