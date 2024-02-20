@@ -27,7 +27,7 @@ const start = async () => {
         natsWrapper.client.close();
       });
   
-      new PaymentCompletedListener(natsWrapper.client);
+      new PaymentCompletedListener(natsWrapper.client).listen();
       
       const port = process.env.PORT || 8000
       app.listen(port, () => {

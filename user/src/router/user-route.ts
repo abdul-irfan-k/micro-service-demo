@@ -7,8 +7,7 @@ router.get("/", (req, res) => {
 
 
 
-router.post("/tickets", async (req, res) => {
-  console.log("tickets route ");
-  return res.send("tickets");
+router.post("/sign-in", async (req, res) => {
+  return res.send();
 });
 export default router;
