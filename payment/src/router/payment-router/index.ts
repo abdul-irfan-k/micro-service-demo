@@ -10,6 +10,7 @@ router.get("/payment-completed", (req, res) => {
       productId: "pr122",
       totalPrice: 560,
     });
+    return res.send("payment")
   } catch (error) {
     console.log("error", error);
   }
