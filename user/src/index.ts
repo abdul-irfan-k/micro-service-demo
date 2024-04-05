@@ -1,4 +1,5 @@
 import { app } from "./app";
+import { connectDB } from "./config/db";
 import { PaymentCompletedListener } from "./events/listeners/payment-completed-listener";
 import { natsWrapper } from "./nats-wrapper";
 import dotenv from 'dotenv'; 
@@ -6,7 +7,9 @@ dotenv.config()
 
 const start = async () => {
     try {
-      console.log("env", process.env.NATS_CLUSTER_ID);
+      await connectDB()
+
+
       await natsWrapper.connectToNats(
         process.env.NATS_CLUSTER_ID!,
         process.env.NATS_CLIENT_ID!,
