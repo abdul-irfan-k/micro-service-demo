@@ -1,25 +1,32 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: example-ingress
+  name: micro-demo-ingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   rules:
-    - host: hello-world.info
+    - host: test-app.com
       http:
         paths:
-          - path: /
+          - path: /sample/?(.*)
             pathType: Prefix
             backend:
               service:
-                name: web
+                name: micro-demo-nginx-service
                 port:
-                  number: 8080
-          - path: /v2
+                  number: 80
+          - path: /test/?(.*)
             pathType: Prefix
             backend:
               service:
-                name: web2
+                name: micro-demo-user-service
                 port:
-                  number: 8080
+                  number: 5000
+          # - path: /payment/
+          #   pathType: Prefix
+          #   backend:
+          #     service:
+          #       name: micro-demo-payment-service
+          #       port:
+          #         number: 7000

@@ -6,7 +6,8 @@ const routeSchema = new mongoose.Schema(
     distance: { type: Number },
     stops: [
       {
-        placeName: { type: String, required: true },
+        address: { type: String, required: true },
+        name: { type: String, required: true },
       },
     ],
   },
@@ -17,7 +18,8 @@ interface IrouteSchema {
   startPlace: string;
   destinationPlace: string;
   stops: Array<{
-    placeName: string;
+    address: string;
+    name:string
   }>;
   distance?: number;
 }

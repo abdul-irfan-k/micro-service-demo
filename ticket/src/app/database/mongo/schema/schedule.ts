@@ -64,7 +64,7 @@ const scheduleSchema = new mongoose.Schema(
 
 interface IscheduleSchema {
   rotueId: string;
-  budId: string;
+  busId: string;
   departureTime: Date;
   arrivaleTime: Date;
   availableDays?:

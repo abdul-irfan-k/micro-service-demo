@@ -17,16 +17,16 @@ spec:
         imagePullPolicy: IfNotPresent
         image: micro-demo-user1
         env:
-          - name: NATS_CLIENT_ID
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.name
           - name: NATS_URL
             value: 'http://nats-srv:4222'
+          - name: NATS_CLIENT_ID
+            value: '302'
           - name: NATS_CLUSTER_ID
-            value: ticketing  
+            value: 'micro-demo'
           - name: PORTS
             value: '6000'
+          - name: DB_URL
+            value: 'mongodb://micro-demo-mongo-service/27017/'
         ports:
         - containerPort: 8000
 ---
@@ -39,6 +39,6 @@ spec:
     app: micro-demo-user-deploayment
   ports:
   - protocol: TCP
-    port: 8000
+    port: 5000
     targetPort: 8000
-  type: LoadBalancer
+  # type: LoadBalancer

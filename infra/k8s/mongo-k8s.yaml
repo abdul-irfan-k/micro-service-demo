@@ -6,14 +6,14 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: dunk-mongo
+      app: micro-demo-mongo
   template:
     metadata:
       labels:
-        app: dunk-mongo
+        app: micro-demo-mongo
     spec:
       containers:
-        - name: dunk-mongo
+        - name: micro-demo-mongo
           imagePullPolicy: IfNotPresent
           image: mongo
 ---
@@ -23,7 +23,7 @@ metadata:
   name: micro-demo-mongo-service
 spec:
   selector:
-    app: dunk-mongo
+    app: micro-demo-mongo
   ports:
     - name: db
       protocol: TCP

@@ -9,6 +9,7 @@ const busSchema = new mongoose.Schema(
         placeName: { type: String, required: true },
       },
     ],
+    routeId: { type: String, required: true },
   },
   { timestamps: true }
 );
@@ -20,6 +21,7 @@ interface IbusSchema {
     placeName: string;
   }>;
   distance?: number;
+  routeId:String
 }
 export interface IBusModel extends IbusSchema {}
 const BusModel = mongoose.model<IBusModel>("Bus", busSchema);

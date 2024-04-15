@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: micro-demo-nginx-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: micro-demo-nginx-deployment
+  template:
+    metadata:
+      labels:
+        app: micro-demo-nginx-deployment
+    spec:
+      containers:
+      - name: micro-demo-nginx-deployment
+        imagePullPolicy: Never
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: micro-demo-nginx-service
+spec:
+  selector:
+    app: micro-demo-nginx-deployment
+  ports:
+  - protocol: TCP
+    port: 80
+  # type: LoadBalancer
