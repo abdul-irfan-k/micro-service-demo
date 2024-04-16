@@ -5,7 +5,8 @@ export const makeGetBookedTicketUseCase = ({
 }: {
   bookingRespository: IbookingRespository;
 }) => {
-  return (query: any) => {
-   
+  return async (ticketId: string) => {
+    const ticket = await bookingRespository.getTicketDetail({ ticketId });
+    return ticket;
   };
 };

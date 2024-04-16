@@ -4,6 +4,7 @@ const seatingLayoutSchema = new mongoose.Schema(
     name: { type: String, required: true },
     layoutImageSrc: { type: [String], default: [] },
     seatingConfiguration: { type: String, required: true },
+    totalSeats:{type:Number,required:true},
     leftSeatingArrangement: {
       seatsPerRow: { type: Number, required: true },
       totalRow: { type: Number, required: true },
@@ -40,6 +41,7 @@ interface IseatingLayoutSchema {
         price: number;
         seatImageSrc: string[];
     } | null | undefined
+    totalSeats: number
 }
 export interface ISeatingLayoutModel extends IseatingLayoutSchema {}
 const SeatingLayoutModel = mongoose.model<ISeatingLayoutModel>(

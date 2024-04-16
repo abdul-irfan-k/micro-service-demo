@@ -4,6 +4,7 @@ import { makeGetBookedTicketsUseCase } from "./ticket/get-booked-tickets";
 import { makeSeachBusesUseCase } from "./bus/seach-buses";
 import { makeGetBusUseCase } from "./bus/get-bus";
 import { makeGetBusChartUseCase } from "./bus/get-bus-chart";
+import { makeBookTicketUseCase } from "./ticket/book-ticket";
 
 const searchBusesUseCase = makeSeachBusesUseCase({ busRepository });
 const getBusUseCase = makeGetBusUseCase({ busRepository });
@@ -15,10 +16,13 @@ const getBookedTicketUseCase = makeGetBookedTicketUseCase({
 const getBookedTicketsUseCase = makeGetBookedTicketsUseCase({
   bookingRespository,
 });
+const bookTicketUseCase = makeBookTicketUseCase({bookingRespository})
+
 export {
   searchBusesUseCase,
   getBookedTicketUseCase,
   getBookedTicketsUseCase,
   getBusUseCase,
   getBusChartUseCase,
+  bookTicketUseCase
 };

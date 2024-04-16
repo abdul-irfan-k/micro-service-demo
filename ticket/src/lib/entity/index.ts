@@ -1,2 +1,3 @@
-export  {IRoute,Route} from './route'
+export  *  from './route'
+export * from './travell'
 

@@ -16,7 +16,8 @@ const travellSchema = new mongoose.Schema(
       ],
       default: [],
     },
-    totalAvailabeSeats: { type: String, required: true },
+    totalAvailabeSeats: { type: Number, required: true },
+    travellingDate: { type: Date, required: true },
   },
   { timestamps: true }
 );
@@ -32,7 +33,8 @@ interface ItravellorSchema {
     rowNumber: number;
     position: string;
   }[];
-  totalAvailabeSeats: string;
+  totalAvailabeSeats: number;
+  travellingDate: Date
 }
 export interface ITravellModel extends ItravellorSchema {}
 const TravellModel = mongoose.model<ITravellModel>("Travell", travellSchema);

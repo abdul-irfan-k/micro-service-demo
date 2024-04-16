@@ -1,4 +1,4 @@
-import { RouteModel, TravellModel } from "../database/mongo/schema";
+import { BusModel, RouteModel, TravellModel } from "../database/mongo/schema";
 
 export const busRepository = {
   searchAvailableBuses: async (query: {
@@ -63,6 +63,28 @@ export const busRepository = {
     ]);
     return data;
   },
+  getBusDetail: async (busId: string) => {
+    const data = await BusModel.aggregate([
+      {
+        $match: { $expr: { $eq: ["$_id", busId] } },
+      },
+      {
+        $lookup: {
+          from: "SeatingLayout",
+          localField: "seatingLayoutId",
+          foreignField: "_id",
+          as: "SeatingLayout",
+        },
+      },
+      {
+        $addFields: {
+          SeatingLayout: { $arrayElemAt: ["$SeatingLayout", 0] },
+        },
+      },
+    ]);
+    return data
+  },
+  
 };
 
 export interface IbusRepository {
@@ -76,4 +98,5 @@ export interface IbusRepository {
   }: {
     busId: string;
   }) => Promise<any[]>;
+  getBusDetail: (busId: string) => Promise<any[]>
 }

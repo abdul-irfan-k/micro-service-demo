@@ -7,7 +7,8 @@ const busSchema = new mongoose.Schema(
     scheduleId: { type: String, required: true },
     travellorId: { type: String, required: true },
     seatingLayoutId: { type: String, required: true },
-    type:{type:String,required:true}, // sleeper ac non-ac
+    type: { type: String, required: true }, // sleeper ac non-ac
+    totalSeats: { type: Number, required: true },
   },
   { timestamps: true }
 );
@@ -19,6 +20,7 @@ interface IbusSchema {
   scheduleId: string;
   travellorId: string;
   seatingLayoutId: string;
+  totalSeats: number;
 }
 export interface IBusModel extends IbusSchema {}
 const BusModel = mongoose.model<IBusModel>("Bus", busSchema);

@@ -5,7 +5,11 @@ export const makeGetBookedTicketsUseCase = ({
 }: {
   bookingRespository: IbookingRespository;
 }) => {
-  return (query: any) => {
-   
+  return async (data: any) => {
+    const { userId } = data;
+    const tickets = await bookingRespository.getBookedUpComingTickets({
+      userId,
+    });
+    return tickets;
   };
 };

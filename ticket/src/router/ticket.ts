@@ -10,7 +10,7 @@ export const ticketRoute = () => {
   router.get("/buses/:id",controller.getBus);
   router.get("/bus/:id/ticket-chart",controller.getBusChart);
   
-  router.post("/book-ticket"); 
+  router.post("/book-ticket",controller.postBookTicket); 
   
   router.get("/booked-tickets", controller.getBookedTickets);
   router.get("/booked-tickets/:id", controller.getBookedTicket);
