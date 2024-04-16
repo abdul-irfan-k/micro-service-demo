@@ -18,7 +18,16 @@ const bookingSchema = new mongoose.Schema(
     travellingDate: { type: Date, required: true },
     departurePlace: { type: String, required: true },
     destinationPlace: { type: String, required: true },
-    seatDetail: {},
+    seat: {
+      type: [
+        {
+          arrangement: { type: String, required: true }, // left or right
+          rowNumber: { type: Number, required: true },
+          position: { type: String, required: true }, // window or Aisle or middle
+        },
+      ],
+      default: [],
+    },
     coupon: { type: String },
     rewards: { type: String },
   },
