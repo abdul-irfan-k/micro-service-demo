@@ -6,8 +6,8 @@ export const makeGetBusUseCase = ({
 }: {
   busRepository: IbusRepository;
 }) => {
-  return (query: any) => {
-
-
+  return async (busId: string) => {
+    const busDetail = await busRepository.getBusDetail(busId);
+    return busDetail
   };
 };

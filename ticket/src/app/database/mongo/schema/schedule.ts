@@ -1,6 +1,9 @@
 import mongoose, { Document } from "mongoose";
+import { v4 as uuidv4 } from "uuid"
+
 const scheduleSchema = new mongoose.Schema(
   {
+    _id:{type:String,default:uuidv4},
     routeId: { type: String, required: true },
     busId: { type: String, required: true },
     departureTime: { type: Date, required: true },
@@ -63,6 +66,7 @@ const scheduleSchema = new mongoose.Schema(
 );
 
 interface IscheduleSchema {
+  _id:string
   rotueId: string;
   busId: string;
   departureTime: Date;

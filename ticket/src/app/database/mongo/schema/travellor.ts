@@ -1,6 +1,9 @@
 import mongoose, { Document } from "mongoose";
+import { v4 as uuidv4 } from "uuid"
+
 const travellorSchema = new mongoose.Schema(
   {
+    _id:{type:String,default:uuidv4},
     name: { type: String, required: true },
     number: { type: Number, required: true },
     logoImageSrc: { type: String, required: true },
@@ -13,6 +16,7 @@ const travellorSchema = new mongoose.Schema(
 );
 
 interface ItravellorSchema {
+  _id:string
   number: number;
   name: string;
   logoImageSrc: string;

@@ -15,5 +15,8 @@ export const ticketRoute = () => {
   router.get("/booked-tickets", controller.getBookedTickets);
   router.get("/booked-tickets/:id", controller.getBookedTicket);
 
+  router.get("/tickets-history") 
+
+  
   return router;
 };

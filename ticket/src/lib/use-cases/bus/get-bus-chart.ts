@@ -6,8 +6,10 @@ export const makeGetBusChartUseCase = ({
 }: {
   busRepository: IbusRepository;
 }) => {
-  return (query: any) => {
-
-
+  return (busId: string) => {
+    const buschart = busRepository.getBusesAvailabeAndBookedSeatsChart({
+      busId,
+    });
+    return buschart
   };
 };

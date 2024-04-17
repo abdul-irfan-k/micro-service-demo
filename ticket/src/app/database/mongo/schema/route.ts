@@ -1,6 +1,9 @@
 import mongoose, { Document } from "mongoose";
+import { v4 as uuidv4 } from "uuid"
+
 const routeSchema = new mongoose.Schema(
   {
+    _id:{type:String,default:uuidv4},
     startPlace: { type: String, required: true },
     destinationPlace: { type: String, required: true },
     distance: { type: Number },
@@ -15,6 +18,7 @@ const routeSchema = new mongoose.Schema(
 );
 
 interface IrouteSchema {
+  _id:string
   startPlace: string;
   destinationPlace: string;
   stops: Array<{

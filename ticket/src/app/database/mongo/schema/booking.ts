@@ -1,6 +1,10 @@
 import mongoose, { Document } from "mongoose";
+import { v4 as uuidv4 } from "uuid"
+
+
 const bookingSchema = new mongoose.Schema(
   {
+    _id: { type: String, default: uuidv4 },
     userId: { type: String, required: true },
     routeId: { type: String, required: true },
     busId: { type: String, required: true },
@@ -35,6 +39,7 @@ const bookingSchema = new mongoose.Schema(
 );
 
 interface IBookingSchema {
+  _id: string
   userId: string;
   routeId: string;
   busId: string;

@@ -9,7 +9,8 @@ import SeatingPreferenceModel, {
   ISeatingPreferenceModel,
 } from "./seating-preference";
 import TravellorModel, { ITravellorModel } from "./travellor";
-import TravellModel,{ITravellModel} from "./travel";
+import TravellModel, { ITravellModel } from "./travel";
+import TravellHistoryModel, { ITravellHistoryModel } from "./travell-history";
 
 export {
   BookingModel,
@@ -19,7 +20,8 @@ export {
   ScheduleModel,
   SeatingPreferenceModel,
   TravellorModel,
-  TravellModel
+  TravellModel,
+  TravellHistoryModel,
 };
 
 export {
@@ -30,5 +32,6 @@ export {
   ISeatingLayoutModel,
   ISeatingPreferenceModel,
   ITravellorModel,
-  ITravellModel
+  ITravellModel,
+  ITravellHistoryModel,
 };

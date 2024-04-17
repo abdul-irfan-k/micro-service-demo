@@ -1,6 +1,9 @@
 import mongoose, { Document } from "mongoose";
+import { v4 as uuidv4 } from "uuid"
+
 const busSchema = new mongoose.Schema(
   {
+    _id:{type:String,default:uuidv4},
     name: { type: String, required: true },
     number: { type: Number, required: true },
     routeId: { type: String, required: true },
@@ -14,6 +17,7 @@ const busSchema = new mongoose.Schema(
 );
 
 interface IbusSchema {
+  _id:string
   name: string;
   number: number;
   routeId: string;

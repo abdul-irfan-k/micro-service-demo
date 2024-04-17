@@ -67,12 +67,11 @@ export const makeBookTicketUseCase = ({
         travellorId: userId,
       });
     } else {
-      const totalBookedSeats =
-        travellChart.totalBookedSeats +
-        1 +
-        (totalMembers != undefined ? totalMembers : 0);
-
+      const userTotalSeats = 1 + (totalMembers != undefined ? totalMembers : 0);
+      const totalBookedSeats = travellChart.totalBookedSeats + userTotalSeats;
+      const totalAvailabeSeats = travellChart.totalAvailabeSeats - userTotalSeats;
       const bookedSeats = travellChart.bookedSeats;
+
       seat.forEach((seat) => {
         bookedSeats.push({
           arrangement: seat.arrangement,
@@ -84,7 +83,7 @@ export const makeBookTicketUseCase = ({
 
       const updatedTravellChart = await travellRepository.update(
         travellChart._id,
-        { totalBookedSeats, bookedSeats }
+        { totalBookedSeats, bookedSeats, totalAvailabeSeats }
       );
     }
   };
