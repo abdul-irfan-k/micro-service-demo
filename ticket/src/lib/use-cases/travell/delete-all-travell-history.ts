@@ -1,11 +1,15 @@
-import { ItravellRepository } from "../../../app/repository";
+import { ItravellHistoryRepository } from "../../../app/repository";
 
 export const makeDeleteAllTravellHistoryUseCase = ({
-  travellRepository,
+  travellHistoryRepository,
 }: {
-    travellRepository: ItravellRepository;
+  travellHistoryRepository: ItravellHistoryRepository;
 }) => {
-  return (busId: string) => {
- 
+  return async(userId: string) => {
+    const updatedTravellHistory = await travellHistoryRepository.update(
+      userId,
+      { travells: [] }
+    );
+    return updatedTravellHistory
   };
 };

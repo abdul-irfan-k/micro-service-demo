@@ -6,6 +6,7 @@ export const travellRoute = () => {
   const controller = travellController();
   router.get("travell-history", controller.getTravellHistory);
   router.delete("travell-history/:id", controller.deleteTravellHistory);
+  // router.delete("travell-history/delete-all",controller.) 
 
   return router;
 };

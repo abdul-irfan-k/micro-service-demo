@@ -6,6 +6,5 @@ export const couponRoute = () => {
     router.get("coupons/:id")
     router.post("coupons/")
     
-
     return router
 }

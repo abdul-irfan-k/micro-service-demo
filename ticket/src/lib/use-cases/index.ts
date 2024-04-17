@@ -2,6 +2,7 @@ import {
   busRepository,
   bookingRespository,
   travellRepository,
+  travellHistoryRepository
 } from "../../app/repository/";
 import { makeGetBookedTicketUseCase } from "./ticket/get-booked-ticket";
 import { makeGetBookedTicketsUseCase } from "./ticket/get-booked-tickets";
@@ -29,12 +30,12 @@ const bookTicketUseCase = makeBookTicketUseCase({
   travellRepository,
 });
 
-const getTravellHistoryUseCase = makeGetTravellHistoryUseCase({ travellRepository });
+const getTravellHistoryUseCase = makeGetTravellHistoryUseCase({ travellHistoryRepository });
 const deleteAllTravellHistoryUseCase = makeDeleteAllTravellHistoryUseCase({
-  travellRepository,
+  travellHistoryRepository,
 });
 const deleteTravellHistoryUseCase = makeDeleteTravellHistoryUseCase({
-  travellRepository,
+  travellHistoryRepository,
 });
 
 export {

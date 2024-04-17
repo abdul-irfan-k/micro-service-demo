@@ -20,5 +20,9 @@ export const userRoutes = () => {
   router.post("/",controller.createUser);
   router.put("/:id",controller.updateUser);
 
+
+  router.get("/seating-preference")
+  router.post("/seating-preference")
+  router.put("/seating-preference")
   return router
 };
