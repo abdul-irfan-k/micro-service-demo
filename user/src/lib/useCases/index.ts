@@ -1,7 +1,10 @@
-import { createUserProfile } from "./create-user-profile"
-import { getUserProfile } from "./get-user-profile"
-import { updateUserProfile } from "./update-user-profile"
+import { userRepository } from "../../app/repository";
+import { makeCreateUserUseCase } from "./user/create-user";
+import { makeGetUserUseCase } from "./user/get-user";
+import { makeUpdateUserUseCase } from "./user/update-user";
 
-export {
-    createUserProfile,getUserProfile,updateUserProfile
-}
+const createUserUseCase = makeCreateUserUseCase({ userRepository });
+const updateUserUseCase = makeUpdateUserUseCase({ userRepository });
+const getUserUseCase = makeGetUserUseCase({ userRepository });
+
+export { createUserUseCase, updateUserUseCase, getUserUseCase };

@@ -1,6 +1,6 @@
 import { Document, Types } from "mongoose";
-import { IUserModel, UserModel } from "../../model";
-import { UserData } from "../entities/user";
+import { UserData } from "../../lib/entities/user";
+import { UserModel, IUserModel } from "../database/schema";
 
 export const userRepository: IUserRepository = {
   findOne: async (_id: string) => {
