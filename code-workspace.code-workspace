@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "admin"
+		},
+		{
+			"path": "auth"
+		},
+		{
+			"path": "payment"
+		},
+		{
+			"path": "ticket"
+		},
+		{
+			"path": "user"
+		}
+	],
+	"settings": {}
+}
