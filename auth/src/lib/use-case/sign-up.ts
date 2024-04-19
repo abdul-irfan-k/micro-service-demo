@@ -1,13 +1,11 @@
-import { IUserRepository } from "../../app/repository/user";
-import { UserData,UserProfile } from "../entities";
+import { IUserRepository } from "../../app/repository/user"
 
 export const makeSignUpUseCase = ({
   repository,
 }: {
   repository: IUserRepository;
 }) => {
-  return async (data: UserData) => {
-    const user = new UserProfile(data)
-    return await repository.signIn(user);
+  return async ({ email, password }: any) => {
+    return await repository.signIn({ email, password });
   };
 };
