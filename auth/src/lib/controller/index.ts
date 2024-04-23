@@ -1,6 +1,6 @@
 import { signInUseCase, getUserUseCase, signUpUseCase } from "../use-case";
 import { makeSignInController } from "./sign-in";
-import { makeSignUpController } from "./singn-up";
+import { makeSignUpController } from "./sign-up";
 
 const postSignIn = makeSignInController({ signInUseCase, getUserUseCase });
 const postSignUp = makeSignUpController({ signUpUseCase, getUserUseCase });

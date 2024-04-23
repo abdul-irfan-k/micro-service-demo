@@ -5,7 +5,7 @@ export const makeSignUpUseCase = ({
 }: {
   repository: IUserRepository;
 }) => {
-  return async ({ email, password }: any) => {
-    return await repository.signIn({ email, password });
+  return async (data: any) => {
+    return await repository.signUp(data);
   };
 };

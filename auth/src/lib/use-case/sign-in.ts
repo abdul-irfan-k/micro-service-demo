@@ -1,4 +1,5 @@
 import { IUserRepository } from "../../app/repository/user";
+import bcrypt from "bcrypt";
 
 export const makeSignInUseCase = ({
   repository,
@@ -6,6 +7,9 @@ export const makeSignInUseCase = ({
   repository: IUserRepository;
 }) => {
   return async ({ email, password }: any) => {
-    return await repository.signIn({ email, password });
+    const userDetail =await  repository.getUser({ email });
+    if (userDetail == null) return;
+    const isCorrectPassword = await bcrypt.compare(password, userDetail.password);
+    return {isCorrectPassword}
   };
 };

@@ -6,6 +6,7 @@ export const makeGetUserUseCase = ({
   repository: IUserRepository;
 }) => {
   return async ({ email }: any) => {
+    console.log("email",email)
     return await repository.getUser({ email });
   };
 };

@@ -1,4 +1,3 @@
-import { Document, Types } from "mongoose";
 import { User, IUserModel } from "../database/mongo";
 
 export const userRepository: IUserRepository = {
@@ -8,10 +7,6 @@ export const userRepository: IUserRepository = {
     return user;
   },
 
-  signIn: async (userData: any) => {
-    // const user = await User.findOne({ email: userData.email });
-    return true;
-  },
 
   getUser: async (userData: any) => {
     const user = await User.findOne({ email: userData.email });
@@ -21,11 +16,8 @@ export const userRepository: IUserRepository = {
 
 export interface IUserRepository {
   signUp: (userData: any) => Promise<IUserModel>;
-  signIn: (userData: any) => Promise<boolean>;
   getUser: (data: any) => Promise<
-    | (IUserModel & {
-        _id: Types.ObjectId;
-      })
+    | IUserModel 
     | null
   >;
 }
