@@ -1,4 +1,4 @@
-import express from 'express'
+import express from "express";
 import * as controller from "../lib/controller";
 
 export const userRoutes = () => {
@@ -6,10 +6,10 @@ export const userRoutes = () => {
 
   router.get("/:id", controller.getUser);
   router.post("/", controller.postUser);
-  router.put("/:id", controller.putUser);
+  router.put("/", controller.putUser);
 
-  router.get("/seating-preference");
-  router.post("/seating-preference");
-  router.put("/seating-preference");
+  router.get("/seating-preference/:id", controller.getSeatingPreference);
+  router.post("/seating-preference", controller.postSeatingPreference);
+  router.put("/seating-preference", controller.putSeatingPreference);
   return router;
 };

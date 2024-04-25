@@ -6,20 +6,25 @@ const SeatingPreferenceSchema = new mongoose.Schema(
     _id: { type: String, default: uuidv4 },
     userId: { type: String, required: true },
     seat: {
-      preferedSeatType: { type: String, required: true }, // window asile middle
-      preferedLocation: { type: String, required: true }, // front middle rear
+      type: {
+        preferedSeatType: { type: String, required: true }, // window asile middle
+        preferedLocation: { type: String, required: true }, // front middle rear
+      }
     },
   },
   { timestamps: true }
 );
 
 interface ISeatingPreferenceSchema {
-  number: number;
-  name: string;
-  logoImageSrc: string;
-  availableBuses: {
-    busId: string;
-  }[];
+ _id:number
+  userId: string
+  seat?:
+    | {
+        preferedSeatType: string;
+        preferedLocation: string;
+      }
+    | null
+    | undefined;
 }
 export interface ISeatingPreferenceModel extends ISeatingPreferenceSchema {}
 const SeatingPreferenceModel = mongoose.model<ISeatingPreferenceModel>(

@@ -1,31 +1,24 @@
 import mongoose, { Document } from "mongoose";
 import bcrypt from "bcrypt";
+import { v4 as uuidv4 } from "uuid";
 
 interface IUserSchema {
+  _id: string;
   name: string;
   email: string;
-  userId: string;
   password: string;
   profileImageUrl?: string | undefined;
   isBlocked: boolean;
-  accountVerification: {
-    isVerified: boolean;
-    veriftionType: string | "phone" | "email";
-  };
 }
 
 const userSchema = new mongoose.Schema(
   {
+    _id: { type: String, default:uuidv4() },
     name: { type: String, required: true },
     email: { type: String, required: true },
-    userId: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     profileImageUrl: { type: String },
     isBlocked: { type: Boolean, default: false },
-    accountVerification: {
-      isVerified: { type: Boolean },
-      veriftionType: { type: String },
-    },
   },
   {
     timestamps: true,
@@ -59,6 +52,6 @@ interface methodInterface {
   };
 }
 
-export interface IUserModel extends IUserSchema, methodInterface, Document {}
+export interface IUserModel extends IUserSchema, methodInterface {}
 const UserModel = mongoose.model<IUserModel>("User", userSchema);
 export default UserModel;
