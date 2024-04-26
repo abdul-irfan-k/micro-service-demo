@@ -17,6 +17,6 @@ export const makePutSeatingPreferenceController = ({
       { userId, ...req.body }
     );
 
-    return res.status(200).json(updateSeatingPreferenceUseCase);
+    return res.status(200).json(updatedSeatingPreferenceDetail);
   };
 };

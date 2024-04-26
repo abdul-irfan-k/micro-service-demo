@@ -21,9 +21,8 @@ export class CreateSeatingPreferenceUseCase
   async execute(
     args: ICreateSeatingPreferenceArgs
   ): Promise<ISeatingPreference | null> {
-
-   const {seat} =args
-    if (args.userId)
+   const {seat,userId} =args
+    if (!userId)
       throw new BadRequestError({
         code: 400,
         message: "Please provide userid",

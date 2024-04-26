@@ -52,28 +52,85 @@ describe("PUT user/", () => {
     expect(res.statusCode).toBe(400);
     expect(res.body.message).toEqual("Please provide userId");
   });
-  it("it should update the user details",async() => {
+  it("it should update the user details", async () => {
     const res = await request(app).put("/").send({
       userId,
-      name:"randomName"
-    })
-    expect(res.statusCode).toBe(200)
-    expect(res.body.name).toEqual("randomName")
-  })
+      name: "randomName",
+    });
+    expect(res.statusCode).toBe(200);
+    expect(res.body.name).toEqual("randomName");
+  });
 });
 
+describe("POST seating-preference/", () => {
+  it("it should throw error when userId is not  provided ", async () => {
+    const res = await request(app).post("/seating-preference").send({});
+    expect(res.statusCode).toBe(400);
+    expect(res.body.message).toEqual("Please provide userId");
+  });
 
+  it("it should throw error when invalid userId passed", async () => {
+    const res = await request(app)
+      .post("/seating-preference")
+      .send({ userId: "sample" });
+    expect(res.statusCode).toBe(400);
+    expect(res.body.message).toEqual("Invalid userId");
+  });
+  it("it should throw error when seat deatils is not provided", async () => {
+    const res = await request(app).post("/seating-preference").send({ userId });
+    expect(res.statusCode).toBe(400);
+    expect(res.body.message).toEqual("Please provide seat details");
+  });
 
-describe("POST seating-preference/",() => {
-  it("it should throw error when userId is not  provided ",async() => {
-    const res = await request(app).post("/seating-preference").send({})
-    expect(res.statusCode).toBe(400)
-    expect(res.body.message).toEqual("Please provide userId")
-  })
+  it("it should save the seating-preference details ", async () => {
+    const res = await request(app)
+      .post("/seating-preference")
+      .send({
+        userId,
+        seat: {
+          preferedSeatType: "window",
+          preferedLocation: "front",
+        },
+      });
+    expect(res.statusCode).toBe(200);
+    expect(res.body._id).not.toBeUndefined();
+    expect(res.body.userId).toEqual(userId);
+  });
+});
 
-  it("it should throw error when invalid userId passed",async() => {
-    const res = await request(app).post("/seating-preference").send({userId:"sample"})
-    expect(res.statusCode).toBe(400)
-    expect(res.body.message).toEqual("Invalid userId")
-  })
-})
+describe("GET seating-preference/", () => {
+  it("it should throw eror when userId param is not provided", async () => {
+    const res = await request(app).get("/seating-preference");
+    expect(res.statusCode).toBe(400);
+  });
+
+  it("it should return the seating preference deatils", async () => {
+    const res = await request(app).get(`/seating-preference/${userId}`);
+    expect(res.statusCode).toBe(200);
+    expect(res.body._id).not.toBeNull();
+    expect(res.body.userId).not.toBeNull();
+    expect(res.body.seat).not.toBeNull();
+  });
+});
+
+describe("Put seating-preference/", () => {
+  it("it should throw eror when userId  is not provided", async () => {
+    const res = await request(app).put("/seating-preference").send({});
+    expect(res.statusCode).toBe(400);
+    expect(res.body.message).toEqual("Please provide userId");
+  });
+
+  it("it shoudl update the seating preference ", async () => {
+    const res = await await request(app)
+      .put("/seating-preference")
+      .send({
+        userId,
+        seat: { preferedSeatType: "asile", preferedLocation: "front" },
+      });
+    expect(res.statusCode).toBe(200);
+    expect(res.body.seat).toMatchObject({
+      preferedSeatType: "asile",
+      preferedLocation: "front",
+    });
+  });
+});
