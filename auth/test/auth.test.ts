@@ -6,8 +6,8 @@ import { clearDatabase, closeDatabase, connect } from "./db-handler";
 dotEnv.config();
 
 beforeAll(connect);
-afterAll(async () => clearDatabase);
-afterAll(async () => closeDatabase);
+afterAll(clearDatabase);
+afterAll(closeDatabase);
 
 describe("POST /sign-up", () => {
   it("when user name not provided", async () => {
