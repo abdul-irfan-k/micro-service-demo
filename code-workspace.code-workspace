@@ -7,7 +7,10 @@
 			"path": "user"
 		},
 		{
-			"path": "ticket"
+			"path": "inventory&booking"
+		},
+		{
+			"path": "Admin"
 		}
 	],
 	"settings": {}
