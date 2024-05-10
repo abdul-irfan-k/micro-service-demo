@@ -5,6 +5,7 @@ const travellSchema = new mongoose.Schema(
   {
     _id:{type:String,default:uuidv4},
     busId: { type: String, required: true },
+    routeId: { type: String, required: true },
     totalBookedSeats: { type: Number, required: true },
     bookedSeats: {
       type: [
@@ -26,6 +27,7 @@ const travellSchema = new mongoose.Schema(
 interface ItravellorSchema {
   _id:string
   busId: string;
+  routeId: string;
   totalBookedSeats: number;
   bookedSeats: {
     travellorId: string;

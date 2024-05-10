@@ -5,9 +5,6 @@ import BusSeatingLayoutModel, {
 import BusModel, { IBusModel } from "./bus";
 import RouteModel, { IRouteModel } from "./route";
 import ScheduleModel, { IScheduleModel } from "./schedule";
-import SeatingPreferenceModel, {
-  ISeatingPreferenceModel,
-} from "./seating-preference";
 import TravellorModel, { ITravellorModel } from "./travellor";
 import TravellModel, { ITravellModel } from "./travel";
 import TravellHistoryModel, { ITravellHistoryModel } from "./travell-history";
@@ -18,7 +15,6 @@ export {
   BusModel,
   RouteModel,
   ScheduleModel,
-  SeatingPreferenceModel,
   TravellorModel,
   TravellModel,
   TravellHistoryModel,
@@ -30,7 +26,6 @@ export {
   IRouteModel,
   IScheduleModel,
   ISeatingLayoutModel,
-  ISeatingPreferenceModel,
   ITravellorModel,
   ITravellModel,
   ITravellHistoryModel,

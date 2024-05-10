@@ -67,20 +67,7 @@ export const busRepository = {
     const data = await BusModel.aggregate([
       {
         $match: { $expr: { $eq: ["$_id", busId] } },
-      },
-      {
-        $lookup: {
-          from: "SeatingLayout",
-          localField: "seatingLayoutId",
-          foreignField: "_id",
-          as: "SeatingLayout",
-        },
-      },
-      {
-        $addFields: {
-          SeatingLayout: { $arrayElemAt: ["$SeatingLayout", 0] },
-        },
-      },
+      }
     ]);
     return data
   },
