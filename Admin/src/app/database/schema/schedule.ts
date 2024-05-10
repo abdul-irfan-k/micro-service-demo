@@ -107,5 +107,4 @@ interface IscheduleSchema {
   temprerlySeviceAvailableDate?: Date | null | undefined;
 }
 export interface IScheduleModel extends IscheduleSchema {}
-const ScheduleModel = mongoose.model<IScheduleModel>("Schdule", scheduleSchema);
-export default ScheduleModel;
+export const ScheduleModel = mongoose.model<IScheduleModel>("Schdule", scheduleSchema);
