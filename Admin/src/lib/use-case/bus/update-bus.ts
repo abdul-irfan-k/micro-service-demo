@@ -6,7 +6,8 @@ import {
 } from "../interface/bus-use-case";
 export class UpdateBusUseCase implements IUpdateBusUseCase {
   constructor(private busRepository: IbusRepository) {}
-  execute(args: IUpdateBusUseCaseArgs): Promise<busEntity | null> {
-    throw new Error("Method not implemented.");
+  async execute(args: IUpdateBusUseCaseArgs): Promise<busEntity | null> {
+    const updatedBusDetail = await this.busRepository.update(args._id, args);
+    return updatedBusDetail;
   }
 }

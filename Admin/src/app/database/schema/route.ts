@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid"
 
 const routeSchema = new mongoose.Schema(
   {
-    _id:{type:String,default:uuidv4},
+    _id:{type:String,default:uuidv4()},
     startPlace: { type: String, required: true },
     destinationPlace: { type: String, required: true },
     distance: { type: Number },
@@ -28,5 +28,5 @@ interface IrouteSchema {
   distance?: number;
 }
 export interface IRouteModel extends IrouteSchema {}
-const routeModel = mongoose.model<IRouteModel>("Route", routeSchema);
-export default routeModel;
+export const RouteModel = mongoose.model<IRouteModel>("Route", routeSchema);
+

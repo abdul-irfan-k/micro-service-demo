@@ -7,5 +7,8 @@ import {
 
 export class GetRouteUseCase implements IGetRouteUseCase {
   constructor(private routeRepository: IrouteRepository) {}
-  execute(args: IGetRouteUseCaseArgs): Promise<routeEntity | null> {}
+  async execute(args: IGetRouteUseCaseArgs): Promise<routeEntity | null> {
+    const routeDetails = await this.routeRepository.findOne(args._id) 
+    return routeDetails
+  }
 }

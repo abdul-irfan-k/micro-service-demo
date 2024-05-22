@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid"
 
 const travellSchema = new mongoose.Schema(
   {
-    _id:{type:String,default:uuidv4},
+    _id:{type:String,default:uuidv4()},
     busId: { type: String, required: true },
     routeId: { type: String, required: true },
     totalBookedSeats: { type: Number, required: true },

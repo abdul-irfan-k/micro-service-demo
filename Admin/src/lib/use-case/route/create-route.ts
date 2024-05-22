@@ -7,7 +7,8 @@ import {
 
 export class CreateRouteUseCase implements ICreateRouteUseCase {
   constructor(private routeRepository: IrouteRepository) {}
-  execute(args: ICreateRouteUseCaseArgs): Promise<routeEntity | null> {
-    
+  async execute(args: ICreateRouteUseCaseArgs): Promise<routeEntity | null> {
+    const routeDetails = await this.routeRepository.create(args);
+    return routeDetails;
   }
 }

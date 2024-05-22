@@ -9,10 +9,15 @@ export const busRepository: IbusRepository = {
     return updatedBusDetail;
   },
 
-  create: async (data: busEntity) => {
+  create: async (data) => {
     const newBusDetails = new BusModel(data);
     await newBusDetails.save();
     return newBusDetails;
+  },
+
+  findOne: async (id) => {
+    const busDetails = await BusModel.findOne({ _id: id });
+    return busDetails;
   },
 };
 
@@ -21,5 +26,11 @@ export interface IbusRepository {
     busId: string,
     data: Partial<busEntity>
   ) => Promise<IBusModel | null>;
-  create: (data: busEntity) => Promise<IBusModel | null>;
+  create: (
+    data: Omit<busEntity, "_id"> & {
+      _id?: string;
+    }
+  ) => Promise<IBusModel | null>;
+
+  findOne: (busId: string) => Promise<IBusModel | null>;
 }

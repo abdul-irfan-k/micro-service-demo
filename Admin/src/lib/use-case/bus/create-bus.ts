@@ -7,7 +7,8 @@ import {
 export class CreateBusUseCase implements ICreateBusUseCase {
   constructor(private busRepository: IbusRepository) {}
 
-  execute(args: ICreateBuseUseCaseArgs): Promise<busEntity | null> {
-
+  async execute(args: ICreateBuseUseCaseArgs): Promise<busEntity | null> {
+    const busDetail = await this.busRepository.create(args);
+    return busDetail;
   }
 }
