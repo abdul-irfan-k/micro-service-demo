@@ -11,6 +11,15 @@
 		},
 		{
 			"path": "Admin"
+		},
+		{
+			"path": "libraries"
+		},
+		{
+			"path": "infra"
+		},
+		{
+			"path": "payment"
 		}
 	],
 	"settings": {}

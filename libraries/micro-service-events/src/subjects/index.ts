@@ -4,4 +4,11 @@ export enum Subject {
   paymentProcessing = "payment:processing",
 
   accountCreated = "account:created",
+
+  busAdded = "bus:added",
+  busUpdated = "bus:updated",
+  routeAdded = "route:added",
+  routeUpdated = "route:updated",
+  scheduleAdded="schedule:added",
+  scheduleUpdated="schedule:updated"
 }

@@ -1,5 +1,6 @@
+//@ts-ignore
 import { Stan } from "node-nats-streaming";
-import { Subject } from "../subjects";
+import { Subject } from "../subjects/index";
 
 interface Event {
   subject: Subject;
