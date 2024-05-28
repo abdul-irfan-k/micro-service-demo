@@ -1,42 +1,33 @@
 export interface scheduleEntity {
-    _id:string
-    rotueId: string;
-    busId: string;
-    departureTime: Date;
-    arrivaleTime: Date;
-    availableDays?:
-      | {
-          sun: {
-            isAvailable: string;
-            specialRouteId?: string | null | undefined;
-          };
-          mon: {
-            isAvailable: string;
-            specialRouteId?: string | null | undefined;
-          };
-          tue: {
-            isAvailable: string;
-            specialRouteId?: string | null | undefined;
-          };
-          wed: {
-            isAvailable: string;
-            specialRouteId?: string | null | undefined;
-          };
-          thu: {
-            isAvailable: string;
-            specialRouteId?: string | null | undefined;
-          };
-          fri: {
-            isAvailable: string;
-            specialRouteId?: string | null | undefined;
-          };
-          sat: {
-            isAvailable: string;
-            specialRouteId?: string | null | undefined;
-          };
-        }
-      | null
-      | undefined;
-    isTemprerlyStoped: boolean;
-    temprerlySeviceAvailableDate?: Date | null | undefined;
+  _id: string;
+  rotueId: string;
+  busId: string;
+  departureTime: { hour: string; minutes: string };
+  arrivaleTime: { hour: string; minutes: string };
+  journeyDuration: string;
+  availableDays: {
+    sun: daySchedule;
+    mon: daySchedule;
+    tue: daySchedule;
+    wed: daySchedule;
+    thu: daySchedule;
+    fri: daySchedule;
+    sat: daySchedule;
+  };
+  isTemprerlyStoped: boolean;
+  temprerlySeviceAvailableDate?: Date | null | undefined;
 }
+
+type specialSchedule =
+  | {
+      routeId: string;
+      departureTime?: { hour: string; minutes: string } | null | undefined;
+      arrivalTime?: { hour: string; minutes: string } | null | undefined;
+    }
+  | null
+  | undefined;
+
+type daySchedule = {
+  isAvailable: boolean;
+  specialSchedule: specialSchedule;
+};

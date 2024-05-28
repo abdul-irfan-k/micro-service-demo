@@ -12,8 +12,14 @@ export default class GetBusController {
   async processRequest(req: Request, res: Response) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      
-      throw new BadRequestError({ code: 400,validatorError:errors.array()});
+      throw new BadRequestError({ code: 400, validatorError: errors.array() });
     }
+
+    const { id: busId } = req.params;
+    const busDetails = await this.getBusUseCase.execute({ _id: busId });
+    if (busDetails == null)
+      throw new BadRequestError({ code: 400, message: "id is invalid" });
+  
+    res.json(busDetails)
   }
 }

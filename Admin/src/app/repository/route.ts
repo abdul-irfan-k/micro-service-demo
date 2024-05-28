@@ -1,18 +1,22 @@
-import { routeEntity } from "../../lib/entities";
-import { IRouteModel, RouteModel } from "../database/schema";
+import { travellRouteEntity } from "../../lib/entities";
+import { ITravellRouteModel, TravellRouteModel } from "../database/schema";
 export const routeRepository: IrouteRepository = {
   update: async (_id, data) => {
-    const updatedRouteDetail = await RouteModel.findOneAndUpdate({ _id }, data);
+    const updatedRouteDetail = await TravellRouteModel.findOneAndUpdate(
+      { _id },
+      data,
+      { new: true }
+    );
     return updatedRouteDetail;
   },
 
   create: async (data) => {
-    const newRouteDetails = new RouteModel(data);
+    const newRouteDetails = new TravellRouteModel(data);
     await newRouteDetails.save();
     return newRouteDetails;
   },
   findOne: async (_id) => {
-    const routeDetails = await RouteModel.findOne({ _id });
+    const routeDetails = await TravellRouteModel.findOne({ _id });
     return routeDetails;
   },
 };
@@ -20,13 +24,13 @@ export const routeRepository: IrouteRepository = {
 export interface IrouteRepository {
   update: (
     routeId: string,
-    data: Partial<routeEntity>
-  ) => Promise<IRouteModel | null>;
+    data: Partial<travellRouteEntity>
+  ) => Promise<ITravellRouteModel | null>;
   create: (
-    data: Omit<routeEntity, "_id"> & {
+    data: Omit<travellRouteEntity, "_id"> & {
       _id?: string;
     }
-  ) => Promise<IRouteModel | null>;
+  ) => Promise<ITravellRouteModel | null>;
 
-  findOne: (routeId: string) => Promise<IRouteModel | null>;
+  findOne: (routeId: string) => Promise<ITravellRouteModel | null>;
 }

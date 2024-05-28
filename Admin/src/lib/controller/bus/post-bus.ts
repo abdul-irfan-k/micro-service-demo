@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
 import { ICreateBusUseCase } from "../../use-case/interface";
 import { BadRequestError } from "../../util/bad-request-error";
+import { busCreatedPublisher } from "../../../events/publisher";
+import { natsWrapper } from "../../../nats-wrapper";
+import { validationResult } from "express-validator";
 
 export default class PostBusController {
   createBusUseCase: ICreateBusUseCase;
@@ -8,41 +11,19 @@ export default class PostBusController {
     this.createBusUseCase = createBusUseCase;
   }
 
-  processRequest(req: Request, res: Response) {
-    const {
-      layoutImageSrc,
-      name,
-      number,
-      seatingConfiguration,
-      seatingLayoutId,
-      totalSeats,
-      _id,
-      leftSeatingArrangement,
-      rightSeatingArrangement,
-      routeId,
-      scheduleId,
-      travellorId,
-    } = req.body;
+  async processRequest(req: Request, res: Response) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      throw new BadRequestError({ code: 400, validatorError: errors.array() });
+    }
 
-    if (name == "")
-      throw new BadRequestError({
-        code: 400,
-        message: "Please provide busname",
-      });
+    const args = req.body;
 
-    const busDetails = await this.createBusUseCase.execute({
-      layoutImageSrc,
-      name,
-      number,
-      seatingConfiguration,
-      seatingLayoutId,
-      totalSeats,
-      _id,
-      leftSeatingArrangement,
-      rightSeatingArrangement,
-      routeId,
-      scheduleId,
-      travellorId,
-    });
+    const busDetails = await this.createBusUseCase.execute({ ...args });
+    if (busDetails == null) throw new BadRequestError({ code: 400 });
+
+    new busCreatedPublisher(natsWrapper.client).publish({ ...busDetails });
+
+    res.status(200).json(busDetails);
   }
 }

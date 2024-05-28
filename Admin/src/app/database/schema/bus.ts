@@ -5,7 +5,7 @@ const busSchema = new mongoose.Schema(
   {
     _id: { type: String, default: uuidv4() },
     name: { type: String, required: true },
-    number: { type: Number, required: true },
+    number: { type: String, required: true },
     routeId: { type: String },
     scheduleId: { type: String },
     travellorId: { type: String },
@@ -35,7 +35,7 @@ const busSchema = new mongoose.Schema(
 interface IbusSchema {
   _id: string;
   name: string;
-  number: number;
+  number: string;
   routeId?: string;
   scheduleId?: string;
   travellorId?: string;

@@ -1,11 +1,10 @@
 export interface busEntity {
   _id: string;
   name: string;
-  number: number;
+  number: string;
   routeId?: string;
   scheduleId?: string;
   travellorId?: string;
-  seatingLayoutId: string;
   layoutImageSrc: string[];
   seatingConfiguration: string;
   totalSeats: number;

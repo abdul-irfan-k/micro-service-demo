@@ -1,62 +1,47 @@
 import mongoose, { Document } from "mongoose";
-import { v4 as uuidv4 } from "uuid"
+import { v4 as uuidv4 } from "uuid";
+import { scheduleEntity } from "../../../lib/entities";
+
+const timeSchema = new mongoose.Schema(
+  {
+    hour: { type: String, required: true },
+    minutes: { type: String, required: true },
+  },
+  { _id: false }
+);
+
+const specialScheduleSchema = new mongoose.Schema(
+  {
+    routeId: { type: String, required: true },
+    departureTime: timeSchema,
+    arrivalTime: timeSchema,
+  },
+  { _id: false }
+);
+
+const dayScheduleSchema = new mongoose.Schema(
+  {
+    isAvailable: { type: String, default: false },
+    specialSchedule: specialScheduleSchema,
+  },
+  { _id: false }
+);
 
 const scheduleSchema = new mongoose.Schema(
   {
-    _id:{type:String,default:uuidv4()},
+    _id: { type: String, default: uuidv4() },
     routeId: { type: String, required: true },
-    departureTime: { type: Date, required: true },
-    arrivalTime: { type: Date, required: true },
+    departureTime: { type: timeSchema, required: true },
+    arrivalTime: { type: timeSchema, required: true },
+    journeyDuration: { type: Number, required: true },
     availableDays: {
-      sun: {
-        type: {
-          isAvailable: { type: String, default: false },
-          specialRouteId: { type: String },
-        },
-        required: true,
-      },
-      mon: {
-        type: {
-          isAvailable: { type: String, default: false },
-          specialRouteId: { type: String },
-        },
-        required: true,
-      },
-      tue: {
-        type: {
-          isAvailable: { type: String, default: false },
-          specialRouteId: { type: String },
-        },
-        required: true,
-      },
-      wed: {
-        type: {
-          isAvailable: { type: String, default: false },
-          specialRouteId: { type: String },
-        },
-        required: true,
-      },
-      thu: {
-        type: {
-          isAvailable: { type: String, default: false },
-          specialRouteId: { type: String },
-        },
-        required: true,
-      },
-      fri: {
-        type: {
-          isAvailable: { type: String, default: false },
-          specialRouteId: { type: String },
-        },
-        required: true,
-      },
-      sat: {
-        type: {
-          isAvailable: { type: String, default: false },
-          specialRouteId: { type: String },
-        },
-        required: true,
-      },
+      sun: dayScheduleSchema,
+      mon: dayScheduleSchema,
+      tue: dayScheduleSchema,
+      wed: dayScheduleSchema,
+      thu: dayScheduleSchema,
+      fri: dayScheduleSchema,
+      sat: dayScheduleSchema,
     },
     isTemprerlyStoped: { type: Boolean, default: false },
     temprerlySeviceAvailableDate: { type: Date },
@@ -64,47 +49,8 @@ const scheduleSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-interface IscheduleSchema {
-  _id:string
-  rotueId: string;
-  busId: string;
-  departureTime: Date;
-  arrivaleTime: Date;
-  availableDays?:
-    | {
-        sun: {
-          isAvailable: string;
-          specialRouteId?: string | null | undefined;
-        };
-        mon: {
-          isAvailable: string;
-          specialRouteId?: string | null | undefined;
-        };
-        tue: {
-          isAvailable: string;
-          specialRouteId?: string | null | undefined;
-        };
-        wed: {
-          isAvailable: string;
-          specialRouteId?: string | null | undefined;
-        };
-        thu: {
-          isAvailable: string;
-          specialRouteId?: string | null | undefined;
-        };
-        fri: {
-          isAvailable: string;
-          specialRouteId?: string | null | undefined;
-        };
-        sat: {
-          isAvailable: string;
-          specialRouteId?: string | null | undefined;
-        };
-      }
-    | null
-    | undefined;
-  isTemprerlyStoped: boolean;
-  temprerlySeviceAvailableDate?: Date | null | undefined;
-}
-export interface IScheduleModel extends IscheduleSchema {}
-export const ScheduleModel = mongoose.model<IScheduleModel>("Schdule", scheduleSchema);
+export interface IScheduleModel extends scheduleEntity {}
+export const ScheduleModel = mongoose.model<IScheduleModel>(
+  "Schdule",
+  scheduleSchema
+);

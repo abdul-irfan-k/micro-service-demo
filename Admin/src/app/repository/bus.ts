@@ -19,6 +19,10 @@ export const busRepository: IbusRepository = {
     const busDetails = await BusModel.findOne({ _id: id });
     return busDetails;
   },
+  findOneWithBusNumber: async (busNumber) => {
+    const busDetails = await BusModel.findOne({ number: busNumber });
+    return busDetails
+  },
 };
 
 export interface IbusRepository {
@@ -33,4 +37,5 @@ export interface IbusRepository {
   ) => Promise<IBusModel | null>;
 
   findOne: (busId: string) => Promise<IBusModel | null>;
+  findOneWithBusNumber: (busNumber: string) => Promise<IBusModel | null>;
 }

@@ -1,8 +1,9 @@
 import express from "express";
 import bodyParser from "body-parser";
 import { ErrorHandler } from "./lib/middleware/error-handler";
-import "express-async-errors";
 import { busRoute } from "./route/bus";
+import { scheduleRoute } from "./route/schedule-route";
+import "express-async-errors";
 
 const app = express();
 
@@ -15,5 +16,6 @@ app.use(bodyParser.json());
 
 
 app.use("/",busRoute())
+app.use("/",scheduleRoute())
 app.use(ErrorHandler);
 export { app };
