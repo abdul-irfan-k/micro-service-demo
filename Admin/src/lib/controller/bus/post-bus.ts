@@ -6,7 +6,7 @@ import { natsWrapper } from "../../../nats-wrapper";
 import { validationResult } from "express-validator";
 
 export default class PostBusController {
-  createBusUseCase: ICreateBusUseCase;
+  private createBusUseCase: ICreateBusUseCase;
   constructor({ createBusUseCase }: { createBusUseCase: ICreateBusUseCase }) {
     this.createBusUseCase = createBusUseCase;
   }

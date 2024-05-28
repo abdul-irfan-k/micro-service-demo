@@ -4,7 +4,7 @@ import { BadRequestError } from "../../util/bad-request-error";
 import { validationResult } from "express-validator";
 
 export default class GetBusController {
-  getBusUseCase: IGetBusUseCase;
+  private getBusUseCase: IGetBusUseCase;
   constructor({ getBusUseCase }: { getBusUseCase: IGetBusUseCase }) {
     this.getBusUseCase = getBusUseCase;
   }

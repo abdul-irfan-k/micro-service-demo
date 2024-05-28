@@ -1,13 +1,13 @@
 import { IrouteRepository } from "../../../app/repository";
 import { travellRouteEntity } from "../../entities";
 import {
-  ICreateRouteUseCase,
-  ICreateRouteUseCaseArgs,
+  ICreateTravellRouteUseCase,
+  ICreateTravellRouteUseCaseArgs,
 } from "../interface/route-use-case";
 
-export class CreateRouteUseCase implements ICreateRouteUseCase {
+export class CreateTravellRouteUseCase implements ICreateTravellRouteUseCase {
   constructor(private routeRepository: IrouteRepository) {}
-  async execute(args: ICreateRouteUseCaseArgs): Promise<travellRouteEntity | null> {
+  async execute(args: ICreateTravellRouteUseCaseArgs): Promise<travellRouteEntity | null> {
     const routeDetails = await this.routeRepository.create(args);
     return routeDetails;
   }

@@ -1,13 +1,13 @@
 import { IrouteRepository } from "../../../app/repository";
 import { travellRouteEntity } from "../../entities";
 import {
-  IUpdateRouteUseCase,
-  IUpdateRouteUseCaseArgs,
+  IUpdateTravellRouteUseCase,
+  IUpdateTravellRouteUseCaseArgs,
 } from "../interface/route-use-case";
 
-export class UpdateRouteUseCase implements IUpdateRouteUseCase {
+export class UpdateTravellRouteUseCase implements IUpdateTravellRouteUseCase {
   constructor(private routeRepository: IrouteRepository) {}
-  async execute(args: IUpdateRouteUseCaseArgs): Promise<travellRouteEntity | null> {
+  async execute(args: IUpdateTravellRouteUseCaseArgs): Promise<travellRouteEntity | null> {
     const updatedRouteDetails = await this.routeRepository.update(
       args._id,
       args

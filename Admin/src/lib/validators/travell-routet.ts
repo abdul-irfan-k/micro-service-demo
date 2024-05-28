@@ -13,3 +13,12 @@ export const createTravellRouteValidator = [
     .withMessage("starting place details is required"),
   body("stops").isArray({ min: 0 }).withMessage("stops details is required"),
 ];
+
+
+export const updateTravellRouteValidator = [
+  param("id").notEmpty().withMessage("id is required"),
+];
+
+export const getTravellRouteValidator = [
+  param("id").notEmpty().withMessage("id is required"),
+];

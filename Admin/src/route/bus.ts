@@ -1,6 +1,6 @@
 import express from "express";
 import * as busVaildator from "../lib/validators/bus";
-import * as busControler from "../lib/controller";
+import {busController} from "../lib/controller";
 
 export const busRoute = () => {
   const router = express.Router();
@@ -11,7 +11,7 @@ export const busRoute = () => {
   router.post(
     "/buses",
     busVaildator.createBusValidator,
-    busControler.getBus.processRequest
+    busController.getBus.processRequest
   );
   router.put("/buses/:id", busVaildator.updateBusValidator);
 

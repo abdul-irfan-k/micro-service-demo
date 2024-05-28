@@ -1,6 +1,7 @@
 import express from "express";
 import * as scheduleValidator from "../lib/validators/schedule";
-import * as scheduleControler from "../lib/controller";
+import {scheduleController} from "../lib/controller";
+import { ScheduleModel } from "../app/database/schema";
 
 export const scheduleRoute = () => {
   const router = express.Router();
@@ -11,7 +12,7 @@ export const scheduleRoute = () => {
   router.post(
     "/schedules",
     scheduleValidator.createScheduleValidator,
-    scheduleControler.postSchedule.processRequest
+    scheduleController.postSchedule.processRequest
   );
 //   router.put("/schedules/:id", scheduleValidator.update);
 

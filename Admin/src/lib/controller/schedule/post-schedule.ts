@@ -6,7 +6,7 @@ import { natsWrapper } from "../../../nats-wrapper";
 import { validationResult } from "express-validator";
 
 export default class PostScheduleController {
-  createScheduleUseCase: ICreateScheduleUseCase;
+ private  createScheduleUseCase: ICreateScheduleUseCase;
   constructor({ createScheduleUseCase }: { createScheduleUseCase: ICreateScheduleUseCase }) {
     this.createScheduleUseCase = createScheduleUseCase;
   }

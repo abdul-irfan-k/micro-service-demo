@@ -6,7 +6,7 @@ import { busUpdatedPublisher } from "../../../events/publisher";
 import { natsWrapper } from "../../../nats-wrapper";
 
 export default class PutScheduleController {
-  updateScheduleUseCase: IUpdateScheduleUseCase;
+  private updateScheduleUseCase: IUpdateScheduleUseCase;
   constructor({ updateScheduleUseCase }: { updateScheduleUseCase: IUpdateScheduleUseCase }) {
     this.updateScheduleUseCase = updateScheduleUseCase;
   }

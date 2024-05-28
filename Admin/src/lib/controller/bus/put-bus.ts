@@ -6,7 +6,7 @@ import { busUpdatedPublisher } from "../../../events/publisher";
 import { natsWrapper } from "../../../nats-wrapper";
 
 export default class PutBusController {
-  updateBusUseCase: IUpdateBusUseCase;
+  private updateBusUseCase: IUpdateBusUseCase;
   constructor({ updateBusUseCase }: { updateBusUseCase: IUpdateBusUseCase }) {
     this.updateBusUseCase = updateBusUseCase;
   }

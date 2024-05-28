@@ -4,7 +4,7 @@ import { BadRequestError } from "../../util/bad-request-error";
 import { validationResult } from "express-validator";
 
 export default class GetScheduleController {
-  getScheduleUseCase: IGetScheduleUseCase;
+  private getScheduleUseCase: IGetScheduleUseCase;
   constructor({ getScheduleUseCase }: { getScheduleUseCase: IGetScheduleUseCase }) {
     this.getScheduleUseCase = getScheduleUseCase;
   }
