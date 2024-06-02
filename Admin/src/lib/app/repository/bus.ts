@@ -1,4 +1,4 @@
-import { busEntity } from "../../lib/entities";
+import { busEntity } from "../../entities";
 import { BusModel, IBusModel } from "../database/schema";
 export const busRepository: IbusRepository = {
   update: async (busId: string, data: Partial<busEntity>) => {
@@ -21,7 +21,7 @@ export const busRepository: IbusRepository = {
   },
   findOneWithBusNumber: async (busNumber) => {
     const busDetails = await BusModel.findOne({ number: busNumber });
-    return busDetails
+    return busDetails;
   },
 };
 

@@ -52,6 +52,6 @@ interface coordinates {
 
 export interface ITravellRouteModel extends IrouteSchema {}
 export const TravellRouteModel = mongoose.model<ITravellRouteModel>(
-  "Route",
+  "TravellRoute",
   routeSchema
 );

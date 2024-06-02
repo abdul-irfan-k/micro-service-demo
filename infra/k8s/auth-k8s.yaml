@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: micro-demo-auth-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: micro-demo-auth-deployment
+  template:
+    metadata:
+      labels:
+        app: micro-demo-auth-deployment
+    spec:
+      containers:
+        - name: micro-demo-auth-deployment
+          imagePullPolicy: IfNotPresent
+          image: irfan76k/micro-demo-auth
+          env:
+            - name: NATS_URL
+              value: "http://nats-srv:4222"
+            - name: NATS_CLIENT_ID
+              value: "302"
+            - name: NATS_CLUSTER_ID
+              value: "micro-demo"
+            - name: PORTS
+              value: "6000"
+            - name: DB_URL
+              value: "mongodb://micro-demo-mongo-service/27017/"
+          ports:
+            - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: micro-demo-user-service
+spec:
+  selector:
+    app: micro-demo-auth-deployment
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 8000
+  # type: LoadBalancer

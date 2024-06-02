@@ -5,6 +5,7 @@ import { validationResult } from "express-validator";
 
 export default class GetBusController {
   private getBusUseCase: IGetBusUseCase;
+  
   constructor({ getBusUseCase }: { getBusUseCase: IGetBusUseCase }) {
     this.getBusUseCase = getBusUseCase;
   }

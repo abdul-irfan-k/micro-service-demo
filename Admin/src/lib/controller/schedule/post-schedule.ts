@@ -18,7 +18,6 @@ export default class PostScheduleController {
     }
 
     const args = req.body;
-console.log('args',args)
     const scheduleDetails = await this.createScheduleUseCase.execute({ ...args });
     if (scheduleDetails == null) throw new BadRequestError({ code: 400 });
 

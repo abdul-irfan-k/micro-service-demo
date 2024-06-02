@@ -1,4 +1,4 @@
-import { scheduleEntity } from "../../lib/entities";
+import { scheduleEntity } from "../../entities";
 import { IScheduleModel, ScheduleModel } from "../database/schema";
 export const scheduleRepository: IscheduleRepository = {
   update: async (scheduleId, data) => {
@@ -18,6 +18,29 @@ export const scheduleRepository: IscheduleRepository = {
     const scheduleDetails = await ScheduleModel.findOne({ _id });
     return scheduleDetails;
   },
+  getScheduleWithRouteDetails: async (scheduleId) => {
+    const scheduleDetails = await ScheduleModel.aggregate([
+      {
+        $match: {
+          $expr: { $eq: ["$_id", scheduleId] },
+        },
+      },
+      {
+        $lookup: {
+          from: "travellroutes",
+          localField: "routeId",
+          foreignField: "_id",
+          as: "routeDetails",
+        },
+      },
+      {
+        $addFields: {
+          routeDetails: { $arrayElemAt: ["$routeDetails", 0] },
+        },
+      },
+    ]);
+    return scheduleDetails;
+  },
 };
 
 export interface IscheduleRepository {
@@ -31,4 +54,5 @@ export interface IscheduleRepository {
     }
   ) => Promise<IScheduleModel | null>;
   findOne: (scheduleId: string) => Promise<IScheduleModel | null>;
+  getScheduleWithRouteDetails: (scheduleId: string) => Promise<any[]>;
 }

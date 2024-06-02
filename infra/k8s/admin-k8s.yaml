@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: micro-demo-user-deploayment
+  name: micro-demo-admin-deploayment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: micro-demo-user-deploayment
+      app: micro-demo-admin-deploayment
   template:
     metadata:
       labels:
-        app: micro-demo-user-deploayment
+        app: micro-demo-admin-deploayment
     spec:
       containers:
-      - name: micro-demo-user-deploayment
-        imagePullPolicy: Never
-        image: irfan76k/micro-demo-user:1.1
+      - name: micro-demo-admin-deploayment
+        imagePullPolicy: IfNotPresent
+        image: micro-demo-admin
         env:
           - name: NATS_URL
             value: 'http://nats-srv:4222'
@@ -33,12 +33,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: micro-demo-user-service
+  name: micro-demo-admin-service
 spec:
   selector:
-    app: micro-demo-user-deploayment
+    app: micro-demo-admin-deploayment
   ports:
   - protocol: TCP
     port: 5000
     targetPort: 8000
-  type: LoadBalancer
+  # type: LoadBalancer

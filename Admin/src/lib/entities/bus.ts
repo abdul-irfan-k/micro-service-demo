@@ -2,7 +2,6 @@ export interface busEntity {
   _id: string;
   name: string;
   number: string;
-  routeId?: string;
   scheduleId?: string;
   travellorId?: string;
   layoutImageSrc: string[];

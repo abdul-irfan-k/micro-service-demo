@@ -4,7 +4,7 @@ metadata:
   name: micro-service-demo
 build:
   artifacts:
-    - image: micro-demo-user1
+    - image: irfan76k/micro-demo-user
       context: user
       docker:
         dockerfile: Dockerfile
@@ -14,6 +14,22 @@ build:
             dest: .
     - image: micro-demo-payment
       context: payment
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
+    - image: micro-demo-admin
+      context: Admin
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
+    - image: micro-demo-auth
+      context: auth
       docker:
         dockerfile: Dockerfile
       sync:

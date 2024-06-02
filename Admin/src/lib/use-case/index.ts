@@ -2,7 +2,7 @@ import {
   busRepository,
   routeRepository,
   scheduleRepository,
-} from "../../app/repository";
+} from "../app/repository";
 
 import { CreateBusUseCase } from "./bus/create-bus";
 import { UpdateBusUseCase } from "./bus/update-bus";
@@ -18,8 +18,12 @@ const createBusUseCase = new CreateBusUseCase(busRepository);
 const updateBusUseCase = new UpdateBusUseCase(busRepository);
 const getBusUseCase = new GetBusUseCase(busRepository);
 
-const createTravellRouteUseCase = new CreateTravellRouteUseCase(routeRepository);
-const updateTravellRouteUseCase = new UpdateTravellRouteUseCase(routeRepository);
+const createTravellRouteUseCase = new CreateTravellRouteUseCase(
+  routeRepository
+);
+const updateTravellRouteUseCase = new UpdateTravellRouteUseCase(
+  routeRepository
+);
 const getTravellRouteUseCase = new GetTravellRouteUseCase(routeRepository);
 
 const createScheduleUseCase = new CreateScheduleUseCase(scheduleRepository);

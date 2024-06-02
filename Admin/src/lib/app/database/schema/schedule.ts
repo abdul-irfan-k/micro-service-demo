@@ -10,19 +10,9 @@ const timeSchema = new mongoose.Schema(
   { _id: false }
 );
 
-const specialScheduleSchema = new mongoose.Schema(
-  {
-    routeId: { type: String, required: true },
-    departureTime: timeSchema,
-    arrivalTime: timeSchema,
-  },
-  { _id: false }
-);
-
 const dayScheduleSchema = new mongoose.Schema(
   {
     isAvailable: { type: String, default: false },
-    specialSchedule: specialScheduleSchema,
   },
   { _id: false }
 );
@@ -34,17 +24,8 @@ const scheduleSchema = new mongoose.Schema(
     departureTime: { type: timeSchema, required: true },
     arrivalTime: { type: timeSchema, required: true },
     journeyDuration: { type: Number, required: true },
-    availableDays: {
-      sun: dayScheduleSchema,
-      mon: dayScheduleSchema,
-      tue: dayScheduleSchema,
-      wed: dayScheduleSchema,
-      thu: dayScheduleSchema,
-      fri: dayScheduleSchema,
-      sat: dayScheduleSchema,
-    },
-    isTemprerlyStoped: { type: Boolean, default: false },
-    temprerlySeviceAvailableDate: { type: Date },
+    availableDays: { type: [String], default: [] },
+    isTemprerlyStoped: { type: Boolean, default: false }
   },
   { timestamps: true }
 );

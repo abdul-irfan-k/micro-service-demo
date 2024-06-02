@@ -18,6 +18,9 @@ import PutScheduleController from "./schedule/put-schedule";
 import GetTravellRouteController from "./travell-route/get-travell-route";
 import PostTravellRouteController from "./travell-route/post-travell-route";
 import PutTravellRouteController from "./travell-route/put-travell-route";
+import { FileUploadController } from "./upload/upload";
+
+import { FileUploadFactory } from "../service/file-upload/file-upload-factory";
 
 const getBus = new GetBusController({ getBusUseCase });
 const postBus = new PostBusController({ createBusUseCase });
@@ -45,4 +48,12 @@ export const travellRouteController = {
   getTravellRoute,
   postTravellRoute,
   putTravellRoute,
+};
+
+const postUpload = new FileUploadController(
+  FileUploadFactory.createFileUploader()
+);
+
+export const uploadController = {
+  postUpload,
 };

@@ -1,4 +1,4 @@
-import { travellRouteEntity } from "../../lib/entities";
+import { travellRouteEntity } from "../../entities";
 import { ITravellRouteModel, TravellRouteModel } from "../database/schema";
 export const routeRepository: IrouteRepository = {
   update: async (_id, data) => {

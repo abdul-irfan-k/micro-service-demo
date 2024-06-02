@@ -1,31 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: micro-demo-nginx-deployment
+  name: micro-demo-nginx
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: micro-demo-nginx-deployment
+      app: micro-demo-nginx
   template:
     metadata:
       labels:
-        app: micro-demo-nginx-deployment
+        app: micro-demo-nginx
     spec:
       containers:
-      - name: micro-demo-nginx-deployment
-        imagePullPolicy: Never
-        image: nginx:latest
-        ports:
-        - containerPort: 80
+        - name: micro-demo-nginx
+          imagePullPolicy: IfNotPresent
+          image: nginx:latest
+          ports:
+          - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: micro-demo-nginx-service
+  name: micro-demo-nginx
 spec:
   selector:
-    app: micro-demo-nginx-deployment
+    app: micro-demo-nginx
   ports:
   - protocol: TCP
     port: 80
