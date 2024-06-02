@@ -16,11 +16,18 @@ spec:
                 name: micro-demo-nginx-service
                 port:
                   number: 80
-          - path: /test/?(.*)
+          - path: /user/?(.*)
             pathType: Prefix
             backend:
               service:
                 name: micro-demo-user-service
+                port:
+                  number: 5000
+          - path: /auth/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: micro-demo-auth-service
                 port:
                   number: 5000
           # - path: /payment/

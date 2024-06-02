@@ -12,23 +12,23 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
-    - image: micro-demo-payment
-      context: payment
-      docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: "src/**/*.ts"
-            dest: .
-    - image: micro-demo-admin
-      context: Admin
-      docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: "src/**/*.ts"
-            dest: .
-    - image: micro-demo-auth
+    # - image: micro-demo-payment
+    #   context: payment
+    #   docker:
+    #     dockerfile: Dockerfile
+    #   sync:
+    #     manual:
+    #       - src: "src/**/*.ts"
+    #         dest: .
+    # - image: micro-demo-admin
+    #   context: Admin
+    #   docker:
+    #     dockerfile: Dockerfile
+    #   sync:
+    #     manual:
+    #       - src: "src/**/*.ts"
+    #         dest: .
+    - image: irfan76k/micro-demo-auth
       context: auth
       docker:
         dockerfile: Dockerfile
