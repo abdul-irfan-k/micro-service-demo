@@ -9,20 +9,13 @@ spec:
     - host: test-app.com
       http:
         paths:
-          - path: /sample/?(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: micro-demo-nginx-service
-                port:
-                  number: 80
           - path: /user/?(.*)
             pathType: Prefix
             backend:
               service:
                 name: micro-demo-user-service
                 port:
-                  number: 5000
+                  number: 8000
           - path: /auth/?(.*)
             pathType: Prefix
             backend:

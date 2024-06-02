@@ -9,7 +9,7 @@ export const makeSignInController = ({ signInUseCase, getUserUseCase }) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       throw new BadRequestError({ code: 400, validatorError: errors.array() });
-    }
+    }  
 
     const { email, password } = req.body;
     const userDetail = await getUserUseCase({ email });

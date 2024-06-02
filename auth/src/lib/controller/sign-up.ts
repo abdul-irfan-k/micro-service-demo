@@ -5,13 +5,15 @@ import { validationResult } from "express-validator";
 //@ts-ignore
 export const makeSignUpController = ({ signUpUseCase, getUserUseCase }) => {
   return async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      
+    
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       throw new BadRequestError({ code: 400, validatorError: errors.array() });
     }
-
     const { name, email, password, profileImageUrl } = req.body;
-
+    
     const oldUser = await getUserUseCase({ email });
     if (oldUser != null)
       throw new BadRequestError({
@@ -39,5 +41,8 @@ export const makeSignUpController = ({ signUpUseCase, getUserUseCase }) => {
       expires,
     });
     return res.json({ isLogedIn: true });
+  } catch (error) {
+   console.log("err ",error)   
+  }
   };
 };

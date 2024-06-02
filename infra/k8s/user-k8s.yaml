@@ -39,6 +39,6 @@ spec:
     app: micro-demo-user-deploayment
   ports:
   - protocol: TCP
-    port: 5000
+    port: 8000
     targetPort: 8000
   type: LoadBalancer

@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
-import { MongoMemoryServer } from "mongodb-memory-server";
+// import { MongoMemoryServer } from "mongodb-memory-server";
 
-const mongod = new MongoMemoryServer()
+// const mongod = new MongoMemoryServer();
 
 export const connectDB = async () => {
-  if (!process.env.DB_URL) return console.log("db not connected");
-  await mongoose.connect(process.env.DB_URL);
+  if (!process.env.DB_URL) throw new Error("db url is not provided");
+  const dbUrl = process.env.DB_URL + "auth"
+  await mongoose.connect(dbUrl);
 };
