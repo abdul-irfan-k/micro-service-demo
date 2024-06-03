@@ -1,6 +1,6 @@
 {
   "name": "micro-service-event",
-  "version": "1.0.7",
+  "version": "1.0.10",
   "description": "",
   "main": "lib/index.js",
   "types": "src/index.ts",

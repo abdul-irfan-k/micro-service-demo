@@ -1,6 +1,7 @@
 import { app } from "./app";
 import { connectDB } from "./config/db";
-import { PaymentCompletedListener } from "./events/listeners/payment-completed-listener";
+import { PaymentCompletedListener } from "./events/listeners/payment";
+import { userCreatedListener } from "./events/listeners/user/user-created";
 import { natsWrapper } from "./nats-wrapper";
 import dotenv from 'dotenv'; 
 dotenv.config()
@@ -30,6 +31,8 @@ const start = async () => {
         natsWrapper.client.close();
       });
   
+
+      new userCreatedListener(natsWrapper.client).listen()
       new PaymentCompletedListener(natsWrapper.client).listen();
       
       const port = process.env.PORT || 8000
