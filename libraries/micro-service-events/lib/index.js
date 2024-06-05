@@ -28,7 +28,7 @@ var listener_1 = require("./listener");
 Object.defineProperty(exports, "Listener", { enumerable: true, get: function () { return listener_1.Listener; } });
 var publisher_1 = require("./publisher");
 Object.defineProperty(exports, "Publisher", { enumerable: true, get: function () { return publisher_1.Publisher; } });
-var subjects_1 = require("./subjects");
+var subjects_1 = require("./subjects/subjects");
 Object.defineProperty(exports, "Subject", { enumerable: true, get: function () { return subjects_1.Subject; } });
 const Event = __importStar(require("./events"));
 exports.Event = Event;

@@ -1,6 +1,6 @@
 //@ts-ignore
 import { Stan } from "node-nats-streaming";
-import { Event, EventDataMap } from "@events/index";
+import { Event, EventDataMap } from "../events";
 import { Subject } from "..";
 
 export abstract class Publisher<T extends Subject> {

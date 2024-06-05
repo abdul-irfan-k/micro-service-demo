@@ -1,13 +1,15 @@
-import { Event, Listener, Subject } from "micro-service-event";
 import { createUserUseCase } from "@/lib/use-cases";
+import { Event, Listener, Subject } from "micro-service-event";
 
+console.log("subjects",Subject)
 export class userCreatedListener extends Listener<Subject.userCreated> {
   subject: Subject.userCreated = Subject.userCreated;
   queueGroupName: string = "user-service";
 
-  async onMessage(data, message): void {
+  //@ts-ignore
+  async onMessage(data, message) {
     console.log("message data", data, message);
-    await createUserUseCase.execute(data);
+    createUserUseCase.execute(data); 
     message.ack();
-  }
+  } 
 }

@@ -1,18 +1,11 @@
 import { app } from "./app";
 import dotenv from "dotenv";
-import { connectDB } from "./config/db";
 import { natsWrapper } from "./nats-wrapper";
 dotenv.config();
 
 const start = async () => {
   try {
-    await connectDB();
 
-    console.log(
-      "client id ",
-      process.env.NATS_CLIENT_ID,
-      process.env.NATS_CLUSTER_ID
-    );
     await natsWrapper.connectToNats(
       process.env.NATS_CLUSTER_ID!,
       process.env.NATS_CLIENT_ID!,

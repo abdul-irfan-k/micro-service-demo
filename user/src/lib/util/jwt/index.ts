@@ -52,6 +52,7 @@ export const verifyJwtTokenHandler = ({
 
     jwt.verify(token, tokenSecret || "", (err, decoded) => {
       if (!err && decoded && typeof decoded !== "string") {
+        //@ts-ignore
         req.user = { _id: decoded._id, email: decoded.email }
         return resolve({ isValid: true })
       }

@@ -1,6 +1,6 @@
 import { Message, Stan } from "node-nats-streaming";
 import { Subject } from "..";
-import { EventDataMap } from "@events/index";
+import { EventDataMap } from "../events";
 
 
 

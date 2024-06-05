@@ -17,7 +17,7 @@ import {
   scheduleUpdatedEvent,
 } from "./inventory&booking";
 
-import { Subject } from "@subjects/subjects";
+import { Subject } from "../subjects/subjects";
 
 export type EventDataMap = {
   [Subject.paymentComleted]: paymentComletedEvent;

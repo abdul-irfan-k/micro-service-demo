@@ -1,4 +1,4 @@
-export enum Subject {
+export declare enum Subject {
   paymentComleted = "payment:completed",
   paymentIncomleted = "payment:incompleted",
   paymentProcessing = "payment:processing",

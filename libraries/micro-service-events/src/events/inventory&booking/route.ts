@@ -1,4 +1,4 @@
-import { Subject } from "@subjects/subjects";
+import { Subject } from "../../subjects/subjects";
 
 export interface routeAddedEvent {
   _id: string;

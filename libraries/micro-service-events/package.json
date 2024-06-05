@@ -1,17 +1,18 @@
 {
   "name": "micro-service-event",
-  "version": "1.0.10",
+  "version": "1.0.14",
   "description": "",
   "main": "lib/index.js",
   "types": "src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx tsc"
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "tscpaths": "^0.0.9",
     "typescript": "^5.4.5"
   },
   "dependencies": {

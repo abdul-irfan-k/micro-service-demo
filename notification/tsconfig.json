@@ -8,9 +8,15 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@/lib/*":["src/lib/*"]
-    },
-    "outDir": "./dist",
-  },
-  "include": ["src/**/*"]
+      "@events/*": [
+        "./src/events/*"
+      ],
+      "@lib/*": [
+        "./src/lib/*"
+      ],
+      "@/*": [
+        "./src/*"
+      ]
+    }
+  }
 }
