@@ -10,7 +10,7 @@
     "paths": {
       "@events/*":["src/events/*"],
       "@lib/*":["src/lib/*"],
-      "@templates/*":["src/templates/*"],
+      "@route/*":["src/route/*"],
       "@/*":["src/*"],
 
     },

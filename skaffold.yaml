@@ -36,6 +36,14 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
+    - image: irfan76k/micro-demo-notification
+      context: notification
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
 manifests:
   rawYaml:
     - infra/k8s/*

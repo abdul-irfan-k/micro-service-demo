@@ -1,6 +1,8 @@
 import { app } from "./app";
 import dotenv from "dotenv";
 import { natsWrapper } from "./nats-wrapper";
+import { userCreatedListener } from "@events/listener/user/account-created";
+import { nodeMailerEmail, nodeMailerEmailPassword } from "@lib/constant/constant";
 dotenv.config();
 
 const start = async () => {
@@ -26,6 +28,7 @@ const start = async () => {
       natsWrapper.client.close();
     });
 
+    const test = new userCreatedListener(natsWrapper.client)
     const port = process.env.PORT || 8000;
     app.listen(port, () => {
       console.log(`listening port:${port}`);

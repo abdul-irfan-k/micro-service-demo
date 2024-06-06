@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: micro-demo-auth-deployment
+  name: micro-demo-notification
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: micro-demo-auth-deployment
+      app: micro-demo-notification
   template:
     metadata:
       labels:
-        app: micro-demo-auth-deployment
+        app: micro-demo-notification
     spec:
       containers:
-        - name: micro-demo-auth-deployment
+        - name: micro-demo-notification
           imagePullPolicy: IfNotPresent
-          image: irfan76k/micro-demo-auth
+          image: irfan76k/micro-demo-notification
           env:
             - name: NATS_URL
               value: "http://nats-srv:4222"
@@ -29,6 +29,16 @@ spec:
               value: "8000"
             - name: DB_URL
               value: "mongodb://micro-demo-mongo-service/"
+            - name: NODEMAILER_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: micro-demo-secret
+                  key: NODEMAILER_EMAIL
+            - name: NODEMAILER_EMAIL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: micro-demo-secret
+                  key: NODEMAILER_EMAIL_PASSWORD
           ports:
             - containerPort: 8000
 ---
@@ -38,7 +48,7 @@ metadata:
   name: micro-demo-auth-service
 spec:
   selector:
-    app: micro-demo-auth-deployment
+    app: micro-demo-notification
   ports:
     - protocol: TCP
       port: 5000

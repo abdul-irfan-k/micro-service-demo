@@ -1,7 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import "express-async-errors";
-import { ErrorHandler } from "@lib/middleware/error-handler";
+import { ErrorHandler } from "@/lib/middleware/error-handler";
 
 const app = express();
 
