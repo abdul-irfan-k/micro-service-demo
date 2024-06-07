@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
-import { createJwtTokenHandler } from "../util/jsonwebtoken";
-import { BadRequestError } from "../util/bad-request-error";
+import { createJwtTokenHandler } from "../../util/jsonwebtoken";
+import { BadRequestError } from "../../util/bad-request-error";
 import { validationResult } from "express-validator";
-import { natsWrapper } from "../../nats-wrapper";
-import { userCreatedPublisher } from "../../event/publisher/user-created";
+import { natsWrapper } from "../../../nats-wrapper";
+import { userCreatedPublisher } from "../../../event/publisher/user-created";
 
 //@ts-ignore
 export const makeSignUpController = ({ signUpUseCase, getUserUseCase }) => {
@@ -39,9 +39,19 @@ export const makeSignUpController = ({ signUpUseCase, getUserUseCase }) => {
       tokenType: "accessToken",
       tokenScope:"user"
     });
-    console.log("auth token", accessToken);
+    const { token: refreshToken } = await createJwtTokenHandler({
+      _id: userDetails._id,
+      email: userDetails.email,
+      expiresIn: "7 days",
+      tokenType: "refreshToken",
+      tokenScope:"user"
+    });
     const expires = new Date(Date.now() + 1000 * 60 * 60 * 24 * 7);
     res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      expires,
+    });
+    res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       expires,
     });

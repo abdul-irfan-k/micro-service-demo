@@ -16,6 +16,7 @@ export const authRoutes = () => {
     authValidator.signUpValidator,
     authController.postSignUp
   );
-  // router.put("/:id",controller.updateUser);
+
+  router.post("/password-reset-request",)
   return router;
 };

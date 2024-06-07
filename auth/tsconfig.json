@@ -8,17 +8,17 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@config*": [
-        "src/config*"
+      "@config/*": [
+        "src/config/*"
       ],
-      "@event*": [
-        "src/event*"
+      "@event/*": [
+        "src/event/*"
       ],
-      "@lib*": [
-        "src/lib*"
+      "@lib/*": [
+        "src/lib/*"
       ],
-      "@router*": [
-        "src/router*"
+      "@router/*": [
+        "src/router/*"
       ],
       "@/*": [
         "src/*"

@@ -1,7 +1,7 @@
-import { userRepository } from "../../app/repository/user";
-import { makeGetUserUseCase } from "./get-user";
-import { makeSignInUseCase } from "./sign-in";
-import { makeSignUpUseCase } from "./sign-up";
+import { userRepository } from "@lib/app/repository/user";
+import { makeGetUserUseCase } from "./user/get-user";
+import { makeSignInUseCase } from "./user/sign-in";
+import { makeSignUpUseCase } from "./user/sign-up";
 
 const signInUseCase = makeSignInUseCase({ repository: userRepository });
 const signUpUseCase = makeSignUpUseCase({ repository: userRepository });

@@ -7,17 +7,17 @@ export const userRepository: IUserRepository = {
     return user.toJSON();
   },
 
-
   getUser: async (userData: any) => {
     const user = await User.findOne({ email: userData.email });
     return user;
+  },
+  updateUser: async (userId,data) => {
+    return await User.findOneAndUpdate({ userId }, data);
   },
 };
 
 export interface IUserRepository {
   signUp: (userData: any) => Promise<IUserModel>;
-  getUser: (data: any) => Promise<
-    | IUserModel 
-    | null
-  >;
+  getUser: (data: any) => Promise<IUserModel | null>;
+  updateUser:(userId: string, data: any) => Promise<IUserModel | null>
 }
