@@ -29,6 +29,26 @@ spec:
               value: "8000"
             - name: DB_URL
               value: "mongodb://micro-demo-mongo-service/"
+            - name: ADMIN_JWT-ACCESS_TOKEN_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: micro-demo-secret
+                  key: ADMIN_JWT_ACCESS_TOKEN_SECRET
+            - name: ADMIN_JWT_REFRESH_TOKEN_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: micro-demo-secret
+                  key: ADMIN_JWT_REFRESH_TOKEN_SECRET
+            - name: USER_JWT_ACCESS_TOKEN_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: micro-demo-secret
+                  key: USER_JWT_ACCESS_TOKEN_SECRET
+            - name: USER_JWT_REFRESH_TOKEN_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: micro-demo-secret
+                  key: USER_JWT_REFRESH_TOKEN_SECRET
           ports:
             - containerPort: 8000
 ---
@@ -40,7 +60,7 @@ spec:
   selector:
     app: micro-demo-auth-deployment
   ports:
-    - protocol: TCP
-      port: 5000
-      targetPort: 8000
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000
   # type: LoadBalancer

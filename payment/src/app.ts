@@ -1,7 +1,9 @@
 import express from "express";
-import paymentRouter from './router/payment-router'
+import { ErrorHandler } from "@lib/middleware/error-handler";
+import { paymentRoute } from "@route/payment";
 
 const app = express();
 
-app.use("/",paymentRouter)
+app.use("/",paymentRoute)
+app.use(ErrorHandler)
 export { app }; 

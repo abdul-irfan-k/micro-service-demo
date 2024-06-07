@@ -10,7 +10,6 @@ const start = async () => {
   try {
     await connectDB();
 
-    console.log("client id ",process.env.NATS_CLIENT_ID, process.env.NATS_CLUSTER_ID);
     await natsWrapper.connectToNats(
       process.env.NATS_CLUSTER_ID!,
       process.env.NATS_CLIENT_ID!,
@@ -31,8 +30,7 @@ const start = async () => {
     });
 
     
-   const test = new userCreatedListener(natsWrapper.client)
-   console.log("test ",test.subject)
+   const test = new userCreatedListener(natsWrapper.client).listen()
     // new PaymentCompletedListener(natsWrapper.client).listen();
 
     const port = process.env.PORT || 8000;
@@ -44,3 +42,4 @@ const start = async () => {
   }
 };
 start();
+  

@@ -3,7 +3,7 @@ import { Response } from "express"
 interface assignCookiesHandlerArguments {
   res: Response
   token: string
-  tokenName: "authToken" | "refreshToken"
+  tokenName: "accessToken" | "refreshToken"
   expires: "1h" | "1d" | Date
 }
 export const assignCookiesHandler = ({ res, token, tokenName, expires }: assignCookiesHandlerArguments): void => {

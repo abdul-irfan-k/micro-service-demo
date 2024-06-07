@@ -28,16 +28,28 @@ export class NodeMailerEmailService implements EmailService {
     text?: string | undefined;
     subject?: string | undefined;
   }): Promise<{ isSended: boolean; sendedMailInfo: any }> {
-    throw new Error("Method not implemented.");
+    return new Promise((resolve, reject) => {
+      const mailContainer = {
+        from: nodeMailerEmail,
+        ...args,
+      };
+      this.transporter.sendMail(mailContainer, async (err, info) => {
+        console.log('error',err)
+        if (err == null)
+          return resolve({ isSended: true, sendedMailInfo: info });
+        reject(err);
+      });
+    });
   }
 
   private createTransporter() {
     return nodemailer.createTransport({
-      service: "email",
+      service: "gmail",
       auth: {
         user: nodeMailerEmail,
         pass: nodeMailerEmailPassword,
       },
+      
     });
   }
 }

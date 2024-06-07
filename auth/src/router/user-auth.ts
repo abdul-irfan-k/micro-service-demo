@@ -3,7 +3,7 @@ import authController from "../lib/controller";
 import * as authValidator from "../lib/validator/auth";
 
 export const authRoutes = () => {
-  const router = express.Router(); 
+  const router = express.Router();
 
   router.post(
     "/sign-in",

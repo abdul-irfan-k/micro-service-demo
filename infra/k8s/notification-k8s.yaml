@@ -45,12 +45,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: micro-demo-auth-service
+  name: micro-demo-notification-service
 spec:
   selector:
     app: micro-demo-notification
   ports:
     - protocol: TCP
-      port: 5000
+      port: 8000
       targetPort: 8000
   # type: LoadBalancer

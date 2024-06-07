@@ -4,6 +4,7 @@ import * as controller from "../lib/controller";
 export const userRoutes = () => {
   const router = express.Router();
 
+  router.get("/", (req, res) => res.send("hll"));
   router.get("/:id", controller.getUser);
   router.post("/", controller.postUser);
   router.put("/", controller.putUser);

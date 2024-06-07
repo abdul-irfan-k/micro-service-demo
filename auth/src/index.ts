@@ -8,11 +8,6 @@ const start = async () => {
   try {
     await connectDB();
 
-    console.log(
-      "client id ",
-      process.env.NATS_CLIENT_ID,
-      process.env.NATS_CLUSTER_ID
-    );
     await natsWrapper.connectToNats(
       process.env.NATS_CLUSTER_ID!,
       process.env.NATS_CLIENT_ID!,
@@ -31,7 +26,7 @@ const start = async () => {
     process.on("SIGTERM", () => {
       console.log("sigterm");
       natsWrapper.client.close();
-    });
+    }); 
 
     const port = process.env.PORT || 8000;
     app.listen(port, () => {
@@ -41,4 +36,4 @@ const start = async () => {
     console.log("error ", error);
   }
 };
-start();
+start(); 

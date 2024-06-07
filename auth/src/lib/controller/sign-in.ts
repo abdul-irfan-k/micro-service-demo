@@ -19,15 +19,16 @@ export const makeSignInController = ({ signInUseCase, getUserUseCase }) => {
     if (!isCorrectPassword)
       throw new BadRequestError({ code: 400, message: "invalid password" });
 
-    const { token: authToken } = await createJwtTokenHandler({
+    const { token: accessToken } = await createJwtTokenHandler({
       _id: userDetail._id,
       email: userDetail.email,
       expiresIn: "7 days",
-      tokenType: "authToken",
+      tokenType: "accessToken",
+      tokenScope:"user"
     });
 
     const expires = new Date(Date.now() + 1000 * 60 * 60 * 24 * 7);
-    res.cookie("authToken", authToken, {
+    res.cookie("accessToken", accessToken, {
       httpOnly: true,
       expires,
     });

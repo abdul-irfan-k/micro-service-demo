@@ -2,10 +2,9 @@ import { NextFunction, Request, Response } from "express";
 import { createJwtTokenHandler } from "../util/jsonwebtoken";
 import { BadRequestError } from "../util/bad-request-error";
 import { validationResult } from "express-validator";
-import { userUpdatePublisher } from "../../event/publisher/user-updated";
 import { natsWrapper } from "../../nats-wrapper";
 import { userCreatedPublisher } from "../../event/publisher/user-created";
-import { Subject } from "micro-service-event";
+
 //@ts-ignore
 export const makeSignUpController = ({ signUpUseCase, getUserUseCase }) => {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -16,6 +15,7 @@ export const makeSignUpController = ({ signUpUseCase, getUserUseCase }) => {
     const { name, email, password, profileImageUrl } = req.body;
 
     const oldUser = await getUserUseCase({ email });
+
     if (oldUser != null)
       throw new BadRequestError({
         message: "email already have an account",
@@ -27,21 +27,21 @@ export const makeSignUpController = ({ signUpUseCase, getUserUseCase }) => {
       password,
       profileImageUrl,
     });
-
-    await new userCreatedPublisher(natsWrapper.client).publish({
-      userDetails,
+    console.log("user created publisher", userDetails);
+    new userCreatedPublisher(natsWrapper.client).publish({
+      ...userDetails,
       password,
     });
-
-    const { token: authToken } = await createJwtTokenHandler({
+    const { token: accessToken } = await createJwtTokenHandler({
       _id: userDetails._id,
       email: userDetails.email,
       expiresIn: "7 days",
-      tokenType: "authToken",
+      tokenType: "accessToken",
+      tokenScope:"user"
     });
-
+    console.log("auth token", accessToken);
     const expires = new Date(Date.now() + 1000 * 60 * 60 * 24 * 7);
-    res.cookie("authToken", authToken, {
+    res.cookie("accessToken", accessToken, {
       httpOnly: true,
       expires,
     });

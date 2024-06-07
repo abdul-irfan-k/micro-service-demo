@@ -11,7 +11,7 @@ const app = express();
 app.use(bodyParser());
 app.use(bodyParser.json());
 // app.use(express.json())
-app.use("/", authRoutes() );
+app.use("/", authRoutes()); 
 
 app.use("/bus-owner/", busOwnerauthRoutes());
 app.use(ErrorHandler);

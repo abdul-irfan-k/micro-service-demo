@@ -5,14 +5,14 @@ import { Message } from "node-nats-streaming";
 
 export class userCreatedListener extends Listener<Subject.userCreated> {
   //@ts-ignore
-  subject: Subject.userCreated = 'user:created';
+  subject: Subject.userCreated = "user:created";
   queueGroupName: string = "user-service";
   async onMessage(data: any, message: Message): Promise<void> {
     console.log("user account created", data);
     await emailNotificationUseCase.execute(
-      { email: "irfan7676k@gmail.com" },
+      { email: data.email },
       "welcome-email",
-      { username: "irfan", email: "irfan7676k@gmail.com" }
+      { name: data.name, email: data.email }
     );
     message.ack();
   }

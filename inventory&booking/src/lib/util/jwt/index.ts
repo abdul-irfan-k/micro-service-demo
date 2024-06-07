@@ -5,7 +5,7 @@ interface createJwtTokenHandlerArgument {
   _id: string
   email: string
   expiresIn: "1h" | "1 days" | "7 days"
-  tokenType: "refreshToken" | "authToken"
+  tokenType: "refreshToken" | "accessToken"
 }
 
 interface createJwtTokenHandlerReturnType {
@@ -22,7 +22,7 @@ export const createJwtTokenHandler = async ({
 }: createJwtTokenHandlerArgument): Promise<createJwtTokenHandlerReturnType> => {
   return new Promise((resolve, reject) => {
     const tokenSecret =
-      tokenType == "authToken" ? process.env.JWT_AUTH_TOKEN_SECRET : process.env.JWT_REFRESH_TOKEN_SECRET
+      tokenType == "accessToken" ? process.env.JWT_AUTH_TOKEN_SECRET : process.env.JWT_REFRESH_TOKEN_SECRET
 
     jwt.sign({ email, _id }, tokenSecret || "", { expiresIn }, (error, token) => {
       if (typeof token === "string") resolve({ isValid: true, token })
@@ -34,7 +34,7 @@ export const createJwtTokenHandler = async ({
 interface verifyJwtTokenHandlerArgument {
   req: Request
   token: string
-  tokenType: "refreshToken" | "authToken"
+  tokenType: "refreshToken" | "accessToken"
 }
 
 interface verifyJwtTokenHandlerReturnType {
@@ -48,7 +48,7 @@ export const verifyJwtTokenHandler = ({
 }: verifyJwtTokenHandlerArgument): Promise<verifyJwtTokenHandlerReturnType> => {
   return new Promise((resolve, reject) => {
     const tokenSecret =
-      tokenType == "authToken" ? process.env.JWT_AUTH_TOKEN_SECRET : process.env.JWT_REFRESH_TOKEN_SECRET
+      tokenType == "accessToken" ? process.env.JWT_AUTH_TOKEN_SECRET : process.env.JWT_REFRESH_TOKEN_SECRET
 
     jwt.verify(token, tokenSecret || "", (err, decoded) => {
       if (!err && decoded && typeof decoded !== "string") {

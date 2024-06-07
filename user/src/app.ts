@@ -7,7 +7,7 @@ import "express-async-errors";
 const app = express();
 app.use(bodyParser());
 app.use(bodyParser.json());
-
+ 
 app.use("/", userRoutes());
 app.use(ErrorHandler);
 export { app };

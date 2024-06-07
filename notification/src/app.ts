@@ -9,7 +9,7 @@ const app = express();
 app.use(bodyParser());
 app.use(bodyParser.json());
 // app.use(express.json())
-
+ 
 
 app.use(ErrorHandler);
 export { app };

@@ -4,7 +4,7 @@ export const userRepository: IUserRepository = {
   signUp: async (userData: any) => {
     const user = new User(userData);
     await user.save();
-    return user;
+    return user.toJSON();
   },
 
 

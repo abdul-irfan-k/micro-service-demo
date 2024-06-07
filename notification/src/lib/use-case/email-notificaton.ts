@@ -1,3 +1,4 @@
+import { nodeMailerEmail, nodeMailerEmailPassword } from "@lib/constant/constant";
 import { EmailService } from "@lib/intrastructure/email-service";
 import { TemplateRender } from "@lib/intrastructure/template-renderer";
 
@@ -12,7 +13,6 @@ export class SendEmailNotificationUseCase {
       templateName,
       templateData
     );
-
     await this.emailService.send({
       to: receiverDetails.email,
       html: renderedTemplate,

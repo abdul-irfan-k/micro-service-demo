@@ -2,12 +2,10 @@ import { app } from "./app";
 import dotenv from "dotenv";
 import { natsWrapper } from "./nats-wrapper";
 import { userCreatedListener } from "@events/listener/user/account-created";
-import { nodeMailerEmail, nodeMailerEmailPassword } from "@lib/constant/constant";
 dotenv.config();
 
 const start = async () => {
   try {
-
     await natsWrapper.connectToNats(
       process.env.NATS_CLUSTER_ID!,
       process.env.NATS_CLIENT_ID!,
@@ -28,11 +26,12 @@ const start = async () => {
       natsWrapper.client.close();
     });
 
-    const test = new userCreatedListener(natsWrapper.client)
+    new userCreatedListener(natsWrapper.client).listen();
     const port = process.env.PORT || 8000;
     app.listen(port, () => {
       console.log(`listening port:${port}`);
     });
+  
   } catch (error) {
     console.log("error ", error);
   }
