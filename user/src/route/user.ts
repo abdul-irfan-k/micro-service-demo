@@ -1,16 +1,43 @@
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 import * as controller from "../lib/controller";
+import { isUserAuthenticated } from "@/lib/middleware/user-login-validator";
+import {
+  createUserValidator,
+  getUserValidator,
+  updateUserValidator,
+} from "@/lib/validator/user-validator";
 
-export const userRoutes = () => {
-  const router = express.Router();
+const router = express.Router();
 
-  router.get("/", (req, res) => res.send("hll"));
-  router.get("/:id", controller.getUser);
-  router.post("/", controller.postUser);
-  router.put("/", controller.putUser);
+router.get(
+  "/:id",
+  isUserAuthenticated,
+  getUserValidator,
+  (req:Request, res:Response,next:NextFunction) => controller.getUser.processRequest(req, res,next)
+);
+router.post(
+  "/",
+  isUserAuthenticated,
+  createUserValidator,
+  controller.postUser.processRequest
+);
 
-  router.get("/seating-preference/:id", controller.getSeatingPreference);
-  router.post("/seating-preference", controller.postSeatingPreference);
-  router.put("/seating-preference", controller.putSeatingPreference);
-  return router;
-};
+router.put("/:id", updateUserValidator, controller.putUser.processRequest);
+
+router.get(
+  "/seating-preference/:id",
+  isUserAuthenticated,
+  controller.getSeatingPreference
+);
+router.post(
+  "/seating-preference",
+  isUserAuthenticated,
+  controller.postSeatingPreference
+);
+router.put(
+  "/seating-preference",
+  isUserAuthenticated,
+  controller.putSeatingPreference
+);
+
+export default router;

@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2016",
+    "target": "ES2015",
     "module": "CommonJS",
     "strict": true,
     "esModuleInterop": true,
@@ -8,9 +8,29 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@/*":["src/*"]
+      "@events/*": [
+        "src/events/*"
+      ],
+      "@lib/*": [
+        "src/lib/*"
+      ],
+      "@route/*": [
+        "src/route/*"
+      ],
+      "@/*": [
+        "src/*"
+      ]
     },
     "outDir": "./dist",
+    "typeRoots": [
+      "src/types",
+      "./node_modules/@types"
+    ],
+    "types": [
+      "express.d.ts"
+    ]
   },
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*"
+  ]
 }

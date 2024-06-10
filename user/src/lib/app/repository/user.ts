@@ -1,4 +1,4 @@
-import { IUserBasicDetail } from "../../lib/entities/";
+import { IUserBasicDetail } from "../../entities";
 import { UserModel, IUserModel } from "../database/schema";
 
 export const userRepository: IUserRepository = {
@@ -6,14 +6,16 @@ export const userRepository: IUserRepository = {
   findOne: async (_id: string) => {
     const user = await UserModel.findOne(
       { _id },
-       { _id: 1, name: 1, email: 1 } 
+      { _id: 1, name: 1, email: 1 }
     );
     return user;
   },
-//@ts-ignore
+  //@ts-ignore
   update: async (_id: string, data: any) => {
-    const user = await UserModel.findOneAndUpdate({ _id }, data, {new:true,projection:{_id:1,name:1,email:1,}});
-   console.log("update user details",user)
+    const user = await UserModel.findOneAndUpdate({ _id }, data, {
+      new: true,
+      projection: { _password: 0 },
+    });
     return user;
   },
 

@@ -1,4 +1,4 @@
-import { IUserRepository } from "../../../app/repository";
+import { IUserRepository } from "../../app/repository";
 import { IUser } from "../../entities";
 import { IUpdateUserUseCase, IUpdateUserUseCaseArgs } from "../interface";
 

@@ -29,7 +29,7 @@ export class UpdatePasswordWithTokenUseCase
       password: newPassword,
     });
     if (userDetails == null)
-      throw new BadRequestError({ code: 400, message: "user not found" });
+      return {isUpdated:false}
 
     return { isUpdated: true };
   }

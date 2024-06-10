@@ -1,9 +1,8 @@
 import { connectDB } from "./config/db";
-import { PaymentCompletedListener } from "./events/listeners/payment";
-import { userCreatedListener } from "./events/listeners/user/user-created";
 import { natsWrapper } from "./nats-wrapper";
 import dotenv from "dotenv";
 import { app } from "./app";
+import { userCreatedListener } from "@events/listeners/user/user-created";
 dotenv.config();
 
 const start = async () => {
@@ -29,17 +28,14 @@ const start = async () => {
       natsWrapper.client.close();
     });
 
+    new userCreatedListener(natsWrapper.client).listen();
     
-   const test = new userCreatedListener(natsWrapper.client).listen()
-    // new PaymentCompletedListener(natsWrapper.client).listen();
-
     const port = process.env.PORT || 8000;
     app.listen(port, () => {
-      console.log(`listening on port:${port}`);
+      console.log(`listening  port:${port}`);
     });
   } catch (error) {
     console.log("error ", error);
   }
 };
 start();
-  

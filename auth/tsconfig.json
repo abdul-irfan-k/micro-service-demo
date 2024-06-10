@@ -25,6 +25,13 @@
       ],
     },
     "outDir": "./dist",
+    "typeRoots": [
+      "src/types",
+      "./node_modules/@types"
+    ],
+    "types": [
+      "express.d.ts"
+    ]
   },
   "include": [
     "src/**/*"

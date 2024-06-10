@@ -1,4 +1,4 @@
-import { IUserRepository } from "../../../app/repository";
+import { IUserRepository } from "../../app/repository";
 
 export interface InputBoundaryUseCase {
   (repository: any): {

@@ -1,2 +1,23 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Subject = void 0;
+var Subject;
+(function (Subject) {
+    Subject["paymentComleted"] = "payment:completed";
+    Subject["paymentIncomleted"] = "payment:incompleted";
+    Subject["paymentProcessing"] = "payment:processing";
+    Subject["userCreated"] = "user:created";
+    Subject["userUpdated"] = "user:updated";
+    Subject["userRemoved"] = "user:removed";
+    Subject["adminCreated"] = "admin:created";
+    Subject["adminUpdated"] = "admin:updated";
+    Subject["busAdded"] = "bus:added";
+    Subject["busUpdated"] = "bus:updated";
+    Subject["busRemoved"] = "bus:removed";
+    Subject["routeAdded"] = "route:added";
+    Subject["routeUpdated"] = "route:updated";
+    Subject["routeRemoved"] = "route:removed";
+    Subject["scheduleAdded"] = "schedule:added";
+    Subject["scheduleUpdated"] = "schedule:updated";
+    Subject["scheduleRemoved"] = "schedule:removed";
+})(Subject || (exports.Subject = Subject = {}));

@@ -1,4 +1,4 @@
-import { ISeatingPreference } from "../../lib/entities";
+import { ISeatingPreference } from "../../entities";
 import {
   SeatingPreferenceModel,
   ISeatingPreferenceModel,

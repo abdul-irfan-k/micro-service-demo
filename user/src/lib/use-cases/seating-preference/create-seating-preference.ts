@@ -1,4 +1,4 @@
-import { ISeatingPreferenceRepository } from "../../../app/repository";
+import { ISeatingPreferenceRepository } from "../../app/repository";
 import { ISeatingPreference } from "../../entities";
 import { BadRequestError } from "../../util/bad-request-error";
 import {

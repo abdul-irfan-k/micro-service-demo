@@ -8,10 +8,10 @@ export const userRepository: IUserRepository = {
   },
 
   getUser: async (userData: any) => {
-    const user = await User.findOne({ email: userData.email });
+    const user = await User.findOne({ ...userData });
     return user;
   },
-  updateUser: async (userId,data) => {
+  updateUser: async (userId, data) => {
     return await User.findOneAndUpdate({ userId }, data);
   },
 };
@@ -19,5 +19,5 @@ export const userRepository: IUserRepository = {
 export interface IUserRepository {
   signUp: (userData: any) => Promise<IUserModel>;
   getUser: (data: any) => Promise<IUserModel | null>;
-  updateUser:(userId: string, data: any) => Promise<IUserModel | null>
+  updateUser: (userId: string, data: any) => Promise<IUserModel | null>;
 }

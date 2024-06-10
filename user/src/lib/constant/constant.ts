@@ -1,0 +1,1 @@
+export const accessTokenSecret = process.env.USER_ACCESS_TOKEN_SECRET

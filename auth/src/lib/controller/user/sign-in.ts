@@ -22,7 +22,7 @@ export const makeSignInController = ({ signInUseCase, getUserUseCase }) => {
     const { token: accessToken } = await createJwtTokenHandler({
       _id: userDetail._id,
       email: userDetail.email,
-      expiresIn: "7 days",
+      expiresIn: "1 days",
       tokenType: "accessToken",
       tokenScope: "user",
     });

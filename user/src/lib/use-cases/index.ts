@@ -1,7 +1,7 @@
 import {
   userRepository,
   seatingPreferenceRepository,
-} from "../../app/repository";
+} from ".././app/repository";
 import { CreateUserUseCaseCase } from "./user/create-user";
 import { GetUserUseCase } from "./user/get-user";
 import { UpdateUserUseCase } from "./user/update-user";
@@ -31,3 +31,4 @@ export {
   getSeatingPreferenceUseCase,
   updateSeatingPreferenceUseCase,
 };
+

@@ -1,7 +1,7 @@
 import { tokenEntity } from "@lib/entities";
 import { ITokenModel, TokenModel } from "../database/mongo";
 
-export const userRepository: ITokenRepository = {
+export const tokenRepository: ITokenRepository = {
   createToken: async (tokenData) => {
     const token = new TokenModel(tokenData);
     await token.save();
