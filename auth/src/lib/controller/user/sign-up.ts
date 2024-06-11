@@ -4,24 +4,28 @@ import { BadRequestError } from "../../util/bad-request-error";
 import { validationResult } from "express-validator";
 import { natsWrapper } from "../../../nats-wrapper";
 import { userCreatedPublisher } from "../../../event/publisher/user-created";
+import { IGetUserUseCase, ISignUpUseCase } from "@lib/use-case/interface/user";
 
-//@ts-ignore
-export const makeSignUpController = ({ signUpUseCase, getUserUseCase }) => {
-  return async (req: Request, res: Response, next: NextFunction) => {
+export class SignUpController {
+  constructor(
+    private signUpUseCase: ISignUpUseCase,
+    private getUserUseCase: IGetUserUseCase
+  ) {}
+  async processRequest(req: Request, res: Response, next: NextFunction) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       throw new BadRequestError({ code: 400, validatorError: errors.array() });
     }
     const { name, email, password, profileImageUrl } = req.body;
 
-    const oldUser = await getUserUseCase({ email });
+    const oldUser = await this.getUserUseCase.execute({ email });
 
     if (oldUser != null)
       throw new BadRequestError({
         message: "email already have an account",
         code: 403,
       });
-    const userDetails = await signUpUseCase({
+    const userDetails = await this.signUpUseCase.execute({
       name,
       email,
       password,
@@ -37,14 +41,14 @@ export const makeSignUpController = ({ signUpUseCase, getUserUseCase }) => {
       email: userDetails.email,
       expiresIn: "7 days",
       tokenType: "accessToken",
-      tokenScope:"user"
+      tokenScope: "user",
     });
     const { token: refreshToken } = await createJwtTokenHandler({
       _id: userDetails._id,
       email: userDetails.email,
       expiresIn: "7 days",
       tokenType: "refreshToken",
-      tokenScope:"user"
+      tokenScope: "user",
     });
     const expires = new Date(Date.now() + 1000 * 60 * 60 * 24 * 7);
     res.cookie("accessToken", accessToken, {
@@ -55,6 +59,6 @@ export const makeSignUpController = ({ signUpUseCase, getUserUseCase }) => {
       httpOnly: true,
       expires,
     });
-    return res.json({ isLogedIn: true });
-  };
-};
+    return res.json(userDetails);
+  }
+}

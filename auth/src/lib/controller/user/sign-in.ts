@@ -2,23 +2,28 @@ import { NextFunction, Request, Response } from "express";
 import { BadRequestError } from "../../util/bad-request-error";
 import { createJwtTokenHandler } from "../../util/jsonwebtoken";
 import { validationResult } from "express-validator";
-import { error } from "console";
-//@ts-ignore
-export const makeSignInController = ({ signInUseCase, getUserUseCase }) => {
-  return async (req: Request, res: Response, next: NextFunction) => {
+import { IGetUserUseCase, ISignInUseCase } from "@lib/use-case/interface/user";
+
+export class SignInController {
+  constructor(
+    private signInUseCase: ISignInUseCase,
+    private getUserUseCase: IGetUserUseCase
+  ) {}
+  async processRequest(req: Request, res: Response, next: NextFunction) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       throw new BadRequestError({ code: 400, validatorError: errors.array() });
     }
 
     const { email, password } = req.body;
-    const userDetail = await getUserUseCase({ email });
+    console.log("get user use case",this.getUserUseCase)
+    const userDetail = await this.getUserUseCase.execute({ email });
     if (userDetail == null)
       throw new BadRequestError({ code: 400, message: "user not found" });
-    const { isCorrectPassword } = await signInUseCase({ email, password });
-    if (!isCorrectPassword)
+    const { isValidUser } = await this.signInUseCase.execute({ email, password });
+    if (!isValidUser)
       throw new BadRequestError({ code: 400, message: "invalid password" });
-
+``
     const { token: accessToken } = await createJwtTokenHandler({
       _id: userDetail._id,
       email: userDetail.email,
@@ -49,5 +54,5 @@ export const makeSignInController = ({ signInUseCase, getUserUseCase }) => {
       email: userDetail.email,
       _id: userDetail._id,
     });
-  };
-};
+  }
+}

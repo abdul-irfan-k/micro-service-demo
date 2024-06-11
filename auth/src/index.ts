@@ -6,8 +6,7 @@ dotenv.config();
 
 const start = async () => {
   try {
-    await connectDB(); 
-
+    await connectDB();
     await natsWrapper.connectToNats(
       process.env.NATS_CLUSTER_ID!,
       process.env.NATS_CLIENT_ID!,

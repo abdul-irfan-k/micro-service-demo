@@ -25,5 +25,6 @@ export const ErrorHandler = (
     if(validationError)return res.status(400).json({validationError})
     return res.status(statusCode).send({ message });
   }
+  console.log(err)
   return res.status(500).send({ erros: [{ message: "Something went wrong" }] });
 };

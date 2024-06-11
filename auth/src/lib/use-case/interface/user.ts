@@ -1,13 +1,14 @@
-import { tokenEntity } from "@lib/entities";
+import { tokenEntity, userEntity } from "@lib/entities";
 
 export interface IForgotPasswordUseCaseArgs {
   email: string;
+  userId: string;
 }
 
 export interface IUpdatePasswordWithTokenUseCaseArgs {
   email: string;
   _id: string;
-  password: string;
+  newPassword: string;
   token: string;
 }
 
@@ -18,14 +19,39 @@ export interface IUpdatePwdWithOldPwdUseCaseArgs {
   newPassword: string;
   newComfirmPassword: string;
 }
+export type IGetUserUseCaseArgs = RequireAtLeastOne<{
+  email: string;
+  _id: string;
+}>;
+
+export interface ISignInUserUseCaseArgs {
+  email: string;
+  password: string;
+}
+export type ISignUpUserUseCaseArgs = Omit<userEntity, "_id"> & {
+  _id?: string;
+};
+
+export interface IGetUserUseCase {
+  execute(args: IGetUserUseCaseArgs): Promise<userEntity | null>;
+}
+
+export interface ISignInUseCase {
+  execute(args: ISignInUserUseCaseArgs): Promise<{ isValidUser: boolean }>;
+}
+
+export interface ISignUpUseCase {
+  execute(args: ISignUpUserUseCaseArgs): Promise<userEntity>;
+}
+
 export interface IForgotPasswordUseCase {
-  execute(args: IForgotPasswordUseCaseArgs) : Promise<tokenEntity>;
+  execute(args: IForgotPasswordUseCaseArgs): Promise<tokenEntity>;
 }
 
 export interface IUpdatePasswordWithTokenUseCase {
   execute(
     args: IUpdatePasswordWithTokenUseCaseArgs
-  ):Promise<{ isUpdated: boolean }>;
+  ): Promise<{ isUpdated: boolean }>;
 }
 
 export interface IUpdatePwdWithOldPwdUseCase {
@@ -33,3 +59,8 @@ export interface IUpdatePwdWithOldPwdUseCase {
     args: IUpdatePwdWithOldPwdUseCaseArgs
   ): Promise<{ isUpdated: boolean }>;
 }
+
+type RequireAtLeastOne<T> = {
+  [K in keyof T]-?: Required<Pick<T, K>> &
+    Partial<Pick<T, Exclude<keyof T, K>>>;
+}[keyof T];

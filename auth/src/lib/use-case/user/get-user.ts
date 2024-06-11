@@ -1,12 +1,11 @@
-import { IUserRepository } from "../../app/repository/user";
+import { IUserRepository } from "@lib/app/repository";
+import { IGetUserUseCase, IGetUserUseCaseArgs } from "../interface/user";
+import { userEntity } from "@lib/entities";
 
-export const makeGetUserUseCase = ({
-  repository,
-}: {
-  repository: IUserRepository;
-}) => {
-  return async ({ email }: any) => {
-    console.log("email",email)
-    return await repository.getUser({ email });
-  };
-};
+export class GetUserUseCase implements IGetUserUseCase {
+  constructor(private userRepository: IUserRepository) {}
+  async execute(args: IGetUserUseCaseArgs): Promise<userEntity | null> {
+    const userDetails = await this.userRepository.getUser(args);
+    return userDetails;
+  }
+}

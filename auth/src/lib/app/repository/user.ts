@@ -1,3 +1,4 @@
+import { userEntity } from "@lib/entities";
 import { User, IUserModel } from "../database/mongo";
 
 export const userRepository: IUserRepository = {
@@ -18,6 +19,6 @@ export const userRepository: IUserRepository = {
 
 export interface IUserRepository {
   signUp: (userData: any) => Promise<IUserModel>;
-  getUser: (data: any) => Promise<IUserModel | null>;
+  getUser: (data: any) => Promise<IUserModel  | null>;
   updateUser: (userId: string, data: any) => Promise<IUserModel | null>;
 }

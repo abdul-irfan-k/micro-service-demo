@@ -16,7 +16,7 @@ export class UpdatePasswordWithTokenUseCase
   async execute(
     args: IUpdatePasswordWithTokenUseCaseArgs
   ): Promise<{ isUpdated: boolean }> {
-    const { _id, token, password: newPassword } = args;
+    const { _id, token, newPassword } = args;
     const tokenDetails = await this.tokenRepository.getTokenByUserId(_id);
     if (tokenDetails == null)
       throw new BadRequestError({ code: 400, message: "token not found" });

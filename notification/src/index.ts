@@ -2,6 +2,8 @@ import { app } from "./app";
 import dotenv from "dotenv";
 import { natsWrapper } from "./nats-wrapper";
 import { userCreatedListener } from "@events/listener/user/account-created";
+import { PasswordResetRequestListener } from "@events/listener/user/forgot-password";
+import { PasswordResetSuccessListener } from "@events/listener/user/password-reset-success";
 dotenv.config();
 
 const start = async () => {
@@ -27,11 +29,13 @@ const start = async () => {
     });
 
     new userCreatedListener(natsWrapper.client).listen();
+    new PasswordResetRequestListener(natsWrapper.client).listen();
+    new PasswordResetSuccessListener(natsWrapper.client).listen()
+
     const port = process.env.PORT || 8000;
     app.listen(port, () => {
       console.log(`listening port:${port}`);
     });
-  
   } catch (error) {
     console.log("error ", error);
   }
