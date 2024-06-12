@@ -40,15 +40,16 @@ interface IrouteSchema {
 }
 
 interface placeDetails {
-  placeName: string;
-  coordinate: coordinates;
-  distanceFromStart?: string;
+  placeName:string
+  coordinate:coordinates
+  distanceFromStart?:string
 }
 
 interface coordinates {
-  lat: string;
-  lng: string;
+  lat: number;
+  lng: number;
 }
+
 
 export interface ITravellRouteModel extends IrouteSchema {}
 export const TravellRouteModel = mongoose.model<ITravellRouteModel>(

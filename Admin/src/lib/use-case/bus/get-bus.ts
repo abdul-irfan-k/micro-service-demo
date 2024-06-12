@@ -1,4 +1,4 @@
-import { IbusRepository } from "../../../app/repository";
+import { IbusRepository } from "@lib/app/repository";
 import { busEntity } from "../../entities";
 import {
   IGetBusUseCase,

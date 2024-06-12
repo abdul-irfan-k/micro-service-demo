@@ -1,4 +1,4 @@
-import { IscheduleRepository } from "../../../app/repository";
+import { IscheduleRepository } from "@lib/app/repository";
 import { scheduleEntity } from "../../entities";
 import {
   ICreateScheduleUseCase,

@@ -1,23 +1,21 @@
 import express from "express";
 import * as busVaildator from "../lib/validators/bus";
 import { busController } from "../lib/controller";
+import { makeExpressCallBack } from "../lib/middleware/express-callback";
 
-export const busRoute = () => {
-  const router = express.Router();
+const router = express.Router();
 
-  // router.get("/buses");
-  router.get(
-    "/buses/:id",
-    busVaildator.getBusValidator,
-    busController.getBus.processRequest
-  );
+router.get(
+  "/buses/:id",
+  busVaildator.getBusValidator,
+  makeExpressCallBack(busController.getBus)
+);
 
-  router.post(
-    "/buses",
-    busVaildator.createBusValidator,
-    busController.getBus.processRequest
-  );
-  router.put("/buses/:id", busVaildator.updateBusValidator);
+router.post(
+  "/buses",
+  busVaildator.createBusValidator,
+  makeExpressCallBack(busController.getBus)
+);
+router.put("/buses/:id", busVaildator.updateBusValidator);
 
-  return router;
-};
+export default router;

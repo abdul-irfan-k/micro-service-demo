@@ -1,7 +1,7 @@
 import nats, { Stan } from "node-nats-streaming";
 
 class NatsWrapper {
-    private _client?: Stan;
+  private _client?: Stan;
 
   get client() {
     if (!this._client) {
@@ -15,7 +15,7 @@ class NatsWrapper {
 
     return new Promise<void>((resolve, reject) => {
       this.client.on("connect", () => {
-        console.log(`DUNK SERVICE IS CONNECTED TO NATS STREAMING SERVER`);
+        console.log(`ADMIN SERVICE IS CONNECTED TO NATS STREAMING SERVER`);
         resolve();
       });
       this.client.on("error", (err) => {
@@ -24,6 +24,5 @@ class NatsWrapper {
     });
   }
 }
-
 
 export const natsWrapper = new NatsWrapper();

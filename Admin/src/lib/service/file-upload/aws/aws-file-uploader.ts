@@ -1,8 +1,8 @@
 import { File, FileUpload, UploadedFile } from "../interface/file-upload";
 import { S3 } from "aws-sdk";
 import { v4 as uuid } from "uuid";
-import { BadRequestError } from "../../../util/bad-request-error.js";
 import fs from "fs";
+import { BadRequestError } from "@lib/util/bad-request-error";
 
 const s3Config = {
   bucketName: process.env.AWS_S3_BUCKET,

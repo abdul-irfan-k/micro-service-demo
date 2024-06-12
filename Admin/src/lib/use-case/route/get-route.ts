@@ -1,4 +1,4 @@
-import { IrouteRepository } from "../../../app/repository";
+import { IrouteRepository } from "@lib/app/repository";
 import { travellRouteEntity } from "../../entities";
 import {
   IGetTravellRouteUseCase,
