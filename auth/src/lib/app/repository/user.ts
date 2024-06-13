@@ -13,12 +13,15 @@ export const userRepository: IUserRepository = {
     return user;
   },
   updateUser: async (userId, data) => {
-    return await User.findOneAndUpdate({ userId }, data);
+    return await User.findOneAndUpdate({ _id: userId }, data, {
+      new: true,
+      projection: { password: 0 },
+    });
   },
 };
 
 export interface IUserRepository {
   signUp: (userData: any) => Promise<IUserModel>;
-  getUser: (data: any) => Promise<IUserModel  | null>;
+  getUser: (data: any) => Promise<IUserModel | null>;
   updateUser: (userId: string, data: any) => Promise<IUserModel | null>;
 }

@@ -1,8 +1,8 @@
-import { ITravellHistory } from "../../lib/entity/travell-history";
+import { ITravellHistory } from "../../entity/travell-history";
 import {
   TravellHistoryModel,
   ITravellHistoryModel,
-} from "../database/mongo/schema";
+} from "../database/schema";
 
 export const travellHistoryRepository: ItravellHistoryRepository = {
   create: async (data: ITravellHistory): Promise<ITravellHistoryModel> => {

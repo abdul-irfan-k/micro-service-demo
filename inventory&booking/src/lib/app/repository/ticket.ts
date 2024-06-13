@@ -2,7 +2,7 @@ import {
   BookingModel,
   IBookingModel,
   RouteModel,
-} from "../database/mongo/schema";
+} from "../database/schema";
 
 export const ticketRepository = {
 

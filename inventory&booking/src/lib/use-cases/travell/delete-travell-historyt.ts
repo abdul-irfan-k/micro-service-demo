@@ -1,4 +1,4 @@
-import { ItravellHistoryRepository } from "../../../app/repository";
+import { ItravellHistoryRepository } from "../../app/repository";
 
 export const makeDeleteTravellHistoryUseCase = ({
   travellHistoryRepository,

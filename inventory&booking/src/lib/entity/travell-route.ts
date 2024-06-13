@@ -3,15 +3,17 @@ export interface travellRouteEntity {
   routeName: string;
   originPlace: placeDetails;
   destinationPlace: placeDetails;
-  distance: number;
+  distance:number
   stops: Array<placeDetails>;
 }
 
 interface placeDetails {
-  _id: string;
   name: string;
-  location: {
-    type: "Point";
-    coordinates: number[];
-  };
+  coordinate: coordinates;
+  distanceFromStart?: string;
+}
+
+export interface coordinates {
+  lat: number;
+  lng: number;
 }

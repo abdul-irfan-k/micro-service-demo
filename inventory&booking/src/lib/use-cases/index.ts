@@ -3,7 +3,7 @@ import {
   bookingRespository,
   travellRepository,
   travellHistoryRepository
-} from "../../app/repository/";
+} from "../app/repository";
 import { makeGetBookedTicketUseCase } from "./ticket/get-booked-ticket";
 import { makeGetBookedTicketsUseCase } from "./ticket/get-booked-tickets";
 import { makeSeachBusesUseCase } from "./bus/seach-buses";

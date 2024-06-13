@@ -1,4 +1,4 @@
-import { scheduleEntity } from "@lib/entities";
+import { scheduleEntity } from "@lib/entity";
 import mongoose, { Document } from "mongoose";
 import { v4 as uuidv4 } from "uuid";
 

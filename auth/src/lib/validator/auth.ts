@@ -40,5 +40,5 @@ export const updatePasswordWithTokenValidator = [
     .custom(
       (newComfirmPassword, { req }) =>
         newComfirmPassword == req.body.newPassword
-    ),
+    )
 ];

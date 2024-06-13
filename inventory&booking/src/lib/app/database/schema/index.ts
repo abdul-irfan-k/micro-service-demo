@@ -1,19 +1,15 @@
 import BookingModel, { IBookingModel } from "./booking";
-import BusSeatingLayoutModel, {
-  ISeatingLayoutModel,
-} from "./bus-seating-layout";
-import BusModel, { IBusModel } from "./bus";
-import RouteModel, { IRouteModel } from "./route";
-import ScheduleModel, { IScheduleModel } from "./schedule";
+import { BusModel, IBusModel } from "./bus";
+import { TravellRouteModel, ITravellRouteModel } from "./travell-route";
+import { ScheduleModel, IScheduleModel } from "./schedule";
 import TravellorModel, { ITravellorModel } from "./travellor";
 import TravellModel, { ITravellModel } from "./travel";
 import TravellHistoryModel, { ITravellHistoryModel } from "./travell-history";
 
 export {
   BookingModel,
-  BusSeatingLayoutModel,
   BusModel,
-  RouteModel,
+  TravellRouteModel,
   ScheduleModel,
   TravellorModel,
   TravellModel,
@@ -23,9 +19,8 @@ export {
 export {
   IBookingModel,
   IBusModel,
-  IRouteModel,
+  ITravellRouteModel,
   IScheduleModel,
-  ISeatingLayoutModel,
   ITravellorModel,
   ITravellModel,
   ITravellHistoryModel,

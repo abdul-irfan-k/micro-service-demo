@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: micro-demo-admin-deploayment
+  name: micro-demo-admin-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: micro-demo-admin-deploayment
+      app: micro-demo-admin-deployment
   template:
     metadata:
       labels:
-        app: micro-demo-admin-deploayment
+        app: micro-demo-admin-deployment
     spec:
       containers:
-      - name: micro-demo-admin-deploayment
+      - name: micro-demo-admin-deployment
         imagePullPolicy: IfNotPresent
         image: micro-demo-admin
         env:
@@ -46,7 +46,7 @@ metadata:
   name: micro-demo-admin-service
 spec:
   selector:
-    app: micro-demo-admin-deploayment
+    app: micro-demo-admin-deployment
   ports:
   - protocol: TCP
     port: 8000

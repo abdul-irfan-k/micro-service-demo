@@ -15,7 +15,7 @@ export class UpdatePasswordWithOldPwdUseCase implements IUpdatePwdWithOldPwdUseC
     if (userDetails == null)
       throw new BadRequestError({ code: 400, message: "invalid user _id" });
 
-    const isValidOldPassword = userDetails.checkIsCorrectPassword(oldPassword);
+    const isValidOldPassword = await userDetails.checkIsCorrectPassword(oldPassword);
     if (!isValidOldPassword)
       throw new BadRequestError({ code: 400, message: "invalid old password" });
 
@@ -27,6 +27,7 @@ export class UpdatePasswordWithOldPwdUseCase implements IUpdatePwdWithOldPwdUseC
         code: 400,
         message: "user password update error",
       });
+    console.log("update user details",updatedUserDetails)
     return { isUpdated: true };
   }
 }

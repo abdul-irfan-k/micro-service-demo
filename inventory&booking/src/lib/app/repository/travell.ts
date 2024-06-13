@@ -1,5 +1,5 @@
-import { ITravellModel, TravellModel } from "../database/mongo/schema";
-import { ITravell } from "../../lib/entity";
+import { ITravellModel, TravellModel } from "../database/schema";
+import { ITravell } from "../../entity";
 
 export const travellRepository = {
   create: async (data: ITravell): Promise<ITravellModel> => {

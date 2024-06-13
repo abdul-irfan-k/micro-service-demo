@@ -14,7 +14,7 @@ export class ForgotPasswordUseCase implements IForgotPasswordUseCase {
   ) {}
   async execute(args: IForgotPasswordUseCaseArgs) {
     const { email, userId } = args;
-
+    await this.tokenRepository.removeToken(userId);
     const token = crypto.randomBytes(32).toString("hex");
     const tokenDetails = await this.tokenRepository.createToken({
       token,

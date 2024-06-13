@@ -1,5 +1,6 @@
 import { natsWrapper } from "@/nats-wrapper";
 import { forgotPasswordPublisher } from "@event/publisher/forgot-password";
+import { frontedUrl } from "@lib/constant/constant";
 import {
   IForgotPasswordUseCase,
   IGetUserUseCase,
@@ -30,11 +31,13 @@ export class PostForgotPassword {
       userId: userDetails._id,
     });
 
+    const resetLink = frontedUrl + `?token=${token}&_id=${userId}`;
     //@ts-ignore
     new forgotPasswordPublisher(natsWrapper.client).publish({
-      token,
+      resetLink,
       userId,
       email,
+      name: userDetails.name,
     });
     return res.status(200).json({ isSendedEmail: true });
   }

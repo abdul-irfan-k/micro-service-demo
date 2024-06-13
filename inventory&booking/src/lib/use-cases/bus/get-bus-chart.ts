@@ -1,14 +1,16 @@
-import { IbusRepository } from "../../../app/repository/bus";
+import { busEntity } from "@/lib/entity/bus";
+import {
+  IGetBusChartUseCase,
+  IGetBusUseCaseArgs,
+} from "../interface/bus-use-case";
+import { IbusRepository } from "@/lib/app/repository";
 
-export const makeGetBusChartUseCase = ({
-  busRepository,
-}: {
-  busRepository: IbusRepository;
-}) => {
-  return (busId: string) => {
-    const buschart = busRepository.getBusesAvailabeAndBookedSeatsChart({
-      busId,
-    });
-    return buschart
-  };
-};
+export class GetBusChartUseCase implements IGetBusChartUseCase {
+  constructor(private busRepository: IbusRepository) {}
+  execute(args: IGetBusUseCaseArgs): Promise<busEntity | null> {
+    const buschart =
+      this.busRepository.getBusesAvailabeAndBookedSeatsChart(args);
+    //@ts-ignore
+    return buschart;
+  }
+}

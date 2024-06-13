@@ -1,13 +1,13 @@
 import { NextFunction, Request, Response } from "express";
 import { BadRequestError } from "../util/bad-request-error";
 import jwt from "jsonwebtoken";
+import { userJWTAcessTokenSecret } from "@lib/constant/constant";
 
 export const isUserAuthenticated = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  try {
     const { accessToken, refreshToken } = req.cookies || {};
     if (!accessToken || !refreshToken)
       throw new BadRequestError({ code: 400, message: "token is required" });
@@ -15,7 +15,7 @@ export const isUserAuthenticated = async (
 
     if (accessToken && isCutomAuth) {
       //@ts-ignore
-      jwt.verify(accessToken, accessTokenSecret || "", (error, decoded) => {
+      jwt.verify(accessToken, userJWTAcessTokenSecret, (error, decoded) => {
         if (!error) {
           //@ts-ignore
           req.user = { _id: decoded._id, email: decoded.email };
@@ -26,8 +26,6 @@ export const isUserAuthenticated = async (
           message: "User access token expired",
         });
       });
-    } else throw new BadRequestError({ code: 400 });
-  } catch (error) {
-    throw new BadRequestError({ code: 400, message: "token expired" });
-  }
-};
+    } else throw new BadRequestError({ code: 400 ,message:"token required"});
+  } 
+  

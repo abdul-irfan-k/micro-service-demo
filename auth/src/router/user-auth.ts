@@ -1,14 +1,11 @@
 import express, { NextFunction, Request, Response } from "express";
-import authController from "../lib/controller";
+import * as authController from "../lib/controller";
 import * as authValidator from "../lib/validator/auth";
 import { isUserAuthenticated } from "@lib/middleware/user-login-validator";
+import { makeExpressCallBack } from "@lib/middleware/express-callback";
 
 const router = express.Router();
 
-//@ts-ignore
-const makeExpressCallBack =
-  (callback: any) => (req: Request, res: Response, next: NextFunction) =>
-    callback.processRequest(req, res, next);
 
 router.post(
   "/sign-in",
@@ -22,16 +19,19 @@ router.post(
 );
 
 router.post(
-  "/forgot-password-request",
- makeExpressCallBack( authController.postForgotPassword)
+  "/forgot-password",
+  authValidator.forgotPasswordValidator,
+  makeExpressCallBack(authController.postForgotPassword)
 );
 router.put(
-  "update-password-with-old-password",
+  "/update-password-with-old-password",
   isUserAuthenticated,
+  authValidator.updatePasswordWithOldPasswordValidator,
   makeExpressCallBack(authController.putPasswordWithOldPwd)
 );
 router.put(
-  "update-password-with-token",
+  "/update-password-with-token",
+  authValidator.updatePasswordWithTokenValidator,
   makeExpressCallBack(authController.putPasswordWithToken)
 );
 export default router;

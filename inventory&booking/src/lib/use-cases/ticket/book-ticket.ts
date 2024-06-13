@@ -2,7 +2,7 @@ import {
   IbookingRespository,
   ItravellRepository,
   IbusRepository,
-} from "../../../app/repository";
+} from "../../app/repository";
 
 export const makeBookTicketUseCase = ({
   bookingRespository,

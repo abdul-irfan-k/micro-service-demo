@@ -25,10 +25,10 @@ const putPasswordWithToken = new PutPasswordWithToken(
   authUseCases.updatePasswordWithTokenUseCase,
   authUseCases.getUserUseCase
 );
-export default Object.freeze({
+export {
   postSignIn,
   postSignUp,
   postForgotPassword,
   putPasswordWithOldPwd,
   putPasswordWithToken,
-});
+}

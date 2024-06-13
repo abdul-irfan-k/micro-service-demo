@@ -5,3 +5,12 @@ export default ({ getBookedTicketUseCase }) => {
     
   };
 };
+
+export class GetBookedTicket{
+  constructor(){
+
+  }
+  async processRequest(req: Request, res: Response, next: NextFunction){
+
+  }
+}

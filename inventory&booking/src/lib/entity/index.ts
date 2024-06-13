@@ -1,3 +1,3 @@
-export  *  from './route'
+export  *  from './travell-route'
 export * from './travell'
-
+export * from './schedule'

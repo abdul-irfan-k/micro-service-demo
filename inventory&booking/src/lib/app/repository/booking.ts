@@ -1,6 +1,6 @@
-import { BookingModel, IBookingModel } from "../database/mongo/schema";
+import { BookingModel, IBookingModel } from "../database/schema";
 
-export const bookingRespository:IbookingRespository = {
+export const bookingRespository: IbookingRespository = {
   getBookedUpComingTickets: async ({ userId }: { userId: string }) => {
     const tickets = await BookingModel.aggregate([
       {
@@ -68,15 +68,15 @@ export const bookingRespository:IbookingRespository = {
     ]);
     return ticket;
   },
-  create:async(data:any) :Promise<IBookingModel> => {
-    const ticket  = new BookingModel(data)
-    await ticket.save()
-    return ticket
-  }
+  create: async (data: any): Promise<IBookingModel> => {
+    const ticket = new BookingModel(data);
+    await ticket.save();
+    return ticket;
+  },
 };
 
 export interface IbookingRespository {
   getBookedUpComingTickets: ({ userId }: { userId: string }) => Promise<any[]>;
   getTicketDetail: ({ ticketId }: { ticketId: string }) => Promise<any[]>;
-  create: (data: any) => Promise<IBookingModel> 
+  create: (data: any) => Promise<IBookingModel | null>;
 }

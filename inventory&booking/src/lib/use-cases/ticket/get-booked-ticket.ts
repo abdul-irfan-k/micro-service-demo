@@ -1,4 +1,4 @@
-import { IbookingRespository } from "../../../app/repository/booking";
+import { IbookingRespository } from "../../app/repository/booking";
 
 export const makeGetBookedTicketUseCase = ({
   bookingRespository,

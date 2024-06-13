@@ -1,19 +1,16 @@
-import mongoose, { Document } from "mongoose";
+import mongoose from "mongoose";
 import { v4 as uuidv4 } from "uuid";
 
 const busSchema = new mongoose.Schema(
   {
-    _id: { type: String, default: uuidv4 },
+    _id: { type: String, default: uuidv4() },
     name: { type: String, required: true },
-    number: { type: Number, required: true },
-    routeId: { type: String, required: true },
-    scheduleId: { type: String, required: true },
-    travellorId: { type: String, required: true },
-    seatingLayoutId: { type: String, required: true },
+    number: { type: String, required: true },
+    scheduleId: { type: String },
+    travellorId: { type: String },
     type: { type: String, required: true }, // sleeper ac non-ac
     layoutImageSrc: { type: [String], default: [] },
-    seatingConfiguration: { type: String, required: true },
-    totalSeats: { type: Number, required: true },
+    seatingConfiguration: { type: String, required: true }, // 3*2 or  2*2
     leftSeatingArrangement: {
       seatsPerRow: { type: Number, required: true },
       totalRow: { type: Number, required: true },
@@ -35,10 +32,9 @@ const busSchema = new mongoose.Schema(
 interface IbusSchema {
   _id: string;
   name: string;
-  number: number;
-  routeId: string;
-  scheduleId: string;
-  travellorId: string;
+  number: string;
+  scheduleId?: string;
+  travellorId?: string;
   seatingLayoutId: string;
   layoutImageSrc: string[];
   seatingConfiguration: string;
@@ -65,5 +61,4 @@ interface IbusSchema {
     | undefined;
 }
 export interface IBusModel extends IbusSchema {}
-const BusModel = mongoose.model<IBusModel>("Bus", busSchema);
-export default BusModel;
+export const BusModel = mongoose.model<IBusModel>("Bus", busSchema);
