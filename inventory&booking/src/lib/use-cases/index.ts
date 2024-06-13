@@ -2,50 +2,66 @@ import {
   busRepository,
   bookingRespository,
   travellRepository,
-  travellHistoryRepository
+  travellHistoryRepository,
+  travellRouteRepository,
 } from "../app/repository";
-import { makeGetBookedTicketUseCase } from "./ticket/get-booked-ticket";
-import { makeGetBookedTicketsUseCase } from "./ticket/get-booked-tickets";
-import { makeSeachBusesUseCase } from "./bus/seach-buses";
-import { makeGetBusUseCase } from "./bus/get-bus";
-import { makeGetBusChartUseCase } from "./bus/get-bus-chart";
-import { makeBookTicketUseCase } from "./ticket/book-ticket";
-import { makeGetTravellHistoryUseCase } from "./travell/get-travell-history";
-import { makeDeleteAllTravellHistoryUseCase } from "./travell/delete-all-travell-history";
-import { makeDeleteTravellHistoryUseCase } from "./travell/delete-travell-historyt";
+import { GetBusUseCase } from "./bus/get-bus";
+import { GetBusChartUseCase } from "./bus/get-bus-chart";
+import { SearchBusesUseCase } from "./bus/seach-buses";
+import { CreateTravellRouteUseCase } from "./travell-route/create-travell-route";
+import { GetTravellRouteUseCase } from "./travell-route/get-travell-route";
+import { UpdateTravellRouteUseCase } from "./travell-route/update-travell-route";
 
-const searchBusesUseCase = makeSeachBusesUseCase({ busRepository });
-const getBusUseCase = makeGetBusUseCase({ busRepository });
-const getBusChartUseCase = makeGetBusChartUseCase({ busRepository });
+const searchBusesUseCase = new SearchBusesUseCase(busRepository);
+const getBusUseCase = new GetBusUseCase(busRepository);
+const getBusChartUseCase = new GetBusChartUseCase(busRepository);
 
-const getBookedTicketUseCase = makeGetBookedTicketUseCase({
-  bookingRespository,
-});
-const getBookedTicketsUseCase = makeGetBookedTicketsUseCase({
-  bookingRespository,
-});
-const bookTicketUseCase = makeBookTicketUseCase({
-  bookingRespository,
-  busRepository,
-  travellRepository,
-});
+export { searchBusesUseCase, getBusUseCase, getBusChartUseCase };
 
-const getTravellHistoryUseCase = makeGetTravellHistoryUseCase({ travellHistoryRepository });
-const deleteAllTravellHistoryUseCase = makeDeleteAllTravellHistoryUseCase({
-  travellHistoryRepository,
-});
-const deleteTravellHistoryUseCase = makeDeleteTravellHistoryUseCase({
-  travellHistoryRepository,
-});
+const getTravellRouteUseCase = new GetTravellRouteUseCase(
+  travellRouteRepository
+);
+const updateTravellRouteUseCase = new UpdateTravellRouteUseCase(
+  travellRouteRepository
+);
+const createTravellRouteUseCse = new CreateTravellRouteUseCase(
+  travellRouteRepository
+);
 
 export {
-  searchBusesUseCase,
-  getBookedTicketUseCase,
-  getBookedTicketsUseCase,
-  getBusUseCase,
-  getBusChartUseCase,
-  bookTicketUseCase,
-  getTravellHistoryUseCase,
-  deleteAllTravellHistoryUseCase,
-  deleteTravellHistoryUseCase,
+  getTravellRouteUseCase,
+  updateTravellRouteUseCase,
+  createTravellRouteUseCse,
 };
+// const getBookedTicketUseCase = new GetBookedTicketUseCase({
+//   bookingRespository,
+// });
+// const getBookedTicketsUseCase = makeGetBookedTicketsUseCase({
+//   bookingRespository,
+// });
+// const bookTicketUseCase = makeBookTicketUseCase({
+//   bookingRespository,
+//   busRepository,
+//   travellRepository,
+// });
+
+// const getTravellHistoryUseCase = makeGetTravellHistoryUseCase({
+//   travellHistoryRepository,
+// });
+// const deleteAllTravellHistoryUseCase = makeDeleteAllTravellHistoryUseCase({
+//   travellHistoryRepository,
+// });
+// const deleteTravellHistoryUseCase = makeDeleteTravellHistoryUseCase({
+//   travellHistoryRepository,
+// });
+
+//export  searchBusesUseCase,
+// getBookedTicketUseCase,
+// getBookedTicketsUseCase,
+// getBusUseCase,
+// getBusChartUseCase,
+// bookTicketUseCase,
+// getTravellHistoryUseCase,
+// deleteAllTravellHistoryUseCase,
+// deleteTravellHistoryUseCase,
+//{};

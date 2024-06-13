@@ -1,7 +1,7 @@
-import { coordinates, travellRouteEntity } from "@lib/entity";
+import { placeDetails, travellRouteEntity } from "@lib/entity";
 import { ITravellRouteModel, TravellRouteModel } from "../database/schema";
 import { RequireAtLeastOne } from "@lib/util/type-helper";
-export const routeRepository: ITravellRouteRepository = {
+export const travellRouteRepository: ITravellRouteRepository = {
   update: async (_id, data) => {
     const updatedRouteDetail = await TravellRouteModel.findOneAndUpdate(
       { _id },
@@ -22,7 +22,72 @@ export const routeRepository: ITravellRouteRepository = {
   },
   //@ts-ignore
   findOneByPlaces: async (args) => {
-    const routeDetails = await TravellRouteModel.aggregate([]);
+    const { destinationPlace, startPlace } = args;
+    const maxDistance = 2;
+    const routeDetails = await TravellRouteModel.aggregate([
+      {
+        $geoNear: {
+          near: {
+            type: "Point",
+            coordinates: [
+              startPlace.location.coordinates[0],
+              startPlace.location.coordinates[1],
+            ],
+          },
+          distanceField: "dist.calculated1",
+          maxDistance: maxDistance,
+          spherical: true,
+        },
+      },
+      {
+        $geoNear: {
+          near: {
+            type: "Point",
+            coordinates: [
+              destinationPlace.location.coordinates[0],
+              destinationPlace.location.coordinates[1],
+            ],
+          },
+          distanceField: "dist.calculated2",
+          maxDistance: maxDistance,
+          spherical: true,
+        },
+      },
+      {
+        $match: {
+          $and: [
+            {
+              "stops.location.coordinates": {
+                $near: {
+                  $geometry: {
+                    type: "Point",
+                    coordinates: [
+                      startPlace.location.coordinates[0],
+                      startPlace.location.coordinates[1],
+                    ],
+                  },
+                  $maxDistance: maxDistance,
+                },
+              },
+            },
+            {
+              "stops.location.coordinates": {
+                $near: {
+                  $geometry: {
+                    type: "Point",
+                    coordinates: [
+                      destinationPlace.location.coordinates[0],
+                      destinationPlace.location.coordinates[1],
+                    ],
+                  },
+                  $maxDistance: maxDistance,
+                },
+              },
+            },
+          ],
+        },
+      },
+    ]);
     //@ts-ignore
     return routeDetails;
   },
@@ -42,10 +107,10 @@ export interface ITravellRouteRepository {
   findOne: (
     args: RequireAtLeastOne<Pick<travellRouteEntity, "_id" | "routeName">>
   ) => Promise<ITravellRouteModel | null>;
-  findOneByPlaces: (
-    args: RequireAtLeastOne<{
-      startPlace: coordinates;
-      destinationPlace: coordinates;
-    }> & { maxDistance?: number; minDistance?: number }
-  ) => Promise<ITravellRouteModel | null>;
+  findOneByPlaces: (args: {
+    startPlace: placeDetails;
+    destinationPlace: placeDetails;
+    maxDistance?: number;
+    minDistance?: number;
+  }) => Promise<ITravellRouteModel | null>;
 }

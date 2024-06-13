@@ -8,7 +8,7 @@ export const ErrorHandler = (
   next: NextFunction
 ) => {
   if (err instanceof CustomError) {
-    const { errors, statusCode, stack, message } = err;
+    const { errors, statusCode, stack, message, validationError } = err;
     if (err.logging) {
       console.error(
         JSON.stringify(
@@ -22,7 +22,9 @@ export const ErrorHandler = (
         )
       );
     }
+    if(validationError)return res.status(400).json({validationError})
     return res.status(statusCode).send({ message });
   }
+  console.log(err)
   return res.status(500).send({ erros: [{ message: "Something went wrong" }] });
 };

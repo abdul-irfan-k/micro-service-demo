@@ -1,9 +1,14 @@
+import { IGetBusUseCase } from "@lib/use-cases/interface/bus-use-case";
+import { BadRequestError } from "@lib/util/bad-request-error";
 import { NextFunction, Request, Response } from "express";
+import { validationResult } from "express-validator";
 
-export default ({ searchBusesUseCase }) => {
-  return (req: Request, res: Response, next: NextFunction) => {
-    const tickets = searchBusesUseCase(req.body);
-    if (!tickets) return;
-    return res.json(tickets);
-  };
-};
+export class GetSearchBusesController {
+  constructor(private getBusUseCase: IGetBusUseCase) {}
+  async processRequest(req: Request, res: Response, next: NextFunction) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      throw new BadRequestError({ code: 400, validatorError: errors.array() });
+    }
+  }
+}

@@ -7,9 +7,27 @@ import { ITravellRouteRepository } from "@lib/app/repository/travell-route";
 
 export class GetTravellRouteUseCase implements IGetTravellRouteUseCase {
   constructor(private travellRouteRepository: ITravellRouteRepository) {}
-  execute(
+  async execute(
     args: IGetTravellRouteUseCaseArgs
   ): Promise<travellRouteEntity | null> {
-    throw new Error("Method not implemented.");
+    //@ts-ignore
+    const { _id, routeName, destinationPlace, startPlace } = args;
+    //@ts-ignore
+    const { maxDistance, minDistance } = args;
+
+    const isSearchWithPlace = _id != undefined || routeName != undefined;
+    if (isSearchWithPlace) {
+      const args = _id != undefined ? { _id } : { routeName };
+      const routeDetails = await this.travellRouteRepository.findOne(args);
+      return routeDetails;
+    } else {
+      const routeDetails = await this.travellRouteRepository.findOneByPlaces({
+        startPlace,
+        destinationPlace,
+        maxDistance,
+        minDistance,
+      });
+      return routeDetails;
+    }
   }
 }

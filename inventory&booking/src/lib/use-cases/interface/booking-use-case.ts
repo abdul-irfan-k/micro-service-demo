@@ -15,8 +15,8 @@ export type IGetTravellRouteUseCaseArgs =
   | {
       destinationPlace: string;
       startPlace: string;
-      maxDistance?:number
-      minDistance?:number
+      maxDistance?: number;
+      minDistance?: number;
     };
 
 export interface ICreateTravellRouteUseCase {

@@ -1,7 +1,12 @@
 import mongoose from "mongoose";
-import { v4 as uuidv4 } from "uuid"
+import { v4 as uuidv4 } from "uuid";
 
-
+const placeDetails = new mongoose.Schema(
+  {
+    stopId: { type: String, required: true },
+  },
+  { _id: false }
+);
 const bookingSchema = new mongoose.Schema(
   {
     _id: { type: String, default: uuidv4 },
@@ -20,8 +25,8 @@ const bookingSchema = new mongoose.Schema(
       },
     ],
     travellingDate: { type: Date, required: true },
-    departurePlace: { type: String, required: true },
-    destinationPlace: { type: String, required: true },
+    departurePlace: { type: placeDetails, required: true },
+    destinationPlace: { type: placeDetails, required: true },
     seat: {
       type: [
         {
@@ -39,7 +44,7 @@ const bookingSchema = new mongoose.Schema(
 );
 
 interface IBookingSchema {
-  _id: string
+  _id: string;
   userId: string;
   routeId: string;
   busId: string;
@@ -53,9 +58,13 @@ interface IBookingSchema {
     gender: string;
   }>;
   travellingDate: Date;
-  departurePlace: string;
-  destinationPlace: string;
-  seatDetail?: any;
+  departurePlace: { placeId: string };
+  destinationPlace: { placeId: string };
+  seatDetail?: Array<{
+    arrangement: string;
+    rowNumber: number;
+    position: string;
+  }>;
   coupon?: string;
   rewards?: string;
 }

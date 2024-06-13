@@ -1,7 +1,7 @@
 import { IbusRepository } from "../../app/repository/bus";
 import moment from "moment";
 
-export class SeaachBusesUseCase {
+export class SearchBusesUseCase {
   constructor(private busRepository: IbusRepository) {}
   async execute(query: any) {
     const { startingPlace, destinationPlace, travellDate, type } = query;
