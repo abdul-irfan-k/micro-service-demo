@@ -1,6 +1,7 @@
 import express from "express";
 import * as travellRouteVaildator from "../lib/validators/travell-routet";
 import { travellRouteController } from "../lib/controller";
+import { makeExpressCallBack } from "@lib/middleware/express-callback";
 
 const router = express.Router();
 
@@ -13,7 +14,7 @@ router.get(
 router.post(
   "/travell-routes",
   travellRouteVaildator.createTravellRouteValidator,
-  travellRouteController.getTravellRoute.processRequest
+  makeExpressCallBack(travellRouteController.postTravellRoute)
 );
 router.put(
   "/travell-routes/:id",

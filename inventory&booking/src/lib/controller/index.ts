@@ -4,6 +4,7 @@ import {
   // getBookedTicketsUseCase,
   getBusUseCase,
   getBusChartUseCase,
+  getTravellRouteUseCase,
   // bookTicketUseCase,
   // getTravellHistoryUseCase,
   // deleteAllTravellHistoryUseCase,
@@ -14,10 +15,18 @@ import { getBusChartController } from "./bus/get-bus-chart";
 import { GetSearchBusesController } from "./bus/get-search-buses";
 
 //@ts-ignore
-const getSearchBuses = new GetSearchBusesController(searchBusesUseCase);
+const getSearchBuses = new GetSearchBusesController(
+  getBusUseCase,
+  getTravellRouteUseCase
+);
 const getBus = new GetBusController(getBusUseCase);
 const getBusChart = new getBusChartController(getBusChartUseCase);
-export const busController = { getSearchBuses, getBus, getBusChart };
+
+export {
+  getSearchBuses,
+  getBus,
+  getBusChart,
+}
 // const getBookedTicket = makeGetBookedTicket({ getBookedTicketUseCase });
 // const getBookedTickets = makeGetBookedTickets({ getBookedTicketsUseCase });
 

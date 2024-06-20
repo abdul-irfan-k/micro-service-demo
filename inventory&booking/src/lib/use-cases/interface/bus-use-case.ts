@@ -11,6 +11,7 @@ export type ICreateBuseUseCaseArgs = Omit<busEntity, "_id"> & {
 export type IUpdateBusUseCaseArgs = Partial<Omit<busEntity, "_id">> &
   Pick<busEntity, "_id">;
 
+
 export interface IGetBusUseCase {
   execute(args: IGetBusUseCaseArgs): Promise<busEntity | null>;
 }
@@ -22,5 +23,8 @@ export interface IUpdateBusUseCase {
 }
 
 export interface IGetBusChartUseCase {
+  execute(args: IGetBusUseCaseArgs): Promise<busEntity | null>;
+}
+export interface ISearchBusesUseCase {
   execute(args: IGetBusUseCaseArgs): Promise<busEntity | null>;
 }

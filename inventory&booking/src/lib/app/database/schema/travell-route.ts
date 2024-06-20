@@ -1,5 +1,5 @@
 import { travellRouteEntity } from "@lib/entity";
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose from "mongoose";
 import { v4 as uuidv4 } from "uuid";
 
 const placeSchema = new mongoose.Schema({
@@ -7,10 +7,10 @@ const placeSchema = new mongoose.Schema({
   name: { type: String, required: true },
   location: {
     type: {
-      type: {
+      locationType: {
         type: String,
         enum: ["Point"],
-        required: true,
+        default: "Point",
       },
       coordinates: {
         type: [Number],

@@ -1,16 +1,18 @@
 import express from "express";
 import bodyParser from "body-parser";
+import cookieParser from 'cookie-parser'
 import "express-async-errors";
 
-import busRoute from "./route/bus";
-import scheduleRoute from "./route/schedule-route";
-import travellRouteRoute from "./route/travell-route";
+import busRoute from "@route/bus";
+import scheduleRoute from "@route/schedule-route";
+import travellRouteRoute from "@route/travell-route";
 import uploadRoute from "./route/upload-route";
 import { ErrorHandler } from "@lib/middleware/error-handler";
 
 const app = express();
 
 // app.use(express.json())
+app.use(cookieParser())
 app.use(bodyParser());
 app.use(bodyParser.json());
 // app.use(express.json())

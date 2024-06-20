@@ -1,11 +1,11 @@
 import { RequireAtLeastOne } from "@/lib/util/type-helper";
-import { BusModel, RouteModel, TravellModel } from "../database/schema";
+import { BusModel, TravellRouteModel, TravellModel } from "../database/schema";
 import { busEntity } from "@/lib/entity/bus";
 
 export const busRepository: IbusRepository = {
   searchAvailableBuses: async (query) => {
     const { destinationPlace, startingPlace, dayShortForm } = query;
-    const data = await RouteModel.aggregate([
+    const data = await TravellRouteModel.aggregate([
       {
         $match: {
           $and: [

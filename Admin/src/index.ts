@@ -32,7 +32,7 @@ const start = async () => {
       console.log(`listening on port:${port}`);
     });
   } catch (error) {
-    console.log("error ",error)
+    console.log("error ", error);
   }
 };
 start();

@@ -23,12 +23,13 @@ export const travellRouteRepository: ITravellRouteRepository = {
   //@ts-ignore
   findOneByPlaces: async (args) => {
     const { destinationPlace, startPlace } = args;
-    const maxDistance = 2;
+    console.log("desnation place",destinationPlace,startPlace)
+    const maxDistance = 5000;
     const routeDetails = await TravellRouteModel.aggregate([
       {
         $geoNear: {
           near: {
-            type: "Point",
+            type: "Point" ,
             coordinates: [
               startPlace.location.coordinates[0],
               startPlace.location.coordinates[1],
@@ -42,7 +43,7 @@ export const travellRouteRepository: ITravellRouteRepository = {
       {
         $geoNear: {
           near: {
-            type: "Point",
+            type: "Point" ,
             coordinates: [
               destinationPlace.location.coordinates[0],
               destinationPlace.location.coordinates[1],
@@ -60,7 +61,6 @@ export const travellRouteRepository: ITravellRouteRepository = {
               "stops.location.coordinates": {
                 $near: {
                   $geometry: {
-                    type: "Point",
                     coordinates: [
                       startPlace.location.coordinates[0],
                       startPlace.location.coordinates[1],
@@ -74,7 +74,6 @@ export const travellRouteRepository: ITravellRouteRepository = {
               "stops.location.coordinates": {
                 $near: {
                   $geometry: {
-                    type: "Point",
                     coordinates: [
                       destinationPlace.location.coordinates[0],
                       destinationPlace.location.coordinates[1],

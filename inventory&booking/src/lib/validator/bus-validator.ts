@@ -1,8 +1,8 @@
 import { body, param, query } from "express-validator";
 
 export const getSearchBusValidator = [
-  query("departurePlace").notEmpty().withMessage("departure place is required"),
-  query("destinationPlace")
+  body("startPlace").notEmpty().withMessage("departure place is required"),
+  body("destinationPlace")
     .notEmpty()
     .withMessage("destination place is required"),
 ];

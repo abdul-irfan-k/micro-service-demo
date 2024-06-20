@@ -6,7 +6,6 @@ import { makeExpressCallBack } from "@lib/middleware/express-callback";
 
 const router = express.Router();
 
-
 router.post(
   "/sign-in",
   authValidator.signInValidator,

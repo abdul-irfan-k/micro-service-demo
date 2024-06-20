@@ -2,6 +2,8 @@ import { app } from "./app";
 import dotenv from "dotenv";
 import { connectDB } from "./config/db";
 import { natsWrapper } from "./nats-wrapper";
+import { travellRouteAddedListener } from "@events/listener/travell-route/travell-route-created";
+import { travellRouteUpdatedListener } from "@events/listener/travell-route-update";
 dotenv.config();
 
 const start = async () => {
@@ -27,6 +29,8 @@ const start = async () => {
       natsWrapper.client.close();
     }); 
 
+    new travellRouteAddedListener(natsWrapper.client).listen()
+    new travellRouteUpdatedListener(natsWrapper.client).listen()
     const port = process.env.PORT || 8000;
     app.listen(port, () => {
       console.log(`listening port:${port}`);

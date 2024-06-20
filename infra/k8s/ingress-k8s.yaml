@@ -23,6 +23,20 @@ spec:
                 name: micro-demo-auth-service
                 port:
                   number: 8000
+          - path: /admin/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: micro-demo-admin-service
+                port:
+                  number: 8000
+          - path: /?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: micro-demo-inventory-booking-service
+                port:
+                  number: 8000
           # - path: /payment/
           #   pathType: Prefix
           #   backend:

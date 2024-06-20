@@ -15,7 +15,7 @@ import {
   scheduleAddedEvent,
   scheduleRemovedEvent,
   scheduleUpdatedEvent,
-} from "./inventory&booking";
+} from "./inventory-booking";
 
 import { Subject } from "../subjects/subjects";
 

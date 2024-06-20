@@ -13,7 +13,7 @@ export const routeRepository: IrouteRepository = {
   create: async (data) => {
     const newRouteDetails = new TravellRouteModel(data);
     await newRouteDetails.save();
-    return newRouteDetails;
+    return newRouteDetails.toJSON();
   },
   findOne: async (_id) => {
     const routeDetails = await TravellRouteModel.findOne({ _id });
