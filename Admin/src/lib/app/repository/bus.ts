@@ -6,13 +6,14 @@ export const busRepository: IbusRepository = {
       { _id: busId },
       data
     );
-    return updatedBusDetail;
+    if (updatedBusDetail == null) return updatedBusDetail;
+    else return updatedBusDetail?.toJSON();
   },
 
   create: async (data) => {
     const newBusDetails = new BusModel(data);
     await newBusDetails.save();
-    return newBusDetails;
+    return newBusDetails.toJSON();
   },
 
   findOne: async (id) => {

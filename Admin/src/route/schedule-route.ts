@@ -1,6 +1,7 @@
 import express from "express";
 import * as scheduleValidator from "../lib/validators/schedule";
 import { scheduleController } from "../lib/controller";
+import { makeExpressCallBack } from "@lib/middleware/express-callback";
 
 const router = express.Router();
 
@@ -10,9 +11,13 @@ const router = express.Router();
 router.post(
   "/schedules",
   scheduleValidator.createScheduleValidator,
-  scheduleController.postSchedule.processRequest
+  makeExpressCallBack(scheduleController.postSchedule)
 );
-//   router.put("/schedules/:id", scheduleValidator.update);
+router.put(
+  "/schedules/:id",
+  scheduleValidator.updateScheduleValidator,
+  makeExpressCallBack(scheduleController.putSchedule)
+);
 
 router.post("/schedules/:id/schedule");
 export default router;

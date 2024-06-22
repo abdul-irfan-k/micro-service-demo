@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { IUpdateScheduleUseCase } from "../../use-case/interface";
 import { BadRequestError } from "../../util/bad-request-error";
 import { validationResult } from "express-validator";
-import { busUpdatedPublisher } from "../../../events/publisher";
+import { scheduleUpdatedPublisher } from "../../../events/publisher";
 import { natsWrapper } from "../../../nats-wrapper";
 
 export default class PutScheduleController {
@@ -25,7 +25,7 @@ export default class PutScheduleController {
     });
     if (updateScheduleDetails != null) throw new BadRequestError({ code: 400 });
 
-    await new  busUpdatedPublisher(natsWrapper.client).publish({
+    await new  scheduleUpdatedPublisher(natsWrapper.client).publish({
       _id: scheduleId,
       ...body,
     });

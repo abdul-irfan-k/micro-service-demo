@@ -1,6 +1,7 @@
 export * from './booking'
 export * from './bus'
 // export * from './ticket'
-export * from './travell'
+export * from './booking-chart'
 export * from './travell-history'
 export * from './travell-route'
+export * from './schedule'

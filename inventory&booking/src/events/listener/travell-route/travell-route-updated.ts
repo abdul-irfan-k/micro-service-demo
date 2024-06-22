@@ -1,4 +1,4 @@
-import { createTravellRouteUseCse } from "@lib/use-cases";
+import { updateTravellRouteUseCase } from "@lib/use-cases";
 import { Event, Listener, Subject } from "micro-service-event";
 
 export class travellRouteUpdatedListener extends Listener<Subject.routeUpdated> {
@@ -7,7 +7,7 @@ export class travellRouteUpdatedListener extends Listener<Subject.routeUpdated> 
 
   //@ts-ignore
   async onMessage(data, message) {
-    await createTravellRouteUseCse.execute(data);
+    await updateTravellRouteUseCase.execute(data);
     message.ack();
   }
 }

@@ -23,67 +23,31 @@ export const travellRouteRepository: ITravellRouteRepository = {
   //@ts-ignore
   findOneByPlaces: async (args) => {
     const { destinationPlace, startPlace } = args;
-    console.log("desnation place",destinationPlace,startPlace)
+    console.log("desnation place", destinationPlace, startPlace);
     const maxDistance = 5000;
     const routeDetails = await TravellRouteModel.aggregate([
       {
-        $geoNear: {
-          near: {
-            type: "Point" ,
-            coordinates: [
-              startPlace.location.coordinates[0],
-              startPlace.location.coordinates[1],
-            ],
+        $match: {
+          "stops.location.coordinates": {
+            $geoWithin: {
+              $centerSphere: [
+                startPlace.location.coordinates,
+                maxDistance / 6378.1,
+              ], // Divide maxDistance by Earth's radius in kilometers (approx. 6378.1) for $centerSphere
+            },
           },
-          distanceField: "dist.calculated1",
-          maxDistance: maxDistance,
-          spherical: true,
-        },
-      },
-      {
-        $geoNear: {
-          near: {
-            type: "Point" ,
-            coordinates: [
-              destinationPlace.location.coordinates[0],
-              destinationPlace.location.coordinates[1],
-            ],
-          },
-          distanceField: "dist.calculated2",
-          maxDistance: maxDistance,
-          spherical: true,
         },
       },
       {
         $match: {
-          $and: [
-            {
-              "stops.location.coordinates": {
-                $near: {
-                  $geometry: {
-                    coordinates: [
-                      startPlace.location.coordinates[0],
-                      startPlace.location.coordinates[1],
-                    ],
-                  },
-                  $maxDistance: maxDistance,
-                },
-              },
+          "stops.location.coordinates": {
+            $geoWithin: {
+              $centerSphere: [
+                destinationPlace.location.coordinates,
+                maxDistance / 6378.1,
+              ],
             },
-            {
-              "stops.location.coordinates": {
-                $near: {
-                  $geometry: {
-                    coordinates: [
-                      destinationPlace.location.coordinates[0],
-                      destinationPlace.location.coordinates[1],
-                    ],
-                  },
-                  $maxDistance: maxDistance,
-                },
-              },
-            },
-          ],
+          },
         },
       },
     ]);

@@ -1,5 +1,5 @@
 import { BookingModel, IBookingModel } from "../database/schema";
-
+import {bookingEntity} from '@lib/entity'
 export const bookingRespository: IbookingRespository = {
   getBookedUpComingTickets: async ({ userId }: { userId: string }) => {
     const tickets = await BookingModel.aggregate([
@@ -68,15 +68,28 @@ export const bookingRespository: IbookingRespository = {
     ]);
     return ticket;
   },
-  create: async (data: any): Promise<IBookingModel> => {
+  create: async (data): Promise<IBookingModel> => {
     const ticket = new BookingModel(data);
     await ticket.save();
-    return ticket;
+    return ticket.toJSON();
   },
+  update: async(_id, data) => {
+    const updatedBookingDetails = await BookingModel.findOneAndUpdate(
+      { _id },
+      data,
+      { new: true }
+    );
+    return updatedBookingDetails
+  },
+  
 };
 
 export interface IbookingRespository {
   getBookedUpComingTickets: ({ userId }: { userId: string }) => Promise<any[]>;
   getTicketDetail: ({ ticketId }: { ticketId: string }) => Promise<any[]>;
   create: (data: any) => Promise<IBookingModel | null>;
+  update: (
+    bookingId: string,
+    data: Partial<Omit<bookingEntity, "_id">>
+  ) => Promise<bookingEntity | null>;
 }

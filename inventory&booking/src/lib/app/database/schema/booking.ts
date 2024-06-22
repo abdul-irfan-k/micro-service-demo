@@ -9,11 +9,9 @@ const placeDetails = new mongoose.Schema(
 );
 const bookingSchema = new mongoose.Schema(
   {
-    _id: { type: String, default: uuidv4 },
+    _id: { type: String, default: uuidv4() },
     userId: { type: String, required: true },
-    routeId: { type: String, required: true },
     busId: { type: String, required: true },
-    scheduleId: { type: String, required: true },
     price: { type: Number, required: true },
     status: { type: String },
     totalMembers: { type: Number, required: true },
@@ -46,9 +44,7 @@ const bookingSchema = new mongoose.Schema(
 interface IBookingSchema {
   _id: string;
   userId: string;
-  routeId: string;
   busId: string;
-  scheduleId: string;
   price: number;
   status?: string;
   totalMembers: number;

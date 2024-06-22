@@ -26,7 +26,7 @@ const getBus = new GetBusController({ getBusUseCase });
 const postBus = new PostBusController({ createBusUseCase });
 const putBus = new PutBusController({ updateBusUseCase });
 
-export const busController = { getBus, postBus, putBus };
+export const busController = Object.freeze({ getBus, postBus, putBus })
 
 const getSchedule = new GetScheduleController({ getScheduleUseCase });
 const postSchedule = new PostScheduleController({ createScheduleUseCase });

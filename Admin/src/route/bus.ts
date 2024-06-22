@@ -14,8 +14,12 @@ router.get(
 router.post(
   "/buses",
   busVaildator.createBusValidator,
-  makeExpressCallBack(busController.getBus)
+  makeExpressCallBack(busController.postBus)
 );
-router.put("/buses/:id", busVaildator.updateBusValidator);
+router.put(
+  "/buses/:id",
+  busVaildator.updateBusValidator,
+  makeExpressCallBack(busController.putBus)
+);
 
 export default router;

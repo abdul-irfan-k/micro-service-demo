@@ -76,6 +76,13 @@ export const busRepository: IbusRepository = {
     const busDetails = new BusModel(args);
     return await busDetails.save();
   },
+
+  update: async (_id, data) => {
+    const updatedBusDetails = await BusModel.findOneAndUpdate({ _id }, data, {
+      new: true,
+    });
+    return updatedBusDetails;
+  },
 };
 
 export interface IbusRepository {
@@ -92,5 +99,9 @@ export interface IbusRepository {
   ) => Promise<busEntity | null>;
   create: (
     busId: Omit<busEntity, "_id"> & { _id?: string }
+  ) => Promise<busEntity | null>;
+  update: (
+    busId: string,
+    data: Partial<Omit<busEntity, "_id">>
   ) => Promise<busEntity | null>;
 }

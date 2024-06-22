@@ -1,9 +1,9 @@
 import mongoose, { Document } from "mongoose";
-import { v4 as uuidv4 } from "uuid"
+import { v4 as uuidv4 } from "uuid";
 
-const travellSchema = new mongoose.Schema(
+const bookingChartSchema = new mongoose.Schema(
   {
-    _id:{type:String,default:uuidv4},
+    _id: { type: String, default: uuidv4() },
     busId: { type: String, required: true },
     totalBookedSeats: { type: Number, required: true },
     bookedSeats: {
@@ -23,8 +23,8 @@ const travellSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-interface ItravellorSchema {
-  _id:string
+interface IbookingChartSchema {
+  _id: string;
   busId: string;
   totalBookedSeats: number;
   bookedSeats: {
@@ -34,8 +34,11 @@ interface ItravellorSchema {
     position: string;
   }[];
   totalAvailabeSeats: number;
-  travellingDate: Date
+  travellingDate: Date;
 }
-export interface ITravellModel extends ItravellorSchema {}
-const TravellModel = mongoose.model<ITravellModel>("Travell", travellSchema);
-export default TravellModel;
+export interface IBookingChartModel extends IbookingChartSchema {}
+const BookingChartModel = mongoose.model<IBookingChartModel>(
+  "BookingChart",
+  bookingChartSchema
+);
+export default BookingChartModel;

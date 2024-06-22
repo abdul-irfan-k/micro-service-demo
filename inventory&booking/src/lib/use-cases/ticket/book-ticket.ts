@@ -1,53 +1,28 @@
+import { bookingEntity } from "@lib/entity";
 import {
   IbookingRespository,
   ItravellRepository,
   IbusRepository,
 } from "../../app/repository";
+import {
+  ICreateBookingUseCase,
+  ICreateBookingUseCaseArgs,
+} from "../interface/booking-use-case";
 
-export const makeBookTicketUseCase = ({
-  bookingRespository,
-  travellRepository,
-  busRepository,
-}: {
-  bookingRespository: IbookingRespository;
-  travellRepository: ItravellRepository;
-  busRepository: IbusRepository;
-}) => {
-  return async (data) => {
-    const {
-      routeId,
-      busId,
-      price,
-      seat,
-      totalMembers,
-      membersDetail,
-      appliedCoupon,
-      Schedule,
-      travellingDate,
-      departurePlace,
-      destinationPlace,
-      userId,
-    } = data;
+export class createBookingUseCase implements ICreateBookingUseCase {
+  constructor(
+    private bookingRespository: IbookingRespository,
+    private travellRepository: ItravellRepository,
+    private busRepository: IbusRepository
+  ) {}
 
-    const booking = await bookingRespository.create({
-      routeId,
-      busId,
-      price,
-      seat,
-      totalMembers,
-      membersDetail,
-      appliedCoupon,
-      Schedule,
-      travellingDate,
-      departurePlace,
-      destinationPlace,
-    });
+  async execute(args: ICreateBookingUseCaseArgs): Promise<bookingEntity | null> {
+    const booking = await this.bookingRespository.create(args);
+    if (booking == null) return null;
 
-    if (booking == null) return;
-
-    const travellChart = await travellRepository.findOneByBusIdAndDate(
-      busId,
-      travellingDate
+    const travellChart = await this.travellRepository.findOneByBusIdAndDate(
+      busId:args.busId,
+      travellingDate:args.travellingDate
     );
 
     if (travellChart == null) {
@@ -69,7 +44,8 @@ export const makeBookTicketUseCase = ({
     } else {
       const userTotalSeats = 1 + (totalMembers != undefined ? totalMembers : 0);
       const totalBookedSeats = travellChart.totalBookedSeats + userTotalSeats;
-      const totalAvailabeSeats = travellChart.totalAvailabeSeats - userTotalSeats;
+      const totalAvailabeSeats =
+        travellChart.totalAvailabeSeats - userTotalSeats;
       const bookedSeats = travellChart.bookedSeats;
 
       seat.forEach((seat) => {
@@ -81,10 +57,11 @@ export const makeBookTicketUseCase = ({
         });
       });
 
-      const updatedTravellChart = await travellRepository.update(
+      const updatedTravellChart = await this.travellRepository.update(
         travellChart._id,
         { totalBookedSeats, bookedSeats, totalAvailabeSeats }
       );
     }
-  };
-};
+    return booking
+  }
+}

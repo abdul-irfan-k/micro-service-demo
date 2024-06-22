@@ -1,17 +1,17 @@
-import { travellRouteEntity } from "@lib/entity";
+import { bookingEntity } from "@lib/entity";
 import { RequireAtLeastOne } from "@lib/util/type-helper";
 
-export type ICreateTravellRouteUseCaseArgs = Omit<travellRouteEntity, "_id"> & {
+export type ICreateBookingUseCaseArgs = Omit<bookingEntity, "_id"> & {
   _id?: string;
 };
 
-export type IUpdateTravellRouteUseCaseArgs = Partial<
-  Omit<travellRouteEntity, "_id">
+export type IUpdateBookingUseCaseArgs = Partial<
+  Omit<bookingEntity, "_id">
 > &
-  Pick<travellRouteEntity, "_id">;
+  Pick<bookingEntity, "_id">;
 
-export type IGetTravellRouteUseCaseArgs =
-  | RequireAtLeastOne<Pick<travellRouteEntity, "_id" | "routeName">>
+export type IGetBookingUseCaseArgs =
+  | RequireAtLeastOne<Pick<bookingEntity, "_id">>
   | {
       destinationPlace: string;
       startPlace: string;
@@ -19,20 +19,20 @@ export type IGetTravellRouteUseCaseArgs =
       minDistance?: number;
     };
 
-export interface ICreateTravellRouteUseCase {
+export interface ICreateBookingUseCase {
   execute(
-    args: ICreateTravellRouteUseCaseArgs
-  ): Promise<travellRouteEntity | null>;
+    args: ICreateBookingUseCaseArgs
+  ): Promise<bookingEntity | null>;
 }
 
-export interface IUpdateTravellRouteUseCase {
+export interface IUpdateBookingUseCase {
   execute(
-    args: IUpdateTravellRouteUseCaseArgs
-  ): Promise<travellRouteEntity | null>;
+    args: IUpdateBookingUseCaseArgs
+  ): Promise<bookingEntity | null>;
 }
 
-export interface IGetTravellRouteUseCase {
+export interface IGetBookingUseCase {
   execute(
-    args: IGetTravellRouteUseCaseArgs
-  ): Promise<travellRouteEntity | null>;
+    args: IGetBookingUseCaseArgs
+  ): Promise<bookingEntity | null>;
 }

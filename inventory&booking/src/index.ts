@@ -2,8 +2,14 @@ import { app } from "./app";
 import dotenv from "dotenv";
 import { connectDB } from "./config/db";
 import { natsWrapper } from "./nats-wrapper";
-import { travellRouteAddedListener } from "@events/listener/travell-route/travell-route-created";
-import { travellRouteUpdatedListener } from "@events/listener/travell-route-update";
+import {
+  busAddedListener,
+  busUpdatedListener,
+  scheduleCreatedListener,
+  scheduleUpdatedListener,
+  travellRouteAddedListener,
+  travellRouteUpdatedListener,
+} from "@events/listener";
 dotenv.config();
 
 const start = async () => {
@@ -27,10 +33,15 @@ const start = async () => {
     process.on("SIGTERM", () => {
       console.log("sigterm");
       natsWrapper.client.close();
-    }); 
+    });
 
-    new travellRouteAddedListener(natsWrapper.client).listen()
-    new travellRouteUpdatedListener(natsWrapper.client).listen()
+    new travellRouteAddedListener(natsWrapper.client).listen();
+    new travellRouteUpdatedListener(natsWrapper.client).listen();
+    new scheduleCreatedListener(natsWrapper.client).listen();
+    new scheduleUpdatedListener(natsWrapper.client).listen();
+    new busAddedListener(natsWrapper.client).listen()
+    new busUpdatedListener(natsWrapper.client).listen();
+
     const port = process.env.PORT || 8000;
     app.listen(port, () => {
       console.log(`listening port:${port}`);
@@ -39,4 +50,4 @@ const start = async () => {
     console.log("error ", error);
   }
 };
-start(); 
+start();
