@@ -10,14 +10,7 @@ export type IUpdateBookingUseCaseArgs = Partial<
 > &
   Pick<bookingEntity, "_id">;
 
-export type IGetBookingUseCaseArgs =
-  | RequireAtLeastOne<Pick<bookingEntity, "_id">>
-  | {
-      destinationPlace: string;
-      startPlace: string;
-      maxDistance?: number;
-      minDistance?: number;
-    };
+export type IGetBookingUseCaseArgs = Pick<bookingEntity,"_id">
 
 export interface ICreateBookingUseCase {
   execute(

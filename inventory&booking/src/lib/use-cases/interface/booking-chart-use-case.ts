@@ -1,17 +1,15 @@
-import { bookingChartBooking, bookingChartEntity, bookingEntity } from "@lib/entity";
+import { bookingChartEntity } from "@lib/entity";
 
 export type ICreateBookingChartUseCaseArgs = Omit<bookingChartEntity, "_id"> & {
   _id?: string;
 };
 
-export type IUpdateBookingChartUseCaseArgs = Pick<
-  bookingChartEntity,
-  "_id" 
-> & bookingChartBooking
+export type IUpdateBookingChartUseCaseArgs = Pick<bookingChartEntity, "busId"> &
+  Partial<Omit<bookingChartEntity, "busId">>;
 
 export type IGetBookingChartUseCaseArgs = Pick<
   bookingChartEntity,
-  "_id" | "travellingDate"
+  "busId" | "travellingDate"
 >;
 
 export interface ICreateBookingChartUseCase {

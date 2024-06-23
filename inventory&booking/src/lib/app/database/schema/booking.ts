@@ -56,7 +56,7 @@ interface IBookingSchema {
   travellingDate: Date;
   departurePlace: { placeId: string };
   destinationPlace: { placeId: string };
-  seatDetail?: Array<{
+  seatDetail: Array<{
     arrangement: string;
     rowNumber: number;
     position: string;

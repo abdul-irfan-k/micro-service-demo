@@ -1,11 +1,11 @@
 import {
   busRepository,
   bookingRespository,
-  travellRepository,
   travellHistoryRepository,
   travellRouteRepository,
   scheduleRepository,
-} from "../app/repository";
+  bookingChartRepository,
+} from "@lib/app/repository";
 import { CreateBusUseCase } from "./bus/create-bus";
 import { GetBusUseCase } from "./bus/get-bus";
 import { GetBusChartUseCase } from "./bus/get-bus-chart";
@@ -17,6 +17,11 @@ import { UpdateScheduleUseCase } from "./schedule/update-schedule";
 import { CreateTravellRouteUseCase } from "./travell-route/create-travell-route";
 import { GetTravellRouteUseCase } from "./travell-route/get-travell-route";
 import { UpdateTravellRouteUseCase } from "./travell-route/update-travell-route";
+import { UpdateTravellHistoryUseCase } from "./travell-history/update-travell-history";
+import { CreateBookingChartUseCase } from "./booking-chart/create-booking-chart";
+import { UpdateBookingChartUseCase } from "./booking-chart/update-booking-chart";
+import { CreateBookingUseCase } from "./booking/create-booking";
+import { GetBookingUseCase } from "./booking/get-booking";
 
 const searchBusesUseCase = new SearchBusesUseCase(busRepository);
 const getBusUseCase = new GetBusUseCase(busRepository);
@@ -63,26 +68,22 @@ export { createScheduleUseCase, updateScheduleUseCase, getScheduleUseCase };
 // const bookTicketUseCase = makeBookTicketUseCase({
 //   bookingRespository,
 //   busRepository,
-//   travellRepository,
+//
 // });
 
-// const getTravellHistoryUseCase = makeGetTravellHistoryUseCase({
-//   travellHistoryRepository,
-// });
-// const deleteAllTravellHistoryUseCase = makeDeleteAllTravellHistoryUseCase({
-//   travellHistoryRepository,
-// });
-// const deleteTravellHistoryUseCase = makeDeleteTravellHistoryUseCase({
-//   travellHistoryRepository,
-// });
+const createBookingUseCase = new CreateBookingUseCase(bookingRespository);
+const getBookingUseCase = new GetBookingUseCase(bookingRespository)
+export { createBookingUseCase };
 
-//export  searchBusesUseCase,
-// getBookedTicketUseCase,
-// getBookedTicketsUseCase,
-// getBusUseCase,
-// getBusChartUseCase,
-// bookTicketUseCase,
-// getTravellHistoryUseCase,
-// deleteAllTravellHistoryUseCase,
-// deleteTravellHistoryUseCase,
-//{};
+const createBookingChartUseCase = new CreateBookingChartUseCase(
+  bookingChartRepository
+);
+const updateBookingChartUseCase = new UpdateBookingChartUseCase(
+  bookingChartRepository
+);
+export { createBookingChartUseCase, updateBookingChartUseCase };
+
+const updateTravellHistoryUseCase = new UpdateTravellHistoryUseCase(
+  travellHistoryRepository
+);
+export { updateTravellHistoryUseCase };

@@ -1,15 +1,12 @@
 import {
   searchBusesUseCase,
-  // getBookedTicketUseCase,
-  // getBookedTicketsUseCase,
   getBusUseCase,
   getBusChartUseCase,
   getTravellRouteUseCase,
-  // bookTicketUseCase,
-  // getTravellHistoryUseCase,
-  // deleteAllTravellHistoryUseCase,
-  // deleteTravellHistoryUseCase,
+  createBookingUseCase,
 } from "../use-cases";
+import { GetBooknigsController } from "./booking/get-booking";
+import { PostBookingController } from "./booking/post-booking";
 import { GetBusController } from "./bus/get-bus";
 import { getBusChartController } from "./bus/get-bus-chart";
 import { GetSearchBusesController } from "./bus/get-search-buses";
@@ -22,18 +19,7 @@ const getSearchBuses = new GetSearchBusesController(
 const getBus = new GetBusController(getBusUseCase);
 const getBusChart = new getBusChartController(getBusChartUseCase);
 
-export {
-  getSearchBuses,
-  getBus,
-  getBusChart,
-}
-// const getBookedTicket = makeGetBookedTicket({ getBookedTicketUseCase });
-// const getBookedTickets = makeGetBookedTickets({ getBookedTicketsUseCase });
+export { getSearchBuses, getBus, getBusChart };
 
-// post
-// const postBookTicket = makePostBookTicket({ bookTicketUseCase });
-
-// const getTravellHistory = makeGetTravellHistory({ getTravellHistoryUseCase });
-// const deleteTravellHistory = makeDeleteTravellHistory({
-//   deleteTravellHistoryUseCase,
-// });
+const getBooking = new GetBooknigsController(getBusUseCase);
+// const postBooking = new PostBookingController(getBusUseCase,createBookingUseCase)

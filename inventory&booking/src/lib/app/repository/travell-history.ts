@@ -1,19 +1,15 @@
-import { ITravellHistory } from "../../entity/travell-history";
-import {
-  TravellHistoryModel,
-  ITravellHistoryModel,
-} from "../database/schema";
+import { RequireAtLeastOne } from "@lib/util/type-helper";
+
+import { TravellHistoryModel, ITravellHistoryModel } from "../database/schema";
+import { travellHistoryEntity } from "@lib/entity/travell-history";
 
 export const travellHistoryRepository: ItravellHistoryRepository = {
-  create: async (data: ITravellHistory): Promise<ITravellHistoryModel> => {
+  create: async (data) => {
     const travellHistory = new TravellHistoryModel(data);
     await travellHistory.save();
     return travellHistory;
   },
-  update: async (
-    id: string,
-    data: any
-  ): Promise<ITravellHistoryModel | null> => {
+  update: async (id, data) => {
     const updatedTravellHistory = await TravellHistoryModel.findOneAndUpdate(
       { _id: id },
       data,
@@ -21,7 +17,7 @@ export const travellHistoryRepository: ItravellHistoryRepository = {
     );
     return updatedTravellHistory;
   },
-  getTravellHistory: async (userId: string) => {
+  getTravellHistory: async (userId) => {
     const travellHistory = await TravellHistoryModel.aggregate([
       {
         $match: {
@@ -47,15 +43,22 @@ export const travellHistoryRepository: ItravellHistoryRepository = {
     ]);
     return travellHistory;
   },
-  findOne: async (userId):Promise<ITravellHistoryModel | null> => {
+  findOne: async (userId): Promise<ITravellHistoryModel | null> => {
     const travellHistory = await TravellHistoryModel.findOne({ userId });
-    return travellHistory
+    return travellHistory;
   },
 };
 
 export interface ItravellHistoryRepository {
-  create: (data: ITravellHistory) => Promise<ITravellHistoryModel>;
-  update: (id: string, data: any) => Promise<ITravellHistoryModel | null>;
+  create: (
+    data: Omit<travellHistoryEntity, "_id"> & { _id?: string }
+  ) => Promise<ITravellHistoryModel>;
+  update: (
+    id: string,
+    data: Partial<Omit<travellHistoryEntity, "_id">>
+  ) => Promise<ITravellHistoryModel | null>;
   getTravellHistory: (userId: string) => Promise<any[]>;
-  findOne: (userId: any) => Promise<ITravellHistoryModel | null>
+  findOne: (
+    data: RequireAtLeastOne<Pick<travellHistoryEntity, "_id" | "userId">>
+  ) => Promise<ITravellHistoryModel | null>;
 }
