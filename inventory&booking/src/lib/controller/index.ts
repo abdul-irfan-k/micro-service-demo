@@ -4,6 +4,10 @@ import {
   getBusChartUseCase,
   getTravellRouteUseCase,
   createBookingUseCase,
+  getBookingChartUseCase,
+  createBookingChartUseCase,
+  updateBookingChartUseCase,
+  updateTravellHistoryUseCase,
 } from "../use-cases";
 import { GetBooknigsController } from "./booking/get-booking";
 import { PostBookingController } from "./booking/post-booking";
@@ -22,4 +26,13 @@ const getBusChart = new getBusChartController(getBusChartUseCase);
 export { getSearchBuses, getBus, getBusChart };
 
 const getBooking = new GetBooknigsController(getBusUseCase);
-// const postBooking = new PostBookingController(getBusUseCase,createBookingUseCase)
+const postBooking = new PostBookingController(
+  getBusUseCase,
+  createBookingUseCase,
+  getBookingChartUseCase,
+  createBookingChartUseCase,
+  updateBookingChartUseCase,
+  updateTravellHistoryUseCase
+);
+
+export { getBooking, postBooking };

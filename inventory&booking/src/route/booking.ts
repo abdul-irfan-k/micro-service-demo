@@ -5,7 +5,7 @@ import * as busValidator from "@lib/validator/bus-validator";
 
 const router = express.Router();
 router.get(
-  "/buses/search-buses",
+  "/bookings/search-buses",
   busValidator.getSearchBusValidator,
   makeExpressCallBack(busController.getSearchBuses)
 );

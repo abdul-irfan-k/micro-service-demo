@@ -1,16 +1,20 @@
 import { bookingChartEntity } from "@/lib/entity";
 import {
-  ICreateBookingChartUseCase,
-  ICreateBookingChartUseCaseArgs,
+  IGetBookingChartUseCase,
+  IGetBookingChartUseCaseArgs,
 } from "../interface/booking-chart-use-case";
 import { IbookingChartRepository } from "@/lib/app/repository";
 
-export class CreateBookingChartUseCase implements ICreateBookingChartUseCase {
+export class GetBookingChartUseCase implements IGetBookingChartUseCase {
   constructor(private bookingChartRepository: IbookingChartRepository) {}
   async execute(
-    args: ICreateBookingChartUseCaseArgs
+    args: IGetBookingChartUseCaseArgs
   ): Promise<bookingChartEntity | null> {
-    const bookingChartDetails  = await this.bookingChartRepository.create(args);
-    return bookingChartDetails ;
+    const bookingChartDetails =
+      await this.bookingChartRepository.findOneByBusIdAndDate(
+        args.busId,
+        args.travellingDate
+      );
+    return bookingChartDetails;
   }
 }

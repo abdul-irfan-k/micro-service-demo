@@ -1,4 +1,4 @@
-import { bookingChartEntity, travellHistoryEntity } from "@/lib/entity";
+import {  travellHistoryEntity } from "@/lib/entity";
 import {
   IUpdateTravellHistoryUseCase,
   IUpdateTravellHistoryUseCaseArgs,

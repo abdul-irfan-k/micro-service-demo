@@ -22,6 +22,7 @@ import { CreateBookingChartUseCase } from "./booking-chart/create-booking-chart"
 import { UpdateBookingChartUseCase } from "./booking-chart/update-booking-chart";
 import { CreateBookingUseCase } from "./booking/create-booking";
 import { GetBookingUseCase } from "./booking/get-booking";
+import { GetBookingChartUseCase } from "./booking-chart/get-booking-chart";
 
 const searchBusesUseCase = new SearchBusesUseCase(busRepository);
 const getBusUseCase = new GetBusUseCase(busRepository);
@@ -72,8 +73,8 @@ export { createScheduleUseCase, updateScheduleUseCase, getScheduleUseCase };
 // });
 
 const createBookingUseCase = new CreateBookingUseCase(bookingRespository);
-const getBookingUseCase = new GetBookingUseCase(bookingRespository)
-export { createBookingUseCase };
+const getBookingUseCase = new GetBookingUseCase(bookingRespository);
+export { createBookingUseCase, getBookingUseCase };
 
 const createBookingChartUseCase = new CreateBookingChartUseCase(
   bookingChartRepository
@@ -81,7 +82,14 @@ const createBookingChartUseCase = new CreateBookingChartUseCase(
 const updateBookingChartUseCase = new UpdateBookingChartUseCase(
   bookingChartRepository
 );
-export { createBookingChartUseCase, updateBookingChartUseCase };
+const getBookingChartUseCase = new GetBookingChartUseCase(
+  bookingChartRepository
+);
+export {
+  createBookingChartUseCase,
+  updateBookingChartUseCase,
+  getBookingChartUseCase,
+};
 
 const updateTravellHistoryUseCase = new UpdateTravellHistoryUseCase(
   travellHistoryRepository

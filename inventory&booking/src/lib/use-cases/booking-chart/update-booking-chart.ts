@@ -10,7 +10,7 @@ export class UpdateBookingChartUseCase implements IUpdateBookingChartUseCase {
   async execute(
     args: IUpdateBookingChartUseCaseArgs
   ): Promise<bookingChartEntity | null> {
-    const bookingChartDetails = await this.bookingChartRepository.pushBooking(
+    const bookingChartDetails = await this.bookingChartRepository.update(
       args._id,
       args
     );

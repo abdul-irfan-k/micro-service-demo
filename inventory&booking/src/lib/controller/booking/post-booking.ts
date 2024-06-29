@@ -64,7 +64,7 @@ export class PostBookingController {
         bookedSeats.push({ ...seat, travellorId: userId });
       });
       updateBookingChart = await this.updateBookingChartUseCase.execute({
-        busId,
+        _id: bookingChart._id,
         totalAvailabeSeats,
         totalBookedSeats,
         bookedSeats,
