@@ -26,7 +26,7 @@ interface ISeatingPreferenceSchema {
     | null
     | undefined;
 }
-export interface ISeatingPreferenceModel extends ISeatingPreferenceSchema {}
+export type ISeatingPreferenceModel = ISeatingPreferenceSchema;
 const SeatingPreferenceModel = mongoose.model<ISeatingPreferenceModel>(
   "SeatingPreference",
   SeatingPreferenceSchema

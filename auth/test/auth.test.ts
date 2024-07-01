@@ -14,9 +14,15 @@ describe("POST /sign-up", () => {
     const res = await request(app).post("/sign-up").send();
 
     expect(res.statusCode).toBe(400);
-    expect(res.body).toEqual({
-      message: "Please provide Name",
-    });
+    expect(res.body.validationError).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          msg: "Name is required",
+          location: "body",
+          path: "name",
+        }),
+      ])
+    );
   });
   it("when email not provided", async () => {
     const res = await request(app).post("/sign-up").send({
@@ -24,9 +30,16 @@ describe("POST /sign-up", () => {
     });
 
     expect(res.statusCode).toBe(400);
-    expect(res.body).toEqual({
-      message: "Please provide Email",
-    });
+    expect(res.body.validationError).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          location: "body",
+          msg: "Email is required",
+          path: "email",
+          type: "field",
+        }),
+      ])
+    );
   });
 
   it("it should create the user", async () => {
@@ -34,7 +47,9 @@ describe("POST /sign-up", () => {
       name: "sample",
       email: "sample@gmail.com",
       password: "sample",
+      comfirmPassword: "sample",
     });
+    console.log("body", res.body);
     expect(res.statusCode).toBe(200);
   });
   it("it shoud throw error when trying to signup with same eamil", async () => {
@@ -42,65 +57,81 @@ describe("POST /sign-up", () => {
       name: "sample",
       email: "sample@gmail.com",
       password: "sample",
+      comfirmPassword: "sample",
     });
-    expect(res.statusCode).toBe(403);
-    expect(res.body.message).toBe("email already have an account");
+    console.log("body", res.body);
+    expect(res.statusCode).toBe(400);
+    expect(res.body).toEqual(
+      expect.objectContaining({
+        message: "email already have an account",
+      })
+    );
   });
 });
 
 describe("POST sign-in", () => {
-  
-
-
   it("it should throw error when email is not provided", async () => {
     const res = await request(app).post("/sign-in").send({});
-    expect(res.statusCode).toBe(400)
-    expect(res.body.message).toBe("Please provide Email")
+    expect(res.statusCode).toBe(400);
+    expect(res.body.validationError).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          location: "body",
+          msg: "Email is required",
+          path: "email",
+          type: "field",
+        }),
+      ])
+    );
   });
 
   it("it should throw error when password is not provided", async () => {
     const res = await request(app).post("/sign-in").send({
-      email:"sample@gmail.com"
+      email: "sample@gmail.com",
     });
-    expect(res.statusCode).toBe(400)
-    expect(res.body.message).toBe("Please provide Password")
+    expect(res.statusCode).toBe(400);
+    expect(res.body.validationError).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          location: "body",
+          msg: "Password is required",
+          path: "password",
+          type: "field",
+        }),
+      ])
+    );
   });
 
   it("it should throw error when invalid email provided", async () => {
     const res = await request(app).post("/sign-in").send({
-      email:"random@gmail.com",
-      password:"sample"
+      email: "random@gmail.com",
+      password: "sample",
     });
-    expect(res.statusCode).toBe(400)
-    expect(res.body.message).toBe("user not found")
+    expect(res.statusCode).toBe(400);
+    expect(res.body.message).toBe("user not found");
   });
   it("it should throw error when invalid password provided", async () => {
     const res = await request(app).post("/sign-in").send({
-      email:"sample@gmail.com",
-      password:"random"
+      email: "sample@gmail.com",
+      password: "random",
     });
-    expect(res.statusCode).toBe(400)
-    expect(res.body.message).toBe("invalid password")
+    expect(res.statusCode).toBe(400);
+    expect(res.body.message).toBe("invalid password");
   });
 
-
-  it("it should return user detail and login credintials",async() =>{
+  it("it should return user detail and login credintials", async () => {
     const res = await request(app).post("/sign-in").send({
       email: "sample@gmail.com",
       password: "sample",
     });
-    console.log(res.body)
-    expect(res.statusCode).toBe(200)
+    expect(res.statusCode).toBe(200);
     expect(res.body).toMatchObject({
-      email:"sample@gmail.com",
-      name:"sample"
-    })
-    
+      email: "sample@gmail.com",
+      name: "sample",
+    });
+
     expect(res.body).not.toMatchObject({
-      password:'sample',
-    })
-
-  })
-
-  
+      password: "sample",
+    });
+  });
 });

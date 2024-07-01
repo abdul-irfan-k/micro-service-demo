@@ -16,9 +16,9 @@ interface UserDetailWithPassword extends UserDetails {
 interface UserDetailWithUserId extends UserDetails, UserId {}
 
 
-export type IGetUserUseCaseArgs = UserId
-export type ICreateUserCaseArgs = UserDetailWithPassword
-export type IUpdateUserUseCaseArgs = UserDetailWithUserId
+export type IGetUserUseCaseArgs = UserId;
+export type ICreateUserCaseArgs = UserDetailWithPassword;
+export type IUpdateUserUseCaseArgs = UserDetailWithUserId;
 
 export interface IGetUserUseCase {
   execute(args: IGetUserUseCaseArgs): Promise<IUser | null>;

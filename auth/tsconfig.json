@@ -6,7 +6,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
       "@config/*": [
         "src/config/*"
@@ -22,18 +22,20 @@
       ],
       "@/*": [
         "src/*"
-      ],
+      ]
     },
     "outDir": "./dist",
     "typeRoots": [
       "src/types",
-      "./node_modules/@types"
+      "node_modules/@types"
     ],
     "types": [
-      "express.d.ts"
+      "express.d.ts",
+      "jest"
     ]
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "test/**/*"
   ]
 }

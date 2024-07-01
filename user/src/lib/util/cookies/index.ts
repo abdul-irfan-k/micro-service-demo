@@ -1,4 +1,4 @@
-import { Response } from "express"
+import { Response } from "express";
 
 interface assignCookiesHandlerArguments {
   res: Response
@@ -12,10 +12,10 @@ export const assignCookiesHandler = ({ res, token, tokenName, expires }: assignC
       ? expires
       : expires == "1d"
       ? new Date(Date.now() + 1000 * 60 * 60 * 24)
-      : new Date(Date.now() + 1000 * 60 * 60)
+      : new Date(Date.now() + 1000 * 60 * 60);
 
   res.cookie(tokenName, token, {
     httpOnly: true,
     expires: expire,
-  })
-}
+  });
+};

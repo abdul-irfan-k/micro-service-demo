@@ -23,7 +23,7 @@ export class SignUpController {
     if (oldUser != null)
       throw new BadRequestError({
         message: "email already have an account",
-        code: 403,
+        code: 400,
       });
     const userDetails = await this.signUpUseCase.execute({
       name,
@@ -31,11 +31,12 @@ export class SignUpController {
       password,
       profileImageUrl,
     });
-    console.log("user created publisher", userDetails);
-    new userCreatedPublisher(natsWrapper.client).publish({
-      ...userDetails,
-      password,
-    });
+
+    if (natsWrapper.client != null)
+      new userCreatedPublisher(natsWrapper.client).publish({
+        ...userDetails,
+        password,
+      });
     const { token: accessToken } = await createJwtTokenHandler({
       _id: userDetails._id,
       email: userDetails.email,

@@ -12,7 +12,7 @@ export class GetUserController {
       throw new BadRequestError({ code: 400, validatorError: errors.array() });
     }
     const { _id: userId } = req.user;
-    console.log("req user",req.user)
+    console.log("req user",req.user);
     const user = await this.getUserUseCase.execute({
       userId,
     });

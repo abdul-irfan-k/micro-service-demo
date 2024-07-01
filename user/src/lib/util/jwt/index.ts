@@ -1,5 +1,5 @@
-import jwt, { VerifyErrors } from "jsonwebtoken"
-import { Request } from "express"
+import jwt, { VerifyErrors } from "jsonwebtoken";
+import { Request } from "express";
 
 interface createJwtTokenHandlerArgument {
   _id: string
@@ -22,14 +22,14 @@ export const createJwtTokenHandler = async ({
 }: createJwtTokenHandlerArgument): Promise<createJwtTokenHandlerReturnType> => {
   return new Promise((resolve, reject) => {
     const tokenSecret =
-      tokenType == "accessToken" ? process.env.JWT_AUTH_TOKEN_SECRET : process.env.JWT_REFRESH_TOKEN_SECRET
+      tokenType == "accessToken" ? process.env.JWT_AUTH_TOKEN_SECRET : process.env.JWT_REFRESH_TOKEN_SECRET;
 
     jwt.sign({ email, _id }, tokenSecret || "", { expiresIn }, (error, token) => {
-      if (typeof token === "string") resolve({ isValid: true, token })
-      if (typeof error !== "undefined") reject({ isValid: false, error: error?.name })
-    })
-  })
-}
+      if (typeof token === "string") resolve({ isValid: true, token });
+      if (typeof error !== "undefined") reject({ isValid: false, error: error?.name });
+    });
+  });
+};
 
 interface verifyJwtTokenHandlerArgument {
   req: Request
@@ -48,19 +48,19 @@ export const verifyJwtTokenHandler = ({
 }: verifyJwtTokenHandlerArgument): Promise<verifyJwtTokenHandlerReturnType> => {
   return new Promise((resolve, reject) => {
     const tokenSecret =
-      tokenType == "accessToken" ? process.env.JWT_AUTH_TOKEN_SECRET : process.env.JWT_REFRESH_TOKEN_SECRET
+      tokenType == "accessToken" ? process.env.JWT_AUTH_TOKEN_SECRET : process.env.JWT_REFRESH_TOKEN_SECRET;
 
     jwt.verify(token, tokenSecret || "", (err, decoded) => {
       if (!err && decoded && typeof decoded !== "string") {
         //@ts-ignore
-        req.user = { _id: decoded._id, email: decoded.email }
-        return resolve({ isValid: true })
+        req.user = { _id: decoded._id, email: decoded.email };
+        return resolve({ isValid: true });
       }
 
       if (err as VerifyErrors) {
-        reject({ isValid: false, error: err })
+        reject({ isValid: false, error: err });
       }
-      return reject({ isValid: false, error: "not found" })
-    })
-  })
-}
+      return reject({ isValid: false, error: "not found" });
+    });
+  });
+};

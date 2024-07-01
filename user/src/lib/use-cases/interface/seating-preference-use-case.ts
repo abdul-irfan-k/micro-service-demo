@@ -11,8 +11,8 @@ interface seatingPreference {
     | undefined;
 }
 
-export interface ICreateSeatingPreferenceArgs extends seatingPreference {}
-export interface IUpdateSeatingPreferenceArgs extends seatingPreference {}
+export type ICreateSeatingPreferenceArgs = seatingPreference;
+export type IUpdateSeatingPreferenceArgs = seatingPreference;
 export interface IGetSeatingPreferenceArgs {
   userId: string;
 }

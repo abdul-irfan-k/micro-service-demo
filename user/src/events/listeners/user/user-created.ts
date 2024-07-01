@@ -3,7 +3,7 @@ import { Event, Listener, Subject } from "micro-service-event";
 
 export class userCreatedListener extends Listener<Subject.userCreated> {
   subject: Subject.userCreated = Subject.userCreated;
-  queueGroupName: string = "user-service";
+  queueGroupName = "user-service";
 
   //@ts-ignore
   async onMessage(data, message) {

@@ -22,7 +22,7 @@ export const ErrorHandler = (
         )
       );
     }
-    if(validationError)return res.status(400).json({validationError})
+    if(validationError)return res.status(400).json({validationError});
     return res.status(statusCode).send({ message });
   }
   return res.status(500).send({ erros: [{ message: "Something went wrong" }] });

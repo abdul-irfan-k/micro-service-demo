@@ -31,6 +31,6 @@ export class BadRequestError extends CustomError {
     return this._logging;
   }
   get validationError(){
-    return this._validationError
+    return this._validationError;
   }
 }
