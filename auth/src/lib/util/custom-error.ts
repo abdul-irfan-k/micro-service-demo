@@ -1,9 +1,9 @@
-import { ValidationError } from "express-validator";
+import { ValidationError } from 'express-validator';
 
-export type CustomErrorContent = {
+export interface CustomErrorContent {
   message: string;
-  context?: { [key: string]: any };
-};
+  context?: Record<string, any>;
+}
 
 export abstract class CustomError extends Error {
   abstract readonly statusCode: number;

@@ -1,4 +1,4 @@
-import { tokenEntity, userEntity } from "@lib/entities";
+import { tokenEntity, userEntity } from '@lib/entities';
 
 export interface IForgotPasswordUseCaseArgs {
   email: string;
@@ -28,7 +28,7 @@ export interface ISignInUserUseCaseArgs {
   email: string;
   password: string;
 }
-export type ISignUpUserUseCaseArgs = Omit<userEntity, "_id"> & {
+export type ISignUpUserUseCaseArgs = Omit<userEntity, '_id'> & {
   _id?: string;
 };
 
@@ -50,13 +50,13 @@ export interface IForgotPasswordUseCase {
 
 export interface IUpdatePasswordWithTokenUseCase {
   execute(
-    args: IUpdatePasswordWithTokenUseCaseArgs
+    args: IUpdatePasswordWithTokenUseCaseArgs,
   ): Promise<{ isUpdated: boolean }>;
 }
 
 export interface IUpdatePwdWithOldPwdUseCase {
   execute(
-    args: IUpdatePwdWithOldPwdUseCaseArgs
+    args: IUpdatePwdWithOldPwdUseCaseArgs,
   ): Promise<{ isUpdated: boolean }>;
 }
 

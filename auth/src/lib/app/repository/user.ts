@@ -1,5 +1,5 @@
-import { userEntity } from "@lib/entities";
-import { User, IUserModel } from "../database/mongo";
+import { userEntity } from '@lib/entities';
+import { User, IUserModel } from '../database/mongo';
 
 export const userRepository: IUserRepository = {
   signUp: async (userData: any) => {

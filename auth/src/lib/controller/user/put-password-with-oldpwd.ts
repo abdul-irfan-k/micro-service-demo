@@ -1,13 +1,13 @@
-import { natsWrapper } from "@/nats-wrapper";
-import { passwordResetSuccess } from "@event/publisher/password-reset-success";
-import { IUpdatePwdWithOldPwdUseCase } from "@lib/use-case/interface/user";
-import { BadRequestError } from "@lib/util/bad-request-error";
-import { Request, Response } from "express";
-import { validationResult } from "express-validator";
+import { natsWrapper } from '@/nats-wrapper';
+import { passwordResetSuccess } from '@event/publisher/password-reset-success';
+import { IUpdatePwdWithOldPwdUseCase } from '@lib/use-case/interface/user';
+import { BadRequestError } from '@lib/util/bad-request-error';
+import { Request, Response } from 'express';
+import { validationResult } from 'express-validator';
 
 export class PutPasswordWithOldPwd {
   constructor(
-    private updatePasswordWithOldPwdUseCase: IUpdatePwdWithOldPwdUseCase
+    private updatePasswordWithOldPwdUseCase: IUpdatePwdWithOldPwdUseCase,
   ) {}
 
   async processRequest(req: Request, res: Response) {
@@ -28,7 +28,7 @@ export class PutPasswordWithOldPwd {
         oldPassword,
       });
     if (!isUpdatedPassword)
-      throw new BadRequestError({ code: 400, message: "password not updated" });
+      throw new BadRequestError({ code: 400, message: 'password not updated' });
 
     //@ts-ignore
     new passwordResetSuccess(natsWrapper.client).publish({

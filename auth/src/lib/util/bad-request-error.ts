@@ -1,5 +1,5 @@
-import { ValidationError } from "express-validator";
-import { CustomError } from "./custom-error";
+import { ValidationError } from 'express-validator';
+import { CustomError } from './custom-error';
 
 export class BadRequestError extends CustomError {
   private readonly _validationError: ValidationError[] | undefined;
@@ -14,8 +14,8 @@ export class BadRequestError extends CustomError {
     validatorError?: ValidationError[];
   }) {
     const { logging, message, code, validatorError } = params;
-    console.log("message", message);
-    super(message || "Bad Request");
+    console.log('message', message);
+    super(message || 'Bad Request');
     this._code = code || BadRequestError._statusCode;
     this._logging = logging || false;
     this._validationError = validatorError;
@@ -31,7 +31,7 @@ export class BadRequestError extends CustomError {
   get logging() {
     return this._logging;
   }
-  get validationError(){
-    return this._validationError
+  get validationError() {
+    return this._validationError;
   }
 }

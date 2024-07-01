@@ -1,13 +1,13 @@
-import { NextFunction, Request, Response } from "express";
-import { BadRequestError } from "../../util/bad-request-error";
-import { createJwtTokenHandler } from "../../util/jsonwebtoken";
-import { validationResult } from "express-validator";
-import { IGetUserUseCase, ISignInUseCase } from "@lib/use-case/interface/user";
+import { NextFunction, Request, Response } from 'express';
+import { BadRequestError } from '../../util/bad-request-error';
+import { createJwtTokenHandler } from '../../util/jsonwebtoken';
+import { validationResult } from 'express-validator';
+import { IGetUserUseCase, ISignInUseCase } from '@lib/use-case/interface/user';
 
 export class SignInController {
   constructor(
     private signInUseCase: ISignInUseCase,
-    private getUserUseCase: IGetUserUseCase
+    private getUserUseCase: IGetUserUseCase,
   ) {}
   async processRequest(req: Request, res: Response, next: NextFunction) {
     const errors = validationResult(req);
@@ -16,35 +16,38 @@ export class SignInController {
     }
 
     const { email, password } = req.body;
-    console.log("get user use case",this.getUserUseCase)
+    console.log('get user use case', this.getUserUseCase);
     const userDetail = await this.getUserUseCase.execute({ email });
     if (userDetail == null)
-      throw new BadRequestError({ code: 400, message: "user not found" });
-    const { isValidUser } = await this.signInUseCase.execute({ email, password });
+      throw new BadRequestError({ code: 400, message: 'user not found' });
+    const { isValidUser } = await this.signInUseCase.execute({
+      email,
+      password,
+    });
     if (!isValidUser)
-      throw new BadRequestError({ code: 400, message: "invalid password" });
-``
+      throw new BadRequestError({ code: 400, message: 'invalid password' });
+    ``;
     const { token: accessToken } = await createJwtTokenHandler({
       _id: userDetail._id,
       email: userDetail.email,
-      expiresIn: "1 days",
-      tokenType: "accessToken",
-      tokenScope: "user",
+      expiresIn: '1 days',
+      tokenType: 'accessToken',
+      tokenScope: 'user',
     });
     const { token: refreshToken } = await createJwtTokenHandler({
       _id: userDetail._id,
       email: userDetail.email,
-      expiresIn: "7 days",
-      tokenType: "refreshToken",
-      tokenScope: "user",
+      expiresIn: '7 days',
+      tokenType: 'refreshToken',
+      tokenScope: 'user',
     });
 
     const expires = new Date(Date.now() + 1000 * 60 * 60 * 24 * 7);
-    res.cookie("accessToken", accessToken, {
+    res.cookie('accessToken', accessToken, {
       httpOnly: true,
       expires,
     });
-    res.cookie("refreshToken", refreshToken, {
+    res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       expires,
     });

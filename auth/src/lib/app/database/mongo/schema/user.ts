@@ -1,6 +1,6 @@
-import mongoose, { Document } from "mongoose";
-import bcrypt from "bcrypt";
-import { v4 as uuidv4 } from "uuid";
+import mongoose, { Document } from 'mongoose';
+import bcrypt from 'bcrypt';
+import { v4 as uuidv4 } from 'uuid';
 
 interface IUserSchema {
   _id: string;
@@ -13,7 +13,7 @@ interface IUserSchema {
 
 const userSchema = new mongoose.Schema(
   {
-    _id: { type: String, default:uuidv4() },
+    _id: { type: String, default: uuidv4() },
     name: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
@@ -22,17 +22,17 @@ const userSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-userSchema.pre("save", async function (next) {
+userSchema.pre('save', async function (next) {
   const hashedPassword = await bcrypt.hash(this.password, 12);
   this.password = hashedPassword;
   next();
 });
 
 userSchema.methods.checkIsCorrectPassword = async function (
-  plainPassword: string
+  plainPassword: string,
 ) {
   const isCorrectPassword = await bcrypt.compare(plainPassword, this.password);
   return isCorrectPassword;
@@ -53,5 +53,5 @@ interface methodInterface {
 }
 
 export interface IUserModel extends IUserSchema, methodInterface {}
-const UserModel = mongoose.model<IUserModel>("User", userSchema);
+const UserModel = mongoose.model<IUserModel>('User', userSchema);
 export default UserModel;

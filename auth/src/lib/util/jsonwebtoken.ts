@@ -1,18 +1,18 @@
-import jwt, { VerifyErrors } from "jsonwebtoken";
-import { Request } from "express";
+import jwt, { VerifyErrors } from 'jsonwebtoken';
+import { Request } from 'express';
 import {
   adminJWTAcessTokenSecret,
   adminJWTRefreshTokenSecret,
   userJWTAcessTokenSecret,
   userJWTRefreshTokenSecret,
-} from "../constant/constant";
+} from '../constant/constant';
 
 interface createJwtTokenHandlerArgument {
   _id: string;
   email: string;
-  expiresIn: "1h" | "1 days" | "7 days";
-  tokenType: "refreshToken" | "accessToken";
-  tokenScope: "user" | "admin";
+  expiresIn: '1h' | '1 days' | '7 days';
+  tokenType: 'refreshToken' | 'accessToken';
+  tokenScope: 'user' | 'admin';
 }
 
 interface createJwtTokenHandlerReturnType {
@@ -30,24 +30,24 @@ export const createJwtTokenHandler = async ({
 }: createJwtTokenHandlerArgument): Promise<createJwtTokenHandlerReturnType> => {
   return new Promise((resolve, reject) => {
     const accessToken =
-      tokenScope == "admin"
+      tokenScope == 'admin'
         ? adminJWTAcessTokenSecret
         : userJWTAcessTokenSecret;
     const refreshToekn =
-      tokenScope == "admin"
+      tokenScope == 'admin'
         ? adminJWTRefreshTokenSecret
         : userJWTRefreshTokenSecret;
-    const tokenSecret = tokenType == "accessToken" ? accessToken : refreshToekn;
+    const tokenSecret = tokenType == 'accessToken' ? accessToken : refreshToekn;
 
     jwt.sign(
       { email, _id },
-      tokenSecret || "",
+      tokenSecret || '',
       { expiresIn },
       (error, token) => {
-        if (typeof token === "string") resolve({ isValid: true, token });
-        if (typeof error !== "undefined")
+        if (typeof token === 'string') resolve({ isValid: true, token });
+        if (typeof error !== 'undefined')
           reject({ isValid: false, error: error?.name });
-      }
+      },
     );
   });
 };
@@ -55,8 +55,8 @@ export const createJwtTokenHandler = async ({
 interface verifyJwtTokenHandlerArgument {
   req: Request;
   token: string;
-  tokenType: "refreshToken" | "accessToken";
-  tokenScope: "user" | "admin";
+  tokenType: 'refreshToken' | 'accessToken';
+  tokenScope: 'user' | 'admin';
 }
 
 interface verifyJwtTokenHandlerReturnType {
@@ -67,22 +67,22 @@ export const verifyJwtTokenHandler = ({
   req,
   token,
   tokenType,
-  tokenScope
+  tokenScope,
 }: verifyJwtTokenHandlerArgument): Promise<verifyJwtTokenHandlerReturnType> => {
   return new Promise((resolve, reject) => {
     const accessToken =
-      tokenScope == "admin"
+      tokenScope == 'admin'
         ? adminJWTAcessTokenSecret
         : userJWTAcessTokenSecret;
     const refreshToekn =
-      tokenScope == "admin"
+      tokenScope == 'admin'
         ? adminJWTRefreshTokenSecret
         : userJWTRefreshTokenSecret;
-    const tokenSecret = tokenType == "accessToken" ? accessToken : refreshToekn;
+    const tokenSecret = tokenType == 'accessToken' ? accessToken : refreshToekn;
 
-    jwt.verify(token, tokenSecret || "", (err, decoded) => {
-      if (!err && decoded && typeof decoded !== "string") {
-        //@ts-ignore
+    jwt.verify(token, tokenSecret || '', (err, decoded) => {
+      if (!err && decoded && typeof decoded !== 'string') {
+        //@ts-expect-error
         req.user = { _id: decoded._id, email: decoded.email };
         return resolve({ isValid: true });
       }
@@ -90,7 +90,7 @@ export const verifyJwtTokenHandler = ({
       if (err as VerifyErrors) {
         reject({ isValid: false, error: err });
       }
-      return reject({ isValid: false, error: "not found" });
+      return reject({ isValid: false, error: 'not found' });
     });
   });
 };

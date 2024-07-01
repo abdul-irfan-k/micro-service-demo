@@ -1,5 +1,5 @@
-import express from "express";
-import * as authValidator from "../lib/validator/auth";
+import express from 'express';
+import * as authValidator from '../lib/validator/auth';
 
 export const busOwnerauthRoutes = () => {
   const router = express.Router();

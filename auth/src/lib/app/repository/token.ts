@@ -1,8 +1,8 @@
-import { tokenEntity } from "@lib/entities";
-import { ITokenModel, TokenModel } from "../database/mongo";
+import { tokenEntity } from '@lib/entities';
+import { ITokenModel, TokenModel } from '../database/mongo';
 
 export const tokenRepository: ITokenRepository = {
-  createToken: async (tokenData) => {
+  createToken: async tokenData => {
     const token = new TokenModel(tokenData);
     await token.save();
     return token.toJSON();
@@ -19,8 +19,8 @@ export const tokenRepository: ITokenRepository = {
 
 export interface ITokenRepository {
   createToken: (
-    tokenData: Omit<tokenEntity, "_id"> & Partial<Pick<tokenEntity, "_id">>
+    tokenData: Omit<tokenEntity, '_id'> & Partial<Pick<tokenEntity, '_id'>>,
   ) => Promise<tokenEntity | null>;
   getTokenByUserId: (userId: string) => Promise<ITokenModel | null>;
-  removeToken: (userId: string) => Promise<any>
+  removeToken: (userId: string) => Promise<any>;
 }

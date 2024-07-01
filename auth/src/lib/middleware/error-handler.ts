@@ -1,11 +1,11 @@
-import { NextFunction, Request, Response } from "express";
-import { CustomError } from "../util/custom-error";
+import { NextFunction, Request, Response } from 'express';
+import { CustomError } from '../util/custom-error';
 
 export const ErrorHandler = (
   err: any,
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   if (err instanceof CustomError) {
     const { errors, statusCode, stack, message, validationError } = err;
@@ -18,13 +18,13 @@ export const ErrorHandler = (
             stack: stack,
           },
           null,
-          2
-        )
+          2,
+        ),
       );
     }
     if (validationError) return res.status(400).json({ validationError });
     return res.status(statusCode).send({ message });
   }
-  console.log("error", err);
+  console.log('error', err);
   return res.status(500).send({ erros: [{ message: err }] });
 };

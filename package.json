@@ -19,8 +19,11 @@
     "typescript-eslint": "^7.14.1"
   },
   "lint-staged": {
+    "user/**/*.{ts,tsx,js,jsx}": [
+      "pnpm --filter ./user precommit-check"
+    ],
     "auth/**/*.{ts,tsx,js,jsx}": [
-      "cd auth && pnpm precommit-check"
+      "pnpm --filter ./auth precommit-check"
     ]
   }
 }

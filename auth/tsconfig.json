@@ -8,34 +8,15 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": "./",
     "paths": {
-      "@config/*": [
-        "src/config/*"
-      ],
-      "@event/*": [
-        "src/event/*"
-      ],
-      "@lib/*": [
-        "src/lib/*"
-      ],
-      "@router/*": [
-        "src/router/*"
-      ],
-      "@/*": [
-        "src/*"
-      ]
+      "@config/*": ["src/config/*"],
+      "@event/*": ["src/event/*"],
+      "@lib/*": ["src/lib/*"],
+      "@router/*": ["src/router/*"],
+      "@/*": ["src/*"]
     },
     "outDir": "./dist",
-    "typeRoots": [
-      "src/types",
-      "node_modules/@types"
-    ],
-    "types": [
-      "express.d.ts",
-      "jest"
-    ]
+    "typeRoots": ["src/types", "node_modules/@types"],
+    "types": ["express.d.ts", "jest"]
   },
-  "include": [
-    "src/**/*",
-    "test/**/*"
-  ]
+  "include": ["src/**/*", "test/**/*"]
 }
