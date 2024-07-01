@@ -57,10 +57,5 @@
     "tscpaths": "^0.0.9",
     "typescript": "^5.5.2",
     "typescript-eslint": "^7.14.1"
-  },
-  "lint-staged": {
-    "user/**/*.{ts,tsx,js,jsx}": [
-      "cd user && pnpm test"
-    ]
   }
 }

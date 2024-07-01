@@ -11,6 +11,16 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "husky": "^9.0.11"
+    "@eslint/js": "^9.6.0",
+    "eslint": "^9.6.0",
+    "globals": "^15.6.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.7",
+    "typescript-eslint": "^7.14.1"
+  },
+  "lint-staged": {
+    "auth/**/*.{ts,tsx,js,jsx}": [
+      "cd auth && pnpm precommit-check"
+    ]
   }
 }
