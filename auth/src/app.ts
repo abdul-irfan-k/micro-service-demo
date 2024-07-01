@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import 'express-async-errors';
-import { busOwnerauthRoutes } from './router/admin-auth';
+// import { busOwnerauthRoutes } from './router/admin-auth';
 import authRoutes from './router/user-auth';
 import { ErrorHandler } from './lib/middleware/error-handler';
 import cookieParser from 'cookie-parser';

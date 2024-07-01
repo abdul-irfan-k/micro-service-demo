@@ -13,7 +13,7 @@ export class ForgotPasswordUseCase implements IForgotPasswordUseCase {
     private tokenRepository: ITokenRepository,
   ) {}
   async execute(args: IForgotPasswordUseCaseArgs) {
-    const { email, userId } = args;
+    const { userId } = args;
     await this.tokenRepository.removeToken(userId);
     const token = crypto.randomBytes(32).toString('hex');
     const tokenDetails = await this.tokenRepository.createToken({

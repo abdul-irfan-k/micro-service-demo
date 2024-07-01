@@ -22,5 +22,6 @@ export interface ITokenRepository {
     tokenData: Omit<tokenEntity, '_id'> & Partial<Pick<tokenEntity, '_id'>>,
   ) => Promise<tokenEntity | null>;
   getTokenByUserId: (userId: string) => Promise<ITokenModel | null>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   removeToken: (userId: string) => Promise<any>;
 }

@@ -1,4 +1,4 @@
-import { Publisher, Event, Subject } from 'micro-service-event';
+import { Publisher, Subject } from 'micro-service-event';
 
 export class forgotPasswordPublisher extends Publisher<Subject.userCreated> {
   //@ts-ignore

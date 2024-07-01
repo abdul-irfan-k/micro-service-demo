@@ -16,24 +16,25 @@ const start = async () => {
 
     if (natsWrapper.client == null) throw new Error('not connected');
     natsWrapper.client.on('close', () => {
+      // eslint-disable-next-line no-console
       console.log('NATS connetion closed!');
       process.exit();
     });
 
     process.on('SIGINT', () => {
-      console.log('sigint');
       if (natsWrapper.client != null) natsWrapper.client.close();
     });
     process.on('SIGTERM', () => {
-      console.log('sigterm');
       if (natsWrapper.client != null) natsWrapper.client.close();
     });
 
     const port = process.env.PORT || 8000;
     app.listen(port, () => {
+      // eslint-disable-next-line no-console
       console.log(`listening port:${port}`);
     });
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.log('error ', error);
   }
 };

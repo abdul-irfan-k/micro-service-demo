@@ -14,7 +14,6 @@ export class BadRequestError extends CustomError {
     validatorError?: ValidationError[];
   }) {
     const { logging, message, code, validatorError } = params;
-    console.log('message', message);
     super(message || 'Bad Request');
     this._code = code || BadRequestError._statusCode;
     this._logging = logging || false;

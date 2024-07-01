@@ -30,7 +30,6 @@ export class UpdatePasswordWithOldPwdUseCase
         code: 400,
         message: 'user password update error',
       });
-    console.log('update user details', updatedUserDetails);
     return { isUpdated: true };
   }
 }

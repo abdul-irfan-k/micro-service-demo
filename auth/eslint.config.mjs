@@ -16,12 +16,11 @@ export default [
     },
     {
         "rules": {
-            "semi": "warn",
-            "@typescript-eslint/semi": "error",
-            "@typescript-eslint/no-explicit-any": "warn",
+            "no-console": "error",
+            // "@typescript-eslint/no-explicit-any": "warn",
             "@typescript-eslint/ban-ts-comment": "warn",
-            "@typescript-eslint/no-unused-vars": "warn",
-            // '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
+            // "@typescript-eslint/no-unused-vars": "error",
+            '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
 
         }
     }

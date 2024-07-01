@@ -2,6 +2,7 @@ import { ValidationError } from 'express-validator';
 
 export interface CustomErrorContent {
   message: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   context?: Record<string, any>;
 }
 

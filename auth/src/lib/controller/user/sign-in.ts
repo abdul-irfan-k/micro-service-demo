@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { BadRequestError } from '../../util/bad-request-error';
 import { createJwtTokenHandler } from '../../util/jsonwebtoken';
 import { validationResult } from 'express-validator';
@@ -9,14 +9,13 @@ export class SignInController {
     private signInUseCase: ISignInUseCase,
     private getUserUseCase: IGetUserUseCase,
   ) {}
-  async processRequest(req: Request, res: Response, next: NextFunction) {
+  async processRequest(req: Request, res: Response) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       throw new BadRequestError({ code: 400, validatorError: errors.array() });
     }
 
     const { email, password } = req.body;
-    console.log('get user use case', this.getUserUseCase);
     const userDetail = await this.getUserUseCase.execute({ email });
     if (userDetail == null)
       throw new BadRequestError({ code: 400, message: 'user not found' });

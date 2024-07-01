@@ -1,4 +1,4 @@
-import express, { NextFunction, Request, Response } from 'express';
+import express from 'express';
 import * as authController from '../lib/controller';
 import * as authValidator from '../lib/validator/auth';
 import { isUserAuthenticated } from '@lib/middleware/user-login-validator';

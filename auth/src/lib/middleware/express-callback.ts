@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 
-//@ts-ignore
+export interface Callback {
+  processRequest: (req: Request, res: Response, next: NextFunction) => void;
+}
 export const makeExpressCallBack =
-  (callback: any) => (req: Request, res: Response, next: NextFunction) =>
+  (callback: Callback) => (req: Request, res: Response, next: NextFunction) =>
     callback.processRequest(req, res, next);

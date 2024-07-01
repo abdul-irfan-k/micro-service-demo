@@ -1,15 +1,15 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { CustomError } from '../util/custom-error';
 
 export const ErrorHandler = (
-  err: any,
+  err: Error | CustomError,
   req: Request,
   res: Response,
-  next: NextFunction,
 ) => {
   if (err instanceof CustomError) {
     const { errors, statusCode, stack, message, validationError } = err;
     if (err.logging) {
+      // eslint-disable-next-line no-console
       console.error(
         JSON.stringify(
           {
@@ -25,6 +25,7 @@ export const ErrorHandler = (
     if (validationError) return res.status(400).json({ validationError });
     return res.status(statusCode).send({ message });
   }
+  // eslint-disable-next-line no-console
   console.log('error', err);
   return res.status(500).send({ erros: [{ message: err }] });
 };
