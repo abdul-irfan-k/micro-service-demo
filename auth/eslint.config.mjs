@@ -17,9 +17,7 @@ export default [
     {
         "rules": {
             "no-console": "error",
-            // "@typescript-eslint/no-explicit-any": "warn",
             "@typescript-eslint/ban-ts-comment": "warn",
-            // "@typescript-eslint/no-unused-vars": "error",
             '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
 
         }
