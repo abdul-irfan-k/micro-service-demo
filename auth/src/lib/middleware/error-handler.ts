@@ -1,11 +1,7 @@
 import { Request, Response } from 'express';
 import { CustomError } from '../util/custom-error';
-
-export const ErrorHandler = (
-  err: Error | CustomError,
-  req: Request,
-  res: Response,
-) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const ErrorHandler = (err: any, req: Request, res: Response) => {
   if (err instanceof CustomError) {
     const { errors, statusCode, stack, message, validationError } = err;
     if (err.logging) {
