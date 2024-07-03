@@ -22,7 +22,9 @@ export const userRepository: IUserRepository = {
 };
 
 export interface IUserRepository {
-  signUp: (userData: userEntity) => Promise<IUserModel>;
+  signUp: (
+    userData: Omit<userEntity, '_id'> & { _id?: string },
+  ) => Promise<IUserModel>;
   getUser: (
     data: RequireAtLeastOne<Pick<userEntity, '_id' | 'email'>>,
   ) => Promise<IUserModel | null>;
