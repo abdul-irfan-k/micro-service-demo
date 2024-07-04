@@ -36,7 +36,7 @@ jobs:
           mongodb-version: ${{ matrix.mongodb-version }}
 
       - name: Install dependencies
-          run: pnpm installl
+        run: pnpm installl
 
-      - name: Test
-      - run: pnpm test
+      - name: Test The Auth Service
+        run: pnpm test
