@@ -63,7 +63,7 @@ jobs:
           # Do whatever you like in here
 
       - name: Install dependencies
-        run: pnpm installl
+        run: pnpm install
 
       - name: Test The Auth Service
         run: pnpm test
