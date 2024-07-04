@@ -5,7 +5,6 @@ jobs:
     runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
     strategy:
       matrix:
-        node-version: [20.x, 22.x]
         mongodb-version: ["6.0", "7.0", "8.0"]
     env:
       # need to use a token from a user with access to github/github for this step
@@ -29,14 +28,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
 
       - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.11.0
         with:
           mongodb-version: ${{ matrix.mongodb-version }}
 
-      - run: pnpm install
+      - name: Install dependencies
+          run: pnpm installl
 
+      - name: Test
       - run: pnpm test
-        env:
-          CI: true
