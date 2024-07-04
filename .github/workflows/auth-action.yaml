@@ -1,7 +1,8 @@
 name: test auth service
 on:
   push:
-    branches: main
+    paths:
+      - auth/**
 jobs:
   auth-test:
     runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
