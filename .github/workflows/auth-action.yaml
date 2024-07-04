@@ -3,9 +3,20 @@ on: [push]
 jobs:
   auth-test:
     runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
-    strategy:
-      matrix:
-        mongodb-version: ["6.0", "7.0", "8.0"]
+    services:
+      mongodb:
+        image: mongo:4.4.6
+        env:
+          MONGO_INITDB_ROOT_USERNAME: admin
+          MONGO_INITDB_ROOT_PASSWORD: admin
+          MONGO_INITDB_DATABASE: APP-DATABASE
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd mongo
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     env:
       # need to use a token from a user with access to github/github for this step
       ADMIN_JWT-ACCESS_TOKEN_SECRET: adminstrongjwtsecret
@@ -30,10 +41,18 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
 
-      - name: Start MongoDB
-        uses: supercharge/mongodb-github-action@1.11.0
-        with:
-          mongodb-version: ${{ matrix.mongodb-version }}
+      # - name: Start MongoDB
+      #   uses: supercharge/mongodb-github-action@1.11.0
+      #   with:
+      #     mongodb-version: ${{ matrix.mongodb-version }}
+      - name: Initalize MongoDB
+        run: |
+          mongosh --host localhost:27017 -u admin -p admin --authenticationDatabase admin <<EOF
+            db = db.getSiblingDB('APP-DB');
+            db.createUser({ user: 'APP-USERNAME', pwd: 'APP-PASSWORD', roles: [{ role: 'readWrite', db: 'APP-DB' }] })
+            db.createCollection('APP-COLLECTION');
+          EOF
+          # Do whatever you like in here
 
       - name: Install dependencies
         run: pnpm installl
