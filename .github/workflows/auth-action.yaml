@@ -1,0 +1,44 @@
+name: test auth service
+on:
+  push:
+    branches: main
+jobs:
+  auth-test:
+    runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
+    strategy:
+      matrix:
+        node-version: [20.x, 22.x]
+        mongodb-version: ["6.0", "7.0", "8.0"]
+    env:
+      # need to use a token from a user with access to github/github for this step
+      ADMIN_JWT-ACCESS_TOKEN_SECRET: adminstrongjwtsecret
+      ADMIN_JWT_REFRESH_TOKEN_SECRET: adminstrongjwtsecret
+      USER_JWT_ACCESS_TOKEN_SECRET: strongsecre
+      USER_JWT_REFRESH_TOKEN_SECRET: strongsecret
+      FRONTEND_URL: http://localhost:3000/
+    defaults:
+      run:
+        working-directory: auth
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.11.0
+        with:
+          mongodb-version: ${{ matrix.mongodb-version }}
+
+      - run: pnpm install
+
+      - run: pnpm test
+        env:
+          CI: true
